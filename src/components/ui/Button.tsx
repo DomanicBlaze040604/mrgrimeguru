@@ -17,28 +17,28 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-[#24333A] text-white',
-          'hover:bg-[#347F99] hover:shadow-md',
+          'bg-[#166534] text-white',
+          'hover:bg-[#14532D] hover:shadow-md',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#347F99]',
+          'focus-visible:ring-[#166534]',
         ],
         secondary: [
-          'bg-[#9FD8E8] text-[#24333A]',
-          'hover:bg-[#347F99] hover:text-white hover:shadow-md',
+          'bg-[#DCFCE7] text-[#14532D]',
+          'hover:bg-[#BBF7D0] hover:shadow-md',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#9FD8E8]',
+          'focus-visible:ring-[#22C55E]',
         ],
         outline: [
-          'border-2 border-[#24333A] text-[#24333A] bg-transparent',
-          'hover:bg-[#24333A] hover:text-white',
+          'border-2 border-[#166534] text-[#166534] bg-transparent',
+          'hover:bg-[#166534] hover:text-white',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#24333A]',
+          'focus-visible:ring-[#166534]',
         ],
         ghost: [
-          'text-[#24333A] bg-transparent',
-          'hover:bg-[#E6F5F8]',
+          'text-[#14532D] bg-transparent',
+          'hover:bg-[#F0FDF4]',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#9FD8E8]',
+          'focus-visible:ring-[#166534]',
         ],
         destructive: [
           'bg-red-600 text-white',
@@ -47,10 +47,10 @@ const buttonVariants = cva(
           'focus-visible:ring-red-500',
         ],
         beige: [
-          'bg-[#E8D8C1] text-[#24333A]',
-          'hover:bg-[#D6C5A8] hover:shadow-md',
+          'bg-[#FEF3C7] text-[#92400E]',
+          'hover:bg-[#FDE68A] hover:shadow-md',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#E8D8C1]',
+          'focus-visible:ring-[#F59E0B]',
         ],
       },
       size: {

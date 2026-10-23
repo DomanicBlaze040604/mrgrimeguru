@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { HeroSection } from '@/components/storefront/HeroSection'
+import { CategoryGridSection } from '@/components/storefront/CategoryGridSection'
 import { ProductCarousel } from '@/components/storefront/ProductCarousel'
 import { EducationCarousel } from '@/components/storefront/EducationCarousel'
 import { CleaningFixFinder } from '@/components/storefront/CleaningFixFinder'
@@ -91,8 +92,9 @@ const PLACEHOLDER_PRODUCTS = [
 export default function HomePage() {
   return (
     <>
-      {/* SECTION 1: Hero + Product Carousel */}
+      {/* SECTION 1: Hero + Shop By Category + Product Carousel */}
       <HeroSection />
+      <CategoryGridSection />
       <ProductCarousel products={PLACEHOLDER_PRODUCTS} />
 
       {/* SECTION 2: Interactive Cleaning Education */}

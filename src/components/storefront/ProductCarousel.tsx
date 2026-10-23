@@ -71,34 +71,32 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
   return (
     <section
       className="section-gap"
-      style={{ backgroundColor: '#FAF8F2' }}
+      style={{ backgroundColor: '#FFFFFF' }}
       aria-label="Product catalogue"
     >
       <div className="container-wide">
         {/* Header */}
         <div className="flex items-end justify-between mb-8">
           <div>
-            <p
-              className="text-caption mb-2"
-              style={{ color: '#347F99' }}
-            >
-              Our Products
-            </p>
-            <h2 className="text-headline" style={{ color: '#24333A' }}>
-              The Full Range
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#166534] mb-2">
+              <Tag className="w-3.5 h-3.5" />
+              Bestsellers & New Launches
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#14532D]">
+              Most Loved Formulations
             </h2>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={scrollPrev}
-              className="w-10 h-10 rounded-full border-2 border-[#D6E8ED] flex items-center justify-center hover:border-[#347F99] hover:text-[#347F99] transition-colors"
+              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-[#166534] hover:text-[#166534] hover:bg-[#F0FDF4] transition-colors"
               aria-label="Previous products"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={scrollNext}
-              className="w-10 h-10 rounded-full border-2 border-[#D6E8ED] flex items-center justify-center hover:border-[#347F99] hover:text-[#347F99] transition-colors"
+              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-[#166534] hover:text-[#166534] hover:bg-[#F0FDF4] transition-colors"
               aria-label="Next products"
             >
               <ChevronRight className="h-5 w-5" />
@@ -108,7 +106,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
 
         {/* Carousel */}
         <div className="embla" ref={emblaRef}>
-          <div className="embla__container gap-5">
+          <div className="embla__container gap-6">
             {products.map((product) => {
               const discount = product.compare_price_paise
                 ? Math.round(
@@ -122,55 +120,63 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
                 <div
                   key={product.id}
                   className="embla__slide"
-                  style={{ flex: '0 0 min(280px, 80vw)' }}
+                  style={{ flex: '0 0 min(300px, 85vw)' }}
                 >
-                  <article className="product-card group h-full flex flex-col">
+                  <article className="product-card group h-full flex flex-col rounded-3xl border border-gray-100 hover:border-emerald-200/90 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden p-3 sm:p-4">
                     {/* Image */}
                     <Link
                       href={`/shop/${product.slug}`}
-                      className="relative aspect-square overflow-hidden block"
+                      className="relative aspect-square overflow-hidden rounded-2xl bg-[#F8FAF7] block mb-3"
                       aria-label={`View ${product.name}`}
                     >
                       <Image
                         src={product.image_url}
                         alt={product.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="280px"
+                        className="object-contain p-4 transition-transform duration-500 group-hover:scale-108"
+                        sizes="300px"
                       />
                       {discount && (
-                        <div className="absolute top-3 left-3 bg-[#24333A] text-white text-xs font-bold px-2 py-1 rounded-full">
-                          -{discount}%
+                        <div className="absolute top-3 left-3 bg-[#166534] text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-xs uppercase tracking-wide">
+                          Save {discount}%
                         </div>
                       )}
                       {!product.in_stock && (
-                        <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-                          <span className="font-semibold text-sm text-[#75828A]">Out of Stock</span>
+                        <div className="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center">
+                          <span className="font-bold text-sm text-gray-500">Out of Stock</span>
                         </div>
                       )}
                     </Link>
 
                     {/* Info */}
-                    <div className="p-4 flex flex-col flex-1 gap-2">
-                      <p className="text-caption" style={{ color: '#347F99' }}>
-                        {product.variant_name}
-                      </p>
+                    <div className="flex flex-col flex-1 gap-1.5 px-1">
+                      {/* Rating + Variant Pill */}
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-[#059669] font-bold bg-[#F0FDF4] px-2 py-0.5 rounded-md">
+                          {product.variant_name}
+                        </span>
+                        <div className="flex items-center gap-1 text-amber-500 font-bold">
+                          <span>★</span>
+                          <span className="text-gray-700">4.9</span>
+                        </div>
+                      </div>
+
                       <Link href={`/shop/${product.slug}`}>
-                        <h3 className="font-bold text-base text-[#24333A] hover:text-[#347F99] transition-colors leading-snug">
+                        <h3 className="font-extrabold text-base text-[#14532D] hover:text-[#166534] transition-colors leading-snug line-clamp-1 mt-1">
                           {product.name}
                         </h3>
                       </Link>
-                      <p className="text-sm text-[#75828A] flex-1 line-clamp-2">
+                      <p className="text-xs text-gray-500 flex-1 line-clamp-2">
                         {product.short_description}
                       </p>
 
                       {/* Price */}
-                      <div className="flex items-center gap-2 mt-auto">
-                        <span className="font-bold text-lg text-[#24333A]">
+                      <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-100">
+                        <span className="font-black text-lg text-[#14532D]">
                           {formatPrice(product.price_paise)}
                         </span>
                         {product.compare_price_paise && (
-                          <span className="text-sm text-[#75828A] line-through">
+                          <span className="text-xs text-gray-400 line-through">
                             {formatPrice(product.compare_price_paise)}
                           </span>
                         )}
@@ -180,7 +186,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
                       <Button
                         variant="primary"
                         size="sm"
-                        className="w-full mt-1"
+                        className="w-full mt-2 bg-[#166534] hover:bg-[#14532D] shadow-xs"
                         leftIcon={<ShoppingCart className="h-4 w-4" />}
                         onClick={() => handleAddToCart(product)}
                         disabled={!product.in_stock}
@@ -197,9 +203,9 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
 
         {/* CTA */}
         <div className="text-center mt-10">
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="outline" size="lg" className="border-2 border-[#166534] text-[#166534] hover:bg-[#F0FDF4]" asChild>
             <Link href="/shop">
-              View All Products <ChevronRight className="h-4 w-4 ml-1" />
+              Explore All Natural Cleaners <ChevronRight className="h-4 w-4 ml-1" />
             </Link>
           </Button>
         </div>

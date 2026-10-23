@@ -21,20 +21,20 @@ export function HeroSection() {
     <section
       className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, #E6F5F8 0%, #FAF8F2 55%, #F2EBE0 100%)',
+        background: 'linear-gradient(160deg, #F0FDF4 0%, #FAFDF7 50%, #FFFFFF 100%)',
         minHeight: 'min(90vh, 700px)',
       }}
       aria-label="Brand hero"
     >
       {/* Decorative background blobs */}
       <div
-        className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-30 blur-3xl pointer-events-none"
-        style={{ backgroundColor: '#9FD8E8' }}
+        className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-40 blur-3xl pointer-events-none"
+        style={{ backgroundColor: '#DCFCE7' }}
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full opacity-20 blur-3xl pointer-events-none"
-        style={{ backgroundColor: '#E8D8C1' }}
+        className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full opacity-30 blur-3xl pointer-events-none"
+        style={{ backgroundColor: '#FEF3C7' }}
         aria-hidden="true"
       />
 
@@ -51,11 +51,11 @@ export function HeroSection() {
               className="inline-flex items-center gap-2 mb-5"
             >
               <span
-                className="badge badge-primary text-xs"
-                style={{ backgroundColor: '#E6F5F8', color: '#347F99', border: '1px solid #9FD8E8' }}
+                className="badge text-xs font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-full"
+                style={{ backgroundColor: '#DCFCE7', color: '#166534', border: '1px solid #86EFAC' }}
               >
-                <Sparkles className="h-3 w-3" />
-                New Laundry Beads — 4 Scents
+                <Sparkles className="h-3.5 w-3.5 text-[#166534]" />
+                🌿 100% Plant Powered · 0% Harsh Chemicals
               </span>
             </motion.div>
 
@@ -66,10 +66,10 @@ export function HeroSection() {
               animate="visible"
               custom={0.1}
               className="text-display mb-5"
-              style={{ color: '#24333A' }}
+              style={{ color: '#14532D' }}
             >
-              Grime Happens.{' '}
-              <span style={{ color: '#347F99' }}>We Handle It.</span>
+              Naturally Clean.{' '}
+              <span className="text-[#166534]">Truly Powerful.</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -78,10 +78,9 @@ export function HeroSection() {
               initial="hidden"
               animate="visible"
               custom={0.2}
-              className="text-body-lg mb-8"
-              style={{ color: '#75828A' }}
+              className="text-body-lg mb-8 text-gray-600 leading-relaxed"
             >
-              Premium cleaning solutions for modern Indian homes. From laundry to kitchen, floor to shoe — Mr GrimeGuru has your back.
+              Toxin-free, plant-powered cleaning solutions crafted for modern Indian homes. From in-wash laundry pods to kitchen degreasers — safe for playful pets, gentle on hands, ruthless on grime.
             </motion.p>
 
             {/* CTAs */}
@@ -92,10 +91,10 @@ export function HeroSection() {
               custom={0.3}
               className="flex flex-wrap gap-3"
             >
-              <Button variant="primary" size="lg" rightIcon={<ArrowRight className="h-4 w-4" />} asChild>
-                <Link href="/shop">Shop All Products</Link>
+              <Button variant="primary" size="lg" className="bg-[#166534] hover:bg-[#14532D] shadow-md shadow-emerald-900/10" rightIcon={<ArrowRight className="h-4 w-4" />} asChild>
+                <Link href="/shop">Shop Best Cleaners</Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="outline" size="lg" className="border-2 border-[#166534] text-[#166534] hover:bg-[#F0FDF4]" asChild>
                 <Link href="#cleaning-fix">Find Your Cleaning Fix</Link>
               </Button>
             </motion.div>
@@ -109,15 +108,15 @@ export function HeroSection() {
               className="flex flex-wrap items-center gap-6 mt-8"
             >
               {[
-                { stat: '5 Products', label: 'in our range' },
-                { stat: '★ 4.8', label: 'avg. rating' },
-                { stat: 'Free shipping', label: 'above ₹499' },
+                { stat: '100% Plant Actives', label: 'Biodegradable' },
+                { stat: '★ 4.9 Rating', label: '50,000+ happy homes' },
+                { stat: 'Free shipping', label: 'On orders above ₹499' },
               ].map(({ stat, label }) => (
                 <div key={stat} className="flex flex-col">
-                  <span className="font-bold text-base" style={{ color: '#24333A' }}>
+                  <span className="font-extrabold text-base text-[#14532D]">
                     {stat}
                   </span>
-                  <span className="text-xs" style={{ color: '#75828A' }}>
+                  <span className="text-xs text-gray-500">
                     {label}
                   </span>
                 </div>
@@ -135,12 +134,12 @@ export function HeroSection() {
             {/* Decorative card behind */}
             <div
               className="absolute inset-4 rounded-3xl"
-              style={{ backgroundColor: '#9FD8E8', opacity: 0.3 }}
+              style={{ backgroundColor: '#DCFCE7', opacity: 0.7 }}
               aria-hidden="true"
             />
 
             {/* Main product image */}
-            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] border border-emerald-100">
               <Image
                 src="/images/brand/hero-banner.jpg"
                 alt="Modern Indian home with Mr GrimeGuru cleaning products"
@@ -152,18 +151,17 @@ export function HeroSection() {
 
               {/* Floating product badge */}
               <div
-                className="absolute bottom-6 left-6 glass rounded-2xl px-4 py-3 shadow-lg"
+                className="absolute bottom-6 left-6 glass rounded-2xl px-4 py-3 shadow-lg border border-white/80"
                 aria-hidden="true"
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: '#9FD8E8' }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-emerald-100"
                   >
-                    <span className="text-lg">🧹</span>
+                    <span className="text-lg">🌿</span>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-[#24333A]">5 Product Families</p>
+                    <p className="text-xs font-black text-[#14532D]">Plant Powered Formulas</p>
                     <div className="flex gap-0.5 mt-0.5">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />

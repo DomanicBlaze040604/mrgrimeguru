@@ -48,38 +48,72 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Announcement Bar */}
+      {/* Dynamic Moving Sale Marquee Banner */}
       <div
-        style={{ backgroundColor: '#347F99' }}
-        className="text-white text-center py-2 px-4 text-xs font-medium"
+        className="bg-[#14532D] text-white overflow-hidden py-2.5 text-xs font-semibold tracking-wide border-b border-[#166534]/50 select-none relative z-50"
       >
-        🚚 Free shipping on orders above ₹499 · New: Laundry Beads in 4 amazing scents!
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center gap-8 mx-6">
+              <span className="inline-flex items-center gap-2 font-black text-amber-300 tracking-wider">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-300"></span>
+                </span>
+                🔥 SALE IS LIVE · UP TO 50% OFF
+              </span>
+              <span className="text-emerald-100/90 font-medium">
+                USE CODE: <strong className="text-white underline decoration-amber-400 underline-offset-2">CLEAN50</strong> FOR EXTRA 10% OFF
+              </span>
+              <span className="text-emerald-100/90 font-medium">
+                🚚 FREE SHIPPING ON ORDERS ₹499+
+              </span>
+              <span className="text-emerald-100/90 font-medium">
+                🌿 100% PLANT POWERED & PET SAFE
+              </span>
+              <span className="text-emerald-100/90 font-medium">
+                ⭐ 4.9/5 RATED BY 50,000+ HOMES
+              </span>
+              <span className="text-emerald-100/90 font-medium">
+                🎁 FREE LAUNDRY BEADS SAMPLE ON ₹799+
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <header
         className={cn(
-          'sticky top-0 z-50 w-full transition-all duration-300',
+          'sticky top-0 z-40 w-full transition-all duration-300',
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md'
-            : 'bg-[#FAF8F2]'
+            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200'
+            : 'bg-white border-b border-gray-100'
         )}
       >
         <div className="container-wide">
-          <div className="flex h-16 items-center justify-between gap-4">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Mr GrimeGuru home">
-              <div
-                className="relative w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: '#9FD8E8' }}
-              >
-                <span className="text-[#24333A] font-bold text-sm">G</span>
+          <div className="flex h-20 items-center justify-between gap-4">
+            {/* Enlarged Logo */}
+            <Link href="/" className="flex items-center gap-3 shrink-0 py-1 group" aria-label="Mr GrimeGuru home">
+              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 flex items-center justify-center bg-emerald-50 transition-transform group-hover:scale-105">
+                <Image
+                  src="/images/brand/logo.jpg"
+                  alt="Mr GrimeGuru"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
-              <span
-                className="font-bold text-lg hidden sm:block"
-                style={{ color: '#24333A', fontFamily: 'var(--font-playfair)' }}
-              >
-                Mr <span style={{ color: '#347F99' }}>GrimeGuru</span>
-              </span>
+              <div className="flex flex-col">
+                <span
+                  className="font-extrabold text-2xl md:text-3xl tracking-tight text-[#14532D] leading-none"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  Mr <span className="text-[#166534]">GrimeGuru</span>
+                </span>
+                <span className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#059669] uppercase mt-1">
+                  Plant Powered Natural Clean
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -94,11 +128,11 @@ export function SiteHeader() {
                   <Link
                     href={link.href}
                     className={cn(
-                      'flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all',
-                      'hover:bg-[#E6F5F8] hover:text-[#347F99]',
+                      'flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-all',
+                      'hover:bg-[#F0FDF4] hover:text-[#166534]',
                       pathname === link.href || pathname.startsWith(link.href + '/')
-                        ? 'text-[#347F99] bg-[#E6F5F8]'
-                        : 'text-[#24333A]'
+                        ? 'text-[#166534] bg-[#F0FDF4]'
+                        : 'text-gray-700'
                     )}
                     aria-haspopup={link.children ? 'true' : undefined}
                     aria-expanded={link.children ? activeDropdown === link.label : undefined}
@@ -107,8 +141,8 @@ export function SiteHeader() {
                     {link.children && (
                       <ChevronDown
                         className={cn(
-                          'h-3.5 w-3.5 transition-transform',
-                          activeDropdown === link.label ? 'rotate-180' : ''
+                          'h-3.5 w-3.5 transition-transform duration-200 text-gray-400 group-hover:text-[#166534]',
+                          activeDropdown === link.label ? 'rotate-180 text-[#166534]' : ''
                         )}
                       />
                     )}
@@ -122,20 +156,20 @@ export function SiteHeader() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-[#E6F5F8] overflow-hidden"
+                        className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden z-50 p-1"
                         role="menu"
                       >
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="flex flex-col gap-0.5 px-4 py-3 hover:bg-[#E6F5F8] transition-colors"
+                            className="flex flex-col gap-0.5 px-4 py-3 rounded-xl hover:bg-[#F0FDF4] transition-colors"
                             role="menuitem"
                           >
-                            <span className="text-sm font-semibold text-[#24333A]">
+                            <span className="text-sm font-bold text-gray-800 hover:text-[#166534]">
                               {child.label}
                             </span>
-                            <span className="text-xs text-[#75828A]">{child.description}</span>
+                            <span className="text-xs text-gray-500">{child.description}</span>
                           </Link>
                         ))}
                       </motion.div>
@@ -150,7 +184,7 @@ export function SiteHeader() {
               {/* Search */}
               <Link
                 href="/search"
-                className="p-2 rounded-full hover:bg-[#E6F5F8] transition-colors text-[#24333A]"
+                className="p-2.5 rounded-full hover:bg-[#F0FDF4] hover:text-[#166534] transition-colors text-gray-700"
                 aria-label="Search products"
               >
                 <Search className="h-5 w-5" />
@@ -159,7 +193,7 @@ export function SiteHeader() {
               {/* Account */}
               <Link
                 href="/account"
-                className="p-2 rounded-full hover:bg-[#E6F5F8] transition-colors text-[#24333A]"
+                className="p-2.5 rounded-full hover:bg-[#F0FDF4] hover:text-[#166534] transition-colors text-gray-700"
                 aria-label="My account"
               >
                 <User className="h-5 w-5" />
@@ -168,7 +202,7 @@ export function SiteHeader() {
               {/* Cart */}
               <button
                 onClick={openCart}
-                className="relative p-2 rounded-full hover:bg-[#E6F5F8] transition-colors text-[#24333A]"
+                className="relative p-2.5 rounded-full hover:bg-[#F0FDF4] hover:text-[#166534] transition-colors text-gray-700"
                 aria-label={`Shopping cart, ${itemCount} items`}
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -181,7 +215,7 @@ export function SiteHeader() {
                       'absolute -top-1 -right-1',
                       'flex h-5 w-5 items-center justify-center',
                       'rounded-full text-xs font-bold',
-                      'bg-[#24333A] text-white'
+                      'bg-[#166534] text-white shadow-sm'
                     )}
                     aria-live="polite"
                   >
@@ -193,7 +227,7 @@ export function SiteHeader() {
               {/* Mobile menu toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 rounded-full hover:bg-[#E6F5F8] transition-colors text-[#24333A]"
+                className="lg:hidden p-2.5 rounded-full hover:bg-[#F0FDF4] text-gray-700 transition-colors"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
               >
@@ -211,7 +245,7 @@ export function SiteHeader() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden overflow-hidden bg-white border-t border-[#E6F5F8]"
+              className="lg:hidden overflow-hidden bg-white border-t border-gray-100 shadow-lg"
               role="dialog"
               aria-label="Mobile navigation"
             >
@@ -220,17 +254,17 @@ export function SiteHeader() {
                   <div key={link.label}>
                     <Link
                       href={link.href}
-                      className="block px-4 py-3 rounded-xl text-sm font-semibold text-[#24333A] hover:bg-[#E6F5F8] transition-colors"
+                      className="block px-4 py-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-[#F0FDF4] hover:text-[#166534] transition-colors"
                     >
                       {link.label}
                     </Link>
                     {link.children && (
-                      <div className="ml-4 flex flex-col gap-1 mt-1">
+                      <div className="ml-4 flex flex-col gap-1 mt-1 pl-2 border-l border-emerald-100">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block px-4 py-2 rounded-lg text-sm text-[#75828A] hover:text-[#24333A] hover:bg-[#E6F5F8] transition-colors"
+                            className="block px-4 py-2 rounded-lg text-sm text-gray-600 hover:text-[#166534] hover:bg-[#F0FDF4] transition-colors"
                           >
                             {child.label}
                           </Link>
@@ -239,8 +273,8 @@ export function SiteHeader() {
                     )}
                   </div>
                 ))}
-                <div className="pt-4 border-t border-[#E6F5F8] mt-2">
-                  <Button variant="primary" size="md" className="w-full" asChild>
+                <div className="pt-4 border-t border-gray-100 mt-2">
+                  <Button variant="primary" size="md" className="w-full bg-[#166534] hover:bg-[#14532D]" asChild>
                     <Link href="/shop">Shop All Products</Link>
                   </Button>
                 </div>

@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { Mail, ArrowRight } from 'lucide-react'
+import Image from 'next/image'
+import { Mail, ArrowRight, Leaf } from 'lucide-react'
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -75,32 +76,38 @@ export function SiteFooter() {
   return (
     <footer
       className="mt-auto"
-      style={{ backgroundColor: '#FAF8F2' }}
+      style={{ backgroundColor: '#F9FAF8' }}
       role="contentinfo"
     >
       {/* Main footer content */}
-      <div className="border-t border-[#D6E8ED]">
+      <div className="border-t border-gray-200">
         <div className="container-wide py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
             {/* Brand column */}
             <div className="sm:col-span-2 lg:col-span-1">
-              {/* Logo */}
-              <Link href="/" className="flex items-center gap-2 mb-4" aria-label="Mr GrimeGuru home">
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: '#9FD8E8' }}
-                >
-                  <span className="text-[#24333A] font-bold text-base">G</span>
+              {/* Enlarged Logo */}
+              <Link href="/" className="flex items-center gap-3 mb-4 group" aria-label="Mr GrimeGuru home">
+                <div className="relative w-12 h-12 rounded-xl overflow-hidden shadow-xs border border-emerald-100 flex items-center justify-center bg-white">
+                  <Image
+                    src="/images/brand/logo.jpg"
+                    alt="Mr GrimeGuru"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <span
-                  className="font-bold text-xl"
-                  style={{ color: '#24333A', fontFamily: 'var(--font-playfair)' }}
-                >
-                  Mr <span style={{ color: '#347F99' }}>GrimeGuru</span>
-                </span>
+                <div className="flex flex-col">
+                  <span
+                    className="font-extrabold text-2xl tracking-tight text-[#14532D] leading-none"
+                  >
+                    Mr <span className="text-[#166534]">GrimeGuru</span>
+                  </span>
+                  <span className="text-[10px] font-bold tracking-widest text-[#059669] uppercase mt-1">
+                    Plant Powered Clean
+                  </span>
+                </div>
               </Link>
-              <p className="text-sm text-[#75828A] leading-relaxed mb-6 max-w-xs">
-                Premium household cleaning solutions for modern Indian homes. Smart, effective, and designed for everyday life.
+              <p className="text-sm text-gray-600 leading-relaxed mb-6 max-w-xs">
+                Plant-powered, toxin-free household hygiene products designed specifically for modern Indian homes. Safe for toddlers, gentle on pets.
               </p>
               {/* Social links */}
               <div className="flex items-center gap-3" role="list" aria-label="Social media links">
@@ -111,16 +118,7 @@ export function SiteFooter() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Follow us on ${label}`}
-                    className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
-                    style={{ backgroundColor: '#E6F5F8', color: '#347F99' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#9FD8E8'
-                      e.currentTarget.style.color = '#24333A'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#E6F5F8'
-                      e.currentTarget.style.color = '#347F99'
-                    }}
+                    className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-[#F0FDF4] text-[#166534] hover:bg-[#166534] hover:text-white"
                   >
                     <Icon className="h-4 w-4" />
                   </a>
@@ -130,15 +128,15 @@ export function SiteFooter() {
 
             {/* Products */}
             <div>
-              <h3 className="font-semibold text-sm text-[#24333A] uppercase tracking-wider mb-4">
-                Products
+              <h3 className="font-extrabold text-xs text-[#14532D] uppercase tracking-wider mb-4">
+                Clean Categories
               </h3>
               <ul className="flex flex-col gap-2.5" role="list">
                 {productLinks.map(({ label, href }) => (
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-sm text-[#75828A] hover:text-[#347F99] transition-colors"
+                      className="text-sm text-gray-600 hover:text-[#166534] font-medium transition-colors"
                     >
                       {label}
                     </Link>
@@ -149,15 +147,15 @@ export function SiteFooter() {
 
             {/* Help */}
             <div>
-              <h3 className="font-semibold text-sm text-[#24333A] uppercase tracking-wider mb-4">
-                Help & Info
+              <h3 className="font-extrabold text-xs text-[#14532D] uppercase tracking-wider mb-4">
+                Help & Support
               </h3>
               <ul className="flex flex-col gap-2.5" role="list">
                 {helpLinks.map(({ label, href }) => (
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-sm text-[#75828A] hover:text-[#347F99] transition-colors"
+                      className="text-sm text-gray-600 hover:text-[#166534] font-medium transition-colors"
                     >
                       {label}
                     </Link>
@@ -168,11 +166,11 @@ export function SiteFooter() {
 
             {/* Newsletter */}
             <div>
-              <h3 className="font-semibold text-sm text-[#24333A] uppercase tracking-wider mb-4">
-                Stay in the Loop
+              <h3 className="font-extrabold text-xs text-[#14532D] uppercase tracking-wider mb-4">
+                Join The Clean Movement
               </h3>
-              <p className="text-sm text-[#75828A] mb-4 leading-relaxed">
-                Cleaning tips, new product launches, and exclusive offers — straight to your inbox.
+              <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                Receive toxin-free cleaning guides, early access to new plant-powered launches, and exclusive subscriber deals.
               </p>
               <form
                 onSubmit={(e) => e.preventDefault()}
@@ -188,25 +186,18 @@ export function SiteFooter() {
                     type="email"
                     placeholder="your@email.com"
                     required
-                    className="flex-1 rounded-full px-4 py-2.5 text-sm border border-[#D6E8ED] bg-white text-[#24333A] placeholder:text-[#75828A] focus:outline-none focus:ring-2 focus:ring-[#9FD8E8] transition-shadow"
+                    className="flex-1 rounded-full px-4 py-2.5 text-sm border border-gray-200 bg-white text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#166534] transition-shadow"
                   />
                   <button
                     type="submit"
-                    className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                    style={{ backgroundColor: '#24333A', color: 'white' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#347F99'
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#24333A'
-                    }}
+                    className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all bg-[#166534] hover:bg-[#14532D] text-white shadow-xs"
                     aria-label="Subscribe to newsletter"
                   >
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
-                <p className="text-xs text-[#75828A]">
-                  No spam, ever. Unsubscribe at any time.
+                <p className="text-xs text-gray-400">
+                  Zero spam. 100% natural hygiene tips.
                 </p>
               </form>
             </div>
@@ -215,18 +206,18 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-[#D6E8ED]">
+      <div className="border-t border-gray-200">
         <div className="container-wide py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-[#75828A]">
-              © 2026 Mr GrimeGuru. All rights reserved.
+            <p className="text-xs text-gray-500">
+              © 2026 Mr GrimeGuru. All rights reserved. 100% Plant-Powered Home Care.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               {legalLinks.map(({ label, href }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="text-xs text-[#75828A] hover:text-[#347F99] transition-colors"
+                  className="text-xs text-gray-500 hover:text-[#166534] transition-colors"
                 >
                   {label}
                 </Link>
@@ -234,11 +225,10 @@ export function SiteFooter() {
             </div>
             {/* Payment methods */}
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              {['UPI', 'Cards', 'NetBanking'].map((method) => (
+              {['UPI', 'Credit/Debit', 'NetBanking', 'COD'].map((method) => (
                 <span
                   key={method}
-                  className="text-xs px-2 py-1 rounded-md font-medium"
-                  style={{ backgroundColor: '#E6F5F8', color: '#347F99' }}
+                  className="text-xs px-2.5 py-1 rounded-md font-semibold bg-[#F0FDF4] text-[#166534] border border-emerald-100"
                 >
                   {method}
                 </span>

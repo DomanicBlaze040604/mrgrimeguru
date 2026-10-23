@@ -6,25 +6,36 @@
 
 @layer base {
   :root {
-    /* Brand Colors */
-    --color-water-blue: #9FD8E8;
-    --color-deep-blue: #347F99;
-    --color-pale-blue: #E6F5F8;
-    --color-warm-beige: #E8D8C1;
-    --color-soft-ivory: #FAF8F2;
+    /* Koparo Clean Brand Colors */
+    --color-forest-green: #166534;
+    --color-dark-green: #14532D;
+    --color-leaf-green: #22C55E;
+    --color-emerald-accent: #059669;
+    --color-light-mint: #F0FDF4;
+    --color-mint-border: #DCFCE7;
+    --color-warm-amber: #D97706;
+    --color-gold-star: #F59E0B;
+    --color-sale-red: #DC2626;
+
+    /* Legacy & Semantic Tokens */
+    --color-water-blue: #166534;
+    --color-deep-blue: #14532D;
+    --color-pale-blue: #F0FDF4;
+    --color-warm-beige: #FEF3C7;
+    --color-soft-ivory: #F9FAF8;
     --color-pure-white: #FFFFFF;
-    --color-dark-ink: #24333A;
-    --color-soft-grey: #75828A;
+    --color-dark-ink: #111827;
+    --color-soft-grey: #6B7280;
 
     /* Semantic Tokens */
-    --color-primary: var(--color-water-blue);
-    --color-primary-dark: var(--color-deep-blue);
-    --color-background: var(--color-soft-ivory);
-    --color-surface: var(--color-pure-white);
-    --color-text: var(--color-dark-ink);
-    --color-text-muted: var(--color-soft-grey);
-    --color-border: #D6E8ED;
-    --color-accent: var(--color-warm-beige);
+    --color-primary: #166534;
+    --color-primary-dark: #14532D;
+    --color-background: #FFFFFF;
+    --color-surface: #FFFFFF;
+    --color-text: #111827;
+    --color-text-muted: #6B7280;
+    --color-border: #E5E7EB;
+    --color-accent: #22C55E;
 
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(36, 51, 58, 0.06);
@@ -159,9 +170,29 @@
     background-size: 200% 100%;
   }
 
+  /* Marquee ticker utility */
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
   /* Masking */
   .mask-gradient-bottom {
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
