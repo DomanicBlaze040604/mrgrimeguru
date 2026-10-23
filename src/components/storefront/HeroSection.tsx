@@ -125,10 +125,29 @@ export function HeroSection() {
               initial="hidden"
               animate="visible"
               custom={0.2}
-              className="text-body-lg mb-8 text-gray-600 leading-relaxed"
+              className="text-body-lg mb-4 text-gray-600 leading-relaxed"
             >
               Toxin-free, plant-powered cleaning solutions crafted for modern Indian homes. From in-wash laundry pods to kitchen degreasers — safe for playful pets, gentle on hands, ruthless on grime.
             </motion.p>
+
+            {/* Grime meaning & synonym */}
+            <motion.div
+              variants={fadeIn}
+              initial="hidden"
+              animate="visible"
+              custom={0.25}
+              className="mb-8 px-4 py-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 inline-block"
+            >
+              <p className="text-xs font-black text-[#166534] uppercase tracking-widest mb-0.5">
+                grime <span className="font-normal normal-case tracking-normal text-gray-400">/ ɡrʌɪm /</span>
+              </p>
+              <p className="text-sm text-gray-600 italic">
+                <span className="font-bold text-gray-800">noun</span> — dirt, filth, grease, soot, muck, crud.
+              </p>
+              <p className="text-xs text-[#059669] font-semibold mt-1">
+                We handle every synonym. 💪
+              </p>
+            </motion.div>
 
             {/* CTAs */}
             <motion.div
@@ -171,7 +190,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Hero image */}
+          {/* Hero image + Bestseller card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -185,7 +204,7 @@ export function HeroSection() {
               aria-hidden="true"
             />
 
-            {/* Main product image */}
+            {/* Main hero image */}
             <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] border border-emerald-100">
               <Image
                 src="/images/brand/hero-banner.jpg"
@@ -202,9 +221,7 @@ export function HeroSection() {
                 aria-hidden="true"
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-emerald-100"
-                  >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-emerald-100">
                     <span className="text-lg">🌿</span>
                   </div>
                   <div>
@@ -222,7 +239,7 @@ export function HeroSection() {
             {/* Floating product icons */}
             {[
               { emoji: '🫧', label: 'Laundry Pods', top: '8%', right: '-4%' },
-              { emoji: '🌸', label: 'Scented Beads', bottom: '20%', right: '-6%' },
+              { emoji: '🌸', label: 'Scented Beads', bottom: '22%', right: '-6%' },
               { emoji: '🏠', label: 'Floor Clean', top: '30%', left: '-6%' },
             ].map(({ emoji, label, ...pos }) => (
               <motion.div
@@ -233,11 +250,60 @@ export function HeroSection() {
                 style={pos as React.CSSProperties}
                 aria-hidden="true"
               >
-                <span className="text-xl" role="img" aria-label={label}>
-                  {emoji}
-                </span>
+                <span className="text-xl" role="img" aria-label={label}>{emoji}</span>
               </motion.div>
             ))}
+
+            {/* ── Bestseller product card ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="mt-4 relative z-10"
+            >
+              <Link
+                href="/shop/laundry-pods"
+                className="group flex items-center gap-4 bg-white rounded-2xl p-3 shadow-lg border border-emerald-100 hover:border-[#166534] hover:shadow-xl transition-all duration-300"
+                aria-label="Shop our bestseller — Premium Laundry Pods"
+              >
+                {/* Product thumbnail */}
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-emerald-50 shrink-0">
+                  <Image
+                    src="/images/products/laundry-pods.jpg"
+                    alt="Premium Laundry Pods"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="64px"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-white bg-amber-500 px-2 py-0.5 rounded-full">
+                      🏆 Bestseller
+                    </span>
+                  </div>
+                  <p className="font-extrabold text-sm text-[#14532D] leading-tight truncate">
+                    Premium Laundry Pods
+                  </p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-[11px] text-gray-500">50k+ sold</span>
+                  </div>
+                </div>
+
+                {/* Price + arrow */}
+                <div className="shrink-0 text-right">
+                  <p className="font-extrabold text-base text-[#14532D]">₹899</p>
+                  <p className="text-xs text-gray-400 line-through">₹1,099</p>
+                </div>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </div>

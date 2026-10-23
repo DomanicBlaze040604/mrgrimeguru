@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ShoppingCart, Menu, X, Search, User, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -92,23 +91,14 @@ export function SiteHeader() {
       >
         <div className="container-wide">
           <div className="flex h-20 items-center justify-between gap-4">
-            {/* Enlarged Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0 py-1 group" aria-label="Mr GrimeGuru home">
-              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 flex items-center justify-center bg-emerald-50 transition-transform group-hover:scale-105">
-                <Image
-                  src="/images/brand/logo.jpg"
-                  alt="Mr GrimeGuru"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            {/* Logo — text only, no image */}
+            <Link href="/" className="flex items-center shrink-0 py-1 group" aria-label="Mr GrimeGuru home">
               <div className="flex flex-col">
                 <span
-                  className="font-extrabold text-2xl md:text-3xl tracking-tight text-[#14532D] leading-none"
+                  className="font-extrabold text-2xl md:text-3xl tracking-tight text-black leading-none"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
-                  Mr <span className="text-[#166534]">GrimeGuru</span>
+                  Mr GrimeGuru
                 </span>
                 <span className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#059669] uppercase mt-1">
                   Plant Powered Natural Clean
