@@ -92,7 +92,7 @@ const PLACEHOLDER_PRODUCTS = [
 export default function HomePage() {
   return (
     <>
-      {/* SECTION 1: Hero + Shop By Category + Product Carousel */}
+      {/* SECTION 1: Hero (with category icon strip) + Shop By Category + Product Carousel */}
       <HeroSection />
       <CategoryGridSection />
       <ProductCarousel products={PLACEHOLDER_PRODUCTS} />

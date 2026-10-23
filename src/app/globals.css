@@ -443,3 +443,14 @@
   flex: 0 0 auto;
   min-width: 0;
 }
+
+/* ============================================
+   UTILITY: Hide scrollbar (keep functionality)
+   ============================================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

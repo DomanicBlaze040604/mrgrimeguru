@@ -7,6 +7,15 @@ import { motion, type Variants } from 'framer-motion'
 import { ArrowRight, Sparkles, Star } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
+const ICON_CATEGORIES = [
+  { id: 'laundry-pods',      label: 'Laundry',  sublabel: 'Pods & Liquid',    href: '/shop?family=laundry_pods',      image: '/images/products/laundry-pods.jpg',     bg: '#DCFCE7' },
+  { id: 'laundry-beads',     label: 'Fabric',   sublabel: 'Fragrance Beads',  href: '/shop?family=laundry_beads',     image: '/images/products/laundry-beads.jpg',    bg: '#FEF9C3' },
+  { id: 'floor-cleaner',     label: 'Floor &',  sublabel: 'Surface Care',     href: '/shop?family=floor_cleaner',     image: '/images/products/floor-cleaner.jpg',    bg: '#CCFBF1' },
+  { id: 'kitchen-degreaser', label: 'Kitchen',  sublabel: 'Degreaser',        href: '/shop?family=kitchen_degreaser', image: '/images/products/kitchen-degreaser.jpg',bg: '#FFE4E6' },
+  { id: 'shoe-cleaner',      label: 'Shoe &',   sublabel: 'Sneaker Care',     href: '/shop?family=shoe_cleaner',      image: '/images/products/shoe-cleaner.jpg',     bg: '#EDE9FE' },
+  { id: 'all-products',      label: 'All',      sublabel: 'Products',         href: '/shop',                          image: '/images/brand/product-range.jpg',       bg: '#FEF3C7' },
+]
+
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: (delay: number = 0) => ({
@@ -22,7 +31,6 @@ export function HeroSection() {
       className="relative overflow-hidden"
       style={{
         background: 'linear-gradient(160deg, #F0FDF4 0%, #FAFDF7 50%, #FFFFFF 100%)',
-        minHeight: 'min(90vh, 700px)',
       }}
       aria-label="Brand hero"
     >
@@ -37,6 +45,45 @@ export function HeroSection() {
         style={{ backgroundColor: '#FEF3C7' }}
         aria-hidden="true"
       />
+
+      {/* ── Category Icon Strip — sits at the very top, above hero content ── */}
+      <div className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-sm">
+        <div className="container-wide py-5 md:py-6">
+          <div className="flex items-start justify-start md:justify-center gap-5 sm:gap-8 md:gap-10 overflow-x-auto scrollbar-hide px-1">
+            {ICON_CATEGORIES.map((cat, i) => (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.07 }}
+                className="flex-shrink-0"
+              >
+                <Link
+                  href={cat.href}
+                  className="group flex flex-col items-center gap-2 text-center w-16 sm:w-20 md:w-24"
+                  aria-label={`Shop ${cat.label} ${cat.sublabel}`}
+                >
+                  <div
+                    className="relative w-[62px] h-[62px] sm:w-[76px] sm:h-[76px] md:w-[88px] md:h-[88px] rounded-full overflow-hidden shadow-md ring-2 ring-transparent group-hover:ring-[#166534] group-hover:scale-105 transition-all duration-300"
+                    style={{ backgroundColor: cat.bg }}
+                  >
+                    <Image
+                      src={cat.image}
+                      alt={cat.label}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 62px, (max-width: 1024px) 76px, 88px"
+                    />
+                  </div>
+                  <p className="text-[11px] sm:text-xs font-bold text-[#14532D] group-hover:text-[#166534] leading-tight transition-colors">
+                    {cat.label}<br /><span className="font-semibold">{cat.sublabel}</span>
+                  </p>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="container-wide relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8 py-16 lg:py-20">
