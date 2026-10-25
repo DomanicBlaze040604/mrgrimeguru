@@ -8,92 +8,72 @@ import { Button } from '@/components/ui/Button'
 
 const educationCards = [
   {
-    id: 'laundry-pods',
-    emoji: '🫧',
-    problem: 'Tough laundry stains that don\'t come out?',
-    product: 'Laundry Pods',
-    href: '/shop/laundry-pods',
-    bg: '#E6F5F8',
-    accent: '#347F99',
-    summary: 'Pre-measured pods with 3-in-1 action: stain removal, freshness, and fabric care in every wash.',
-    steps: [
-      { num: 1, title: 'Load the drum', body: 'Place one pod at the bottom of the drum before adding your laundry.' },
-      { num: 2, title: 'Add your clothes', body: 'Load clothes on top of the pod. Do not place the pod in the dispenser drawer.' },
-      { num: 3, title: 'Select your cycle', body: 'Choose any wash cycle — the pod dissolves completely in both hot and cold water.' },
-      { num: 4, title: 'Enjoy the results', body: 'Clean, fresh-smelling laundry every time. Repeat as needed per load size.' },
-    ],
-    warning: 'Keep pods away from children. Do not break or cut the pod. Wash hands after handling.',
-    competitors: 'Works as an alternative to loose powder and liquid detergents like Tide and Ariel.',
-  },
-  {
-    id: 'laundry-beads',
-    emoji: '🌸',
-    problem: 'Laundry smells fine when wet, but loses freshness by evening?',
-    product: 'Scented Laundry Beads',
-    href: '/shop/laundry-beads',
-    bg: '#F5EDF7',
-    accent: '#8B5CF6',
-    summary: 'Small scent beads that release fragrance slowly — keeping clothes fresh for up to 12 weeks.',
-    steps: [
-      { num: 1, title: 'Measure the beads', body: 'Use the cap to measure. 1 capful for small loads, 2 for large loads.' },
-      { num: 2, title: 'Add to drum', body: 'Pour directly into the drum before adding laundry.' },
-      { num: 3, title: 'Wash as normal', body: 'Add your regular detergent too. Beads work alongside any detergent.' },
-      { num: 4, title: 'Long-lasting freshness', body: 'Fragrance is activated each time you wear or fold the clothes.' },
-    ],
-    variants: ['Lavender Dreams', 'Ocean Breeze', 'Citrus Fresh', 'Velvet Rose'],
-  },
-  {
-    id: 'floor-cleaner',
-    emoji: '🏠',
-    problem: 'Floors look dull even after mopping?',
-    product: 'Floor Cleaner',
-    href: '/shop/floor-cleaner',
-    bg: '#FFF7ED',
-    accent: '#D97706',
-    summary: 'Lemon-fresh formula that cleans and leaves a streak-free shine on all common floor surfaces.',
-    steps: [
-      { num: 1, title: 'Dilute properly', body: 'Mix 20ml of Floor Cleaner in 1 litre of clean water.' },
-      { num: 2, title: 'Mop the floor', body: 'Apply diluted solution with a mop. No rinsing required.' },
-      { num: 3, title: 'Allow to dry', body: 'Let floors air-dry. Avoid walking on wet surfaces.' },
-      { num: 4, title: 'Enjoy fresh floors', body: 'Floors are left clean, streak-free, and lemon fresh.' },
-    ],
-    warning: 'Test on an inconspicuous area first. Not recommended for untreated wood or polished stone without testing.',
-    floorTypes: ['Marble', 'Ceramic Tile', 'Vinyl', 'Laminate'],
-  },
-  {
-    id: 'kitchen-degreaser',
-    emoji: '🍳',
-    problem: 'Greasy stovetop and range hood that won\'t come clean?',
-    product: 'Kitchen Degreaser',
-    href: '/shop/kitchen-degreaser',
-    bg: '#FEF2F2',
-    accent: '#DC2626',
-    summary: 'Powerful spray formula that breaks down cooking oil, food residue, and stubborn grease.',
-    steps: [
-      { num: 1, title: 'Spray the surface', body: 'Hold 15–20 cm from the surface and spray a light, even coat.' },
-      { num: 2, title: 'Wait 30 seconds', body: 'Allow contact time for the formula to break down grease.' },
-      { num: 3, title: 'Wipe clean', body: 'Use a damp cloth or sponge to wipe away residue.' },
-      { num: 4, title: 'Rinse if needed', body: 'For food-contact surfaces, rinse with clean water after wiping.' },
-    ],
-    warning: 'Do not use on hot surfaces. Not suitable for painted or lacquered surfaces without testing. Keep away from eyes.',
-  },
-  {
     id: 'shoe-cleaner',
     emoji: '👟',
-    problem: 'Dirty shoes that regular washing can\'t fix?',
+    problem: 'Dirty shoes or sneakers?',
     product: 'Shoe Cleaner',
     href: '/shop/shoe-cleaner',
-    bg: '#ECFDF5',
-    accent: '#059669',
-    summary: 'A gentle but effective formula that removes dirt and stains from canvas, leather, mesh, and synthetic materials.',
+    bg: '#EDE9FE',
+    accent: '#4338CA',
+    summary: 'A dedicated solution for cleaning compatible footwear and tackling everyday dirt.',
     steps: [
-      { num: 1, title: 'Remove loose dirt', body: 'Use a soft brush to remove loose dirt before applying the cleaner.' },
-      { num: 2, title: 'Apply the cleaner', body: 'Apply a small amount to a clean cloth or soft brush.' },
-      { num: 3, title: 'Scrub gently', body: 'Work in small circular motions on the soiled area.' },
-      { num: 4, title: 'Wipe and dry', body: 'Wipe away residue with a damp cloth. Allow to air-dry away from direct heat.' },
+      { num: 1, title: 'Remove loose dirt', body: 'Use a soft brush to remove loose dirt and dust from the shoe before applying the cleaner.' },
+      { num: 2, title: 'Check compatibility', body: 'Check the footwear care label and the cleaner\'s label. Test on a small, hidden area first.' },
+      { num: 3, title: 'Apply the cleaner', body: 'Apply the recommended amount using the method specified on the packaging.' },
+      { num: 4, title: 'Wipe and dry', body: 'Wipe or rinse as directed. Allow the footwear to dry naturally — away from direct heat.' },
     ],
-    warning: 'Test on a hidden area first, especially for leather and suede. Do not soak the material.',
-    materials: ['Canvas', 'Leather', 'Mesh', 'Synthetic uppers'],
+    warning: 'Test on a hidden area first, especially on leather or suede. Stop use if unexpected discolouration occurs.',
+  },
+  {
+    id: 'multipurpose-cleaner',
+    emoji: '🧹',
+    problem: 'Everyday household messes on surfaces?',
+    product: 'Multipurpose Cleaner',
+    href: '/shop/multipurpose-cleaner',
+    bg: '#FEF9C3',
+    accent: '#D97706',
+    summary: 'A versatile option for everyday cleaning on approved household surfaces.',
+    steps: [
+      { num: 1, title: 'Check the label', body: 'Read the product label and confirm the surface is listed as compatible.' },
+      { num: 2, title: 'Apply as directed', body: 'Spray or apply using the method and quantity specified on the packaging.' },
+      { num: 3, title: 'Wait if needed', body: 'Observe any stated contact time before wiping.' },
+      { num: 4, title: 'Wipe and dry', body: 'Wipe or rinse the surface as instructed. Allow the area to dry before normal use.' },
+    ],
+    warning: 'Do not use on natural stone, unsealed wood, electronics, or any surface not listed on the label. Never mix cleaners.',
+  },
+  {
+    id: 'kitchen-cleaner',
+    emoji: '🍳',
+    problem: 'Kitchen grease and cooking residue?',
+    product: 'Kitchen Cleaner',
+    href: '/shop/kitchen-cleaner',
+    bg: '#FFE4E6',
+    accent: '#BE123C',
+    summary: 'Spray on grease, let the formula work, wipe it away. Built for kitchen messes.',
+    steps: [
+      { num: 1, title: 'Clear the area', body: 'Keep food, utensils, and exposed food items away from the cleaning area.' },
+      { num: 2, title: 'Spray on the surface', body: 'Apply the cleaner as directed on the packaging.' },
+      { num: 3, title: 'Allow contact time', body: 'Let the formula sit for the recommended time — it clings and lifts the grease.' },
+      { num: 4, title: 'Wipe and rinse', body: 'Wipe and rinse as required. Rinse food-preparation surfaces thoroughly before use.' },
+    ],
+    warning: 'Check compatibility before use on natural stone, aluminium, or delicate coatings. Never mix cleaners.',
+  },
+  {
+    id: 'laundry-pods',
+    emoji: '🫧',
+    problem: 'Looking for simpler laundry day?',
+    product: 'Laundry Pods',
+    href: '/shop/laundry-pods',
+    bg: '#DCFCE7',
+    accent: '#166534',
+    summary: 'Pre-measured detergent pods — no measuring, no mess. Coming soon.',
+    steps: [
+      { num: 1, title: 'Check the label', body: 'Read the packaging and your garment care labels before washing.' },
+      { num: 2, title: 'Place in the drum', body: 'Handle with dry hands. Place as directed on the packaging — not in the dispenser drawer.' },
+      { num: 3, title: 'Add clothes & wash', body: 'Add clothes and select an appropriate wash cycle.' },
+      { num: 4, title: 'Store safely', body: 'Keep unused pods in their original packaging, securely closed and away from children and pets.' },
+    ],
+    warning: 'Do not cut or pierce pods. Handle with dry hands. Do not ingest. Keep out of reach of children.',
   },
 ]
 
@@ -135,7 +115,7 @@ export function EducationCarousel() {
         </div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {educationCards.map((card) => (
             <motion.button
               key={card.id}
@@ -268,26 +248,6 @@ export function EducationCarousel() {
                     <p className="text-xs text-amber-800 leading-relaxed">
                       ⚠️ {activeCardData.warning}
                     </p>
-                  </div>
-                )}
-
-                {/* Variants */}
-                {'variants' in activeCardData && activeCardData.variants && (
-                  <div className="mb-4">
-                    <p className="text-xs font-bold text-[#24333A] uppercase tracking-wider mb-2">
-                      Available scents
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {activeCardData.variants.map((v) => (
-                        <span
-                          key={v}
-                          className="text-xs px-3 py-1 rounded-full font-medium"
-                          style={{ backgroundColor: activeCardData.bg, color: activeCardData.accent }}
-                        >
-                          {v}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 )}
               </div>

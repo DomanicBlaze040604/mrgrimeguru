@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, Sparkles, Shield, Droplets } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Sparkles, Clock, ShoppingBag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
@@ -16,132 +16,211 @@ const CATEGORY_META: Record<string, {
   tagline: string
   description: string
   heroImage: string
+  infoImage?: string
+  videos?: string[]
   benefits: string[]
+  howToUse: string[]
+  comingSoon?: boolean
   stats: { value: string; label: string }[]
+  accentColor: string
+  bgColor: string
 }> = {
+  'shoe-cleaner': {
+    name: 'Shoe Cleaner',
+    tagline: 'Give Your Footwear a Fresh Start.',
+    description: 'A dedicated shoe-cleaning solution designed to help remove everyday dirt and surface marks from compatible footwear materials. Check the label for approved materials before use.',
+    heroImage: '/images/products/shoe-cleaner-1.jpeg',
+    infoImage: '/images/products/shoe-cleaner-info.jpeg',
+    videos: [
+      '/images/products/shoe-cleaner-1.mp4',
+      '/images/products/shoe-cleaner-2.mp4',
+      '/images/products/shoe-cleaner-3.mp4',
+    ],
+    benefits: [
+      'Designed for footwear cleaning',
+      'Helps tackle everyday dirt & surface marks',
+      'Practical for your shoe-care routine',
+      'Check label for compatible materials',
+    ],
+    howToUse: [
+      'Remove loose dirt and dust from the shoe.',
+      'Check the footwear care label and the cleaner\'s label.',
+      'Test on a small, inconspicuous area first.',
+      'Apply the recommended amount using the method on the packaging.',
+      'Wipe or rinse as directed and allow to dry naturally.',
+    ],
+    stats: [
+      { value: 'Spray', label: '& Wipe' },
+      { value: 'All', label: 'Compatible Materials' },
+      { value: '🔒', label: 'Secret Formula' },
+    ],
+    accentColor: '#4338CA',
+    bgColor: '#EDE9FE',
+  },
+  'multipurpose-cleaner': {
+    name: 'Multipurpose Cleaner',
+    tagline: 'One Cleaner for Everyday Messes.',
+    description: 'A versatile cleaning solution for compatible household surfaces, everyday spills, and routine cleaning tasks. Always check the label for approved surfaces.',
+    heroImage: '/images/products/multipurpose-cleaner-1.jpeg',
+    infoImage: '/images/products/multipurpose-cleaner-info.jpeg',
+    videos: [
+      '/images/products/multipurpose-1.mp4',
+      '/images/products/multipurpose-2.mp4',
+    ],
+    benefits: [
+      'Designed for routine household cleaning',
+      'Suitable for approved surfaces on the label',
+      'Spray on, wait, wipe clean',
+      'Our own formula — not a white-label product',
+    ],
+    howToUse: [
+      'Read the product label and confirm the surface is compatible.',
+      'Remove loose dirt where appropriate.',
+      'Apply using the method and quantity on the packaging.',
+      'Observe any stated contact time.',
+      'Wipe or rinse as instructed and allow to dry.',
+    ],
+    stats: [
+      { value: 'Spray', label: '& Wipe' },
+      { value: 'Multi', label: 'Surface' },
+      { value: '🔒', label: 'Secret Formula' },
+    ],
+    accentColor: '#D97706',
+    bgColor: '#FEF9C3',
+  },
+  'kitchen-cleaner': {
+    name: 'Kitchen Cleaner',
+    tagline: 'Take on Everyday Kitchen Messes.',
+    description: 'Designed to help tackle everyday kitchen residue and grease on compatible surfaces. Spray it on, let the formula work, wipe it away.',
+    heroImage: '/images/products/kitchen-cleaner-1.jpeg',
+    infoImage: '/images/products/kitchen-cleaner-info.jpeg',
+    videos: [
+      '/images/products/kitchen-cleaner-1.mp4',
+      '/images/products/kitchen-cleaner-2.mp4',
+      '/images/products/kitchen-cleaner-3.mp4',
+    ],
+    benefits: [
+      'Designed for kitchen cleaning',
+      'Tackles everyday grease & surface residue',
+      'Spray on — formula clings and lifts',
+      'Check label for compatible kitchen surfaces',
+    ],
+    howToUse: [
+      'Read the instructions and check surface compatibility.',
+      'Keep food, utensils, and exposed food items away.',
+      'Apply the cleaner as directed on the packaging.',
+      'Allow the recommended contact time if specified.',
+      'Wipe and rinse the surface as required. Rinse food-prep surfaces before use.',
+    ],
+    stats: [
+      { value: 'Spray', label: '& Wipe' },
+      { value: 'Kitchen', label: 'Surfaces' },
+      { value: '🔒', label: 'Secret Formula' },
+    ],
+    accentColor: '#BE123C',
+    bgColor: '#FFE4E6',
+  },
   'laundry-pods': {
     name: 'Laundry Pods',
-    tagline: '3-in-1 Power Dissolve in 30 Seconds',
-    description: 'Triple-chamber laundry capsules with high-potency stain enzyme action, fabric softeners, and long-lasting freshness in hot or cold water.',
+    tagline: 'Make Laundry Day Simpler.',
+    description: 'Pre-measured detergent pods designed to help clean clothes without the need to measure liquid or powder for every load. Coming soon.',
     heroImage: '/images/products/laundry-pods.jpg',
-    benefits: ['Zero messy measurement', '100% water-soluble PVA film', 'Safe on whites & colours', 'Plant-derived bio-enzymes'],
-    stats: [
-      { value: '30s', label: 'Dissolve Time' },
-      { value: '3x', label: 'Enzyme Concentration' },
-      { value: '99.9%', label: 'Germ Protection' },
+    benefits: [
+      'Pre-measured detergent format',
+      'Designed for laundry cleaning as directed',
+      'Convenient for regular washing routines',
+      'Simplifies detergent dosing',
     ],
-  },
-  'laundry-beads': {
-    name: 'Laundry Scent Beads',
-    tagline: '12-Week Touch-Activated Micro-Capsule Fragrance',
-    description: 'In-wash scent booster pearls infused with essential oil micro-capsules that burst slowly throughout wear for unstoppable, luxurious aroma.',
-    heroImage: '/images/products/laundry-beads.jpg',
-    benefits: ['Up to 12 weeks of freshness', 'Safe for all fabrics & workout wear', 'Dye-free & residue-free formula', '4 signature Indian aroma profiles'],
-    stats: [
-      { value: '12 Wks', label: 'Scent Longevity' },
-      { value: '4 Scents', label: 'Curated Profiles' },
-      { value: '0%', label: 'Residue Formula' },
+    howToUse: [
+      'Read packaging and garment care labels before washing.',
+      'Check the recommended number of pods for your load size.',
+      'Handle pods with dry hands and place as per packaging instructions.',
+      'Add clothes and select an appropriate wash cycle.',
+      'Store unused pods in original packaging, away from children and pets.',
     ],
-  },
-  'floor-cleaner': {
-    name: 'Floor Cleaner Concentrate',
-    tagline: 'Streak-Free Shine with Pet & Baby Safe Botanicals',
-    description: 'High-dilution botanical floor cleaning elixir that lifts deep dirt, removes grime, and leaves behind citrus botanical brilliance without harsh residue.',
-    heroImage: '/images/products/floor-cleaner.jpg',
-    benefits: ['Safe for crawling toddlers & pets', 'Quick-drying & non-sticky finish', 'Works on marble, vitrified tiles & granite', 'Natural antibacterial neem & pine'],
+    comingSoon: true,
     stats: [
-      { value: '1 Capful', label: 'Per Half Bucket' },
-      { value: '100%', label: 'Pet & Child Safe' },
-      { value: 'Quick', label: 'Dry Formulation' },
+      { value: 'Pre', label: 'Measured' },
+      { value: 'All', label: 'Machine Types' },
+      { value: '🔜', label: 'Coming Soon' },
     ],
-  },
-  'kitchen-degreaser': {
-    name: 'Kitchen Degreaser Spray',
-    tagline: 'Melts Burnt-on Indian Tadka Oil in 60 Seconds',
-    description: 'Foaming citrus-solvent degreasing formula that penetrates stubborn chimney soot, exhaust grease, stove burn marks, and fryer crust effortlessly.',
-    heroImage: '/images/products/kitchen-degreaser.jpg',
-    benefits: ['Zero harsh fume inhalation', 'Cuts hard spice oil & ghee deposits', 'Safe on stainless steel, brass & quartz', 'Dual foam & mist trigger nozzle'],
-    stats: [
-      { value: '60s', label: 'Breakdown Speed' },
-      { value: 'Citrus', label: 'Solvent Base' },
-      { value: 'Food Safe', label: 'Surface Formula' },
-    ],
-  },
-  'shoe-cleaner': {
-    name: 'Shoe & Sneaker Foam Cleaner',
-    tagline: 'Instant Dry Foam for Suede, Canvas, Leather & Mesh',
-    description: 'No-water-soak cleaning foam with dual-density scrub brush that restores dirty white soles and delicate uppers in under 3 minutes.',
-    heroImage: '/images/products/shoe-cleaner.jpg',
-    benefits: ['No water soaking needed', 'Prevents yellowing on white sneakers', 'Gentle on nubuck, knit & suede', 'Includes ergonomic hog-hair brush'],
-    stats: [
-      { value: '3 Mins', label: 'Full Shoe Refresh' },
-      { value: '0 Water', label: 'Soak Needed' },
-      { value: 'All Types', label: 'Soles & Uppers' },
-    ],
+    accentColor: '#166534',
+    bgColor: '#DCFCE7',
   },
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params
   const cat = CATEGORY_META[slug]
-  if (!cat) return { title: 'Product Category — Mr GrimeGuru' }
-
+  if (!cat) return { title: 'Product — Mr GrimeGuru' }
   return {
     title: `${cat.name} — Mr GrimeGuru`,
     description: cat.description,
   }
 }
 
+function VideoPlayer({ src, label, accentColor }: { src: string; label: string; accentColor: string }) {
+  'use client'
+  return (
+    <div className="relative rounded-2xl overflow-hidden bg-black aspect-[9/16] shadow-lg">
+      <video
+        className="w-full h-full object-cover"
+        muted
+        autoPlay
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={`${label} video`}
+      >
+        <source src={src} type="video/mp4" />
+        <track kind="captions" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+    </div>
+  )
+}
+
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params
   const meta = CATEGORY_META[slug]
 
-  if (!meta) {
-    notFound()
-  }
+  if (!meta) notFound()
 
+  // Try DB first
   const supabase = await createClient()
+  let products: Array<{
+    id: string; name: string; slug: string; price_paise: number;
+    compare_at_price_paise: number | null; short_description: string;
+    images: string[]; in_stock: boolean;
+  }> = []
 
-  // Fetch category and products
-  const { data: categoryData } = await supabase
-    .from('product_categories')
-    .select('id, name, slug')
-    .eq('slug', slug)
-    .single()
+  try {
+    const { data: categoryData } = await supabase
+      .from('product_categories')
+      .select('id')
+      .eq('slug', slug)
+      .single()
 
-  let products: any[] = []
-  if (categoryData?.id) {
-    const { data } = await supabase
-      .from('products')
-      .select('id, name, slug, price_paise, compare_at_price_paise, short_description, images, in_stock')
-      .eq('category_id', categoryData.id)
-      .eq('is_published', true)
-
-    if (data && data.length > 0) {
-      products = data
+    if (categoryData?.id) {
+      const { data } = await supabase
+        .from('products')
+        .select('id, name, slug, price_paise, compare_at_price_paise, short_description, images, in_stock')
+        .eq('category_id', categoryData.id)
+        .eq('is_published', true)
+      if (data?.length) products = data
     }
-  }
+  } catch { /* no DB yet */ }
 
-  // Fallback demo product if DB has none yet
-  if (products.length === 0) {
+  // Fallback placeholder
+  if (products.length === 0 && !meta.comingSoon) {
     products = [
       {
         id: `mock_${slug}_1`,
-        name: `Mr GrimeGuru ${meta.name} (Original)`,
-        slug: slug,
+        name: `Mr GrimeGuru ${meta.name}`,
+        slug,
         price_paise: 39900,
         compare_at_price_paise: 49900,
         short_description: meta.description,
-        images: [meta.heroImage],
-        in_stock: true,
-      },
-      {
-        id: `mock_${slug}_2`,
-        name: `Mr GrimeGuru ${meta.name} (Value Double Pack)`,
-        slug: `${slug}-pack-of-2`,
-        price_paise: 69900,
-        compare_at_price_paise: 89900,
-        short_description: `Double supply of ${meta.name.toLowerCase()} with bonus microfiber cloth. Save 22%.`,
         images: [meta.heroImage],
         in_stock: true,
       },
@@ -150,170 +229,245 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="min-h-screen bg-[#FAF8F2]">
-      {/* Category Hero */}
-      <section className="bg-gradient-to-b from-[#E6F5F8] via-[#FAF8F2] to-[#FAF8F2] pt-8 pb-14 border-b border-[#D6E8ED]">
+
+      {/* ── Hero ── */}
+      <section
+        className="pt-8 pb-16 border-b border-gray-100"
+        style={{ background: `linear-gradient(160deg, ${meta.bgColor} 0%, #FAF8F2 100%)` }}
+      >
         <div className="container-wide">
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 text-sm text-[#347F99] hover:underline mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to All Products
+          <Link href="/shop" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#166534] mb-8 transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Back to All Products
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#9FD8E8]/30 text-[#347F99] mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            {/* Left: copy */}
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-4"
+                style={{ backgroundColor: meta.bgColor, color: meta.accentColor }}>
                 <Sparkles className="w-3.5 h-3.5" />
-                Category Spotlight
-              </span>
-              <h1 className="text-4xl sm:text-5xl font-bold text-[#24333A] mb-4 tracking-tight">
+                {meta.comingSoon ? 'Coming Soon' : 'Secret Formula'}
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl font-black text-[#111827] mb-3 tracking-tight">
                 {meta.name}
               </h1>
-              <p className="text-lg sm:text-xl font-medium text-[#347F99] mb-4">
+              <p className="text-xl font-semibold mb-4" style={{ color: meta.accentColor }}>
                 {meta.tagline}
               </p>
-              <p className="text-[#75828A] text-base leading-relaxed mb-8 max-w-2xl">
+              <p className="text-[#52636a] text-base leading-relaxed mb-8 max-w-lg">
                 {meta.description}
               </p>
 
-              {/* Stat callouts */}
-              <div className="grid grid-cols-3 gap-4 border-t border-[#D6E8ED] pt-6">
-                {meta.stats.map((stat, i) => (
-                  <div key={i} className="text-left">
-                    <div className="text-2xl font-bold text-[#24333A]">{stat.value}</div>
-                    <div className="text-xs text-[#75828A]">{stat.label}</div>
+              {/* Stats */}
+              <div className="flex gap-8 border-t border-gray-200 pt-6">
+                {meta.stats.map((s) => (
+                  <div key={s.label}>
+                    <div className="text-2xl font-black text-[#111827]">{s.value}</div>
+                    <div className="text-xs text-gray-500">{s.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="lg:col-span-5">
-              <div className="relative aspect-square max-w-md mx-auto rounded-3xl overflow-hidden border border-[#D6E8ED] shadow-lg bg-white">
-                <Image
-                  src={meta.heroImage}
-                  alt={meta.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+            {/* Right: hero image */}
+            <div className="relative aspect-square max-w-md mx-auto rounded-3xl overflow-hidden shadow-xl border border-white">
+              <Image
+                src={meta.heroImage}
+                alt={meta.name}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              {meta.comingSoon && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                  <Clock className="w-12 h-12 text-white mb-3" />
+                  <p className="text-white font-black text-2xl">Coming Soon</p>
+                  <p className="text-white/70 text-sm mt-1">Be the first to know</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Key Benefits */}
-      <section className="py-12 border-b border-[#D6E8ED] bg-white">
+      {/* ── Videos ── */}
+      {meta.videos && meta.videos.length > 0 && (
+        <section className="py-16 bg-[#111827]" aria-label="Product videos">
+          <div className="container-wide">
+            <div className="mb-8">
+              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: meta.accentColor }}>
+                Watch It Work
+              </p>
+              <h2 className="text-3xl font-black text-white">Real results. Our secret formula.</h2>
+              <p className="text-gray-400 mt-1">Spray. Wait. Wipe.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {meta.videos.map((src, i) => (
+                <div key={src} className="relative rounded-2xl overflow-hidden bg-black aspect-[9/16] shadow-lg">
+                  <video
+                    className="w-full h-full object-cover"
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label={`${meta.name} video ${i + 1}`}
+                  >
+                    <source src={src} type="video/mp4" />
+                    <track kind="captions" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4">
+                    <p className="text-white font-semibold text-sm">{meta.name}</p>
+                    <p className="text-white/60 text-xs">Clip {i + 1}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Benefits ── */}
+      <section className="py-12 bg-white border-y border-gray-100">
         <div className="container-wide">
-          <h2 className="text-xl font-bold text-[#24333A] mb-6 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#347F99]" />
-            Why Choose Mr GrimeGuru {meta.name}?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {meta.benefits.map((benefit, i) => (
-              <div
-                key={i}
-                className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F2] border border-[#E8D8C1]/60"
-              >
-                <CheckCircle2 className="w-5 h-5 text-[#347F99] shrink-0 mt-0.5" />
-                <span className="text-sm font-medium text-[#24333A]">{benefit}</span>
+          <h2 className="text-xl font-black text-[#111827] mb-6">Why {meta.name}?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {meta.benefits.map((b) => (
+              <div key={b} className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F2] border border-gray-100">
+                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: meta.accentColor }} />
+                <span className="text-sm font-medium text-[#24333A]">{b}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section className="py-16">
+      {/* ── How to Use + Info Image ── */}
+      <section className="py-16 bg-[#FAF8F2]">
         <div className="container-wide">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-[#24333A]">
-              Available In This Collection
-            </h2>
-            <span className="text-sm text-[#75828A]">
-              {products.length} {products.length === 1 ? 'product' : 'products'}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((p) => {
-              const imageSrc =
-                Array.isArray(p.images) && p.images[0] ? p.images[0] : meta.heroImage
-              const hasDiscount =
-                p.compare_at_price_paise && p.compare_at_price_paise > p.price_paise
-              const discountPercent = hasDiscount
-                ? Math.round(
-                    ((p.compare_at_price_paise! - p.price_paise) /
-                      p.compare_at_price_paise!) *
-                      100
-                  )
-                : 0
-
-              return (
-                <div
-                  key={p.id}
-                  className="group bg-white rounded-2xl border border-[#D6E8ED] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
-                >
-                  <Link
-                    href={`/products/${p.slug}`}
-                    className="relative aspect-square block overflow-hidden bg-[#F2EBE0]/30"
-                  >
-                    <Image
-                      src={imageSrc}
-                      alt={p.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {hasDiscount && (
-                      <span className="absolute top-3 left-3 bg-[#347F99] text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
-                        Save {discountPercent}%
-                      </span>
-                    )}
-                  </Link>
-
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <Link href={`/products/${p.slug}`}>
-                        <h3 className="font-bold text-lg text-[#24333A] group-hover:text-[#347F99] transition-colors mb-2 line-clamp-1">
-                          {p.name}
-                        </h3>
-                      </Link>
-                      <p className="text-sm text-[#75828A] line-clamp-2 mb-4">
-                        {p.short_description}
-                      </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-2xl font-black text-[#111827] mb-6">How to Use</h2>
+              <ol className="space-y-4">
+                {meta.howToUse.map((step, i) => (
+                  <li key={i} className="flex gap-4">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-black text-white text-sm"
+                      style={{ backgroundColor: meta.accentColor }}
+                    >
+                      {i + 1}
                     </div>
+                    <p className="text-[#52636a] text-base leading-relaxed pt-0.5">{step}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
-                    <div>
-                      <div className="flex items-baseline gap-2 mb-4">
-                        <span className="text-2xl font-bold text-[#24333A]">
-                          {formatPrice(p.price_paise)}
-                        </span>
-                        {hasDiscount && (
-                          <span className="text-sm text-[#75828A] line-through">
-                            {formatPrice(p.compare_at_price_paise!)}
-                          </span>
-                        )}
-                      </div>
-
-                      <AddToCartButton
-                        product={{
-                          id: p.id,
-                          name: p.name,
-                          slug: p.slug,
-                          price_paise: p.price_paise,
-                          image: imageSrc,
-                          in_stock: p.in_stock,
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
+            {meta.infoImage && (
+              <div className="relative rounded-3xl overflow-hidden shadow-lg aspect-square border border-gray-100">
+                <Image
+                  src={meta.infoImage}
+                  alt={`${meta.name} info`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* ── Products / Coming Soon ── */}
+      <section className="py-16 bg-white border-t border-gray-100">
+        <div className="container-wide">
+          {meta.comingSoon ? (
+            <div className="text-center py-16 space-y-4">
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto text-3xl"
+                style={{ backgroundColor: meta.bgColor }}
+              >
+                🫧
+              </div>
+              <h2 className="text-3xl font-black text-[#111827]">Coming Soon</h2>
+              <p className="text-[#52636a] max-w-md mx-auto">
+                Laundry Pods are on the way. Leave your email and we&apos;ll let you know the moment they launch.
+              </p>
+              <form
+                className="flex gap-2 max-w-sm mx-auto mt-4"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="flex-1 px-4 py-2.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]"
+                />
+                <button
+                  type="submit"
+                  className="px-5 py-2.5 rounded-full text-sm font-bold text-white"
+                  style={{ backgroundColor: meta.accentColor }}
+                >
+                  Notify Me
+                </button>
+              </form>
+              <p className="text-xs text-gray-400">No spam. Just a single launch notification.</p>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-2xl font-black text-[#111827] mb-8">
+                Available Now
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {products.map((p) => {
+                  const img = Array.isArray(p.images) && p.images[0] ? p.images[0] : meta.heroImage
+                  const hasDiscount = p.compare_at_price_paise && p.compare_at_price_paise > p.price_paise
+                  const disc = hasDiscount
+                    ? Math.round(((p.compare_at_price_paise! - p.price_paise) / p.compare_at_price_paise!) * 100)
+                    : 0
+
+                  return (
+                    <div key={p.id} className="group bg-[#FAF8F2] rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+                      <div className="relative aspect-square overflow-hidden bg-white">
+                        <Image src={img} alt={p.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
+                        {hasDiscount && (
+                          <span className="absolute top-3 left-3 text-white text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: meta.accentColor }}>
+                            Save {disc}%
+                          </span>
+                        )}
+                      </div>
+                      <div className="p-6 flex-1 flex flex-col">
+                        <h3 className="font-black text-lg text-[#111827] mb-2">{p.name}</h3>
+                        <p className="text-sm text-[#52636a] line-clamp-2 mb-4 flex-1">{p.short_description}</p>
+                        <div className="flex items-baseline gap-2 mb-4">
+                          <span className="text-2xl font-black text-[#111827]">{formatPrice(p.price_paise)}</span>
+                          {hasDiscount && <span className="text-sm text-gray-400 line-through">{formatPrice(p.compare_at_price_paise!)}</span>}
+                        </div>
+                        <AddToCartButton product={{ id: p.id, name: p.name, slug: p.slug, price_paise: p.price_paise, image: img, in_stock: p.in_stock }} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* ── All Products CTA ── */}
+      <section className="py-12 bg-[#FAF8F2] border-t border-gray-100 text-center">
+        <p className="text-sm text-gray-500 mb-3">Explore the full range</p>
+        <Link
+          href="/shop"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white text-sm transition-all hover:opacity-90"
+          style={{ backgroundColor: meta.accentColor }}
+        >
+          <ShoppingBag className="w-4 h-4" /> Shop All Products
+        </Link>
+      </section>
+
     </div>
   )
 }
