@@ -7,11 +7,10 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 const situations = [
-  { id: 'laundry', label: 'Laundry stains', emoji: '👕' },
-  { id: 'odour', label: 'Laundry odour', emoji: '🌸' },
-  { id: 'floors', label: 'Dirty floors', emoji: '🏠' },
-  { id: 'kitchen', label: 'Kitchen grease', emoji: '🍳' },
-  { id: 'shoes', label: 'Dirty shoes', emoji: '👟' },
+  { id: 'shoes',     label: 'Dirty shoes or sneakers',    emoji: '👟' },
+  { id: 'surfaces',  label: 'Household surface mess',     emoji: '🧹' },
+  { id: 'kitchen',   label: 'Kitchen grease & residue',   emoji: '🍳' },
+  { id: 'laundry',   label: 'Washing clothes',            emoji: '🫧' },
 ]
 
 const recommendations: Record<string, {
@@ -21,40 +20,33 @@ const recommendations: Record<string, {
   tip: string
   color: string
 }> = {
-  laundry: {
-    product: 'Laundry Pods',
-    href: '/shop/laundry-pods',
-    emoji: '🫧',
-    tip: 'Drop one pod into the drum before loading clothes. Works in any wash cycle.',
-    color: '#E6F5F8',
-  },
-  odour: {
-    product: 'Scented Laundry Beads',
-    href: '/shop/laundry-beads',
-    emoji: '🌸',
-    tip: 'Add beads to the drum alongside your detergent for long-lasting freshness — up to 12 weeks.',
-    color: '#F5EDF7',
-  },
-  floors: {
-    product: 'Floor Cleaner',
-    href: '/shop/floor-cleaner',
-    emoji: '🏠',
-    tip: 'Dilute 20ml in 1 litre of water and mop as usual. No rinsing needed.',
-    color: '#FFF7ED',
-  },
-  kitchen: {
-    product: 'Kitchen Degreaser',
-    href: '/shop/kitchen-degreaser',
-    emoji: '🍳',
-    tip: 'Spray on the greasy surface, wait 30 seconds, then wipe clean.',
-    color: '#FEF2F2',
-  },
   shoes: {
     product: 'Shoe Cleaner',
     href: '/shop/shoe-cleaner',
     emoji: '👟',
-    tip: 'Apply to a soft brush or cloth and scrub gently in circular motions.',
-    color: '#ECFDF5',
+    tip: 'Apply to a soft brush or cloth. Check label for compatible materials before use.',
+    color: '#EDE9FE',
+  },
+  surfaces: {
+    product: 'Multipurpose Cleaner',
+    href: '/shop/multipurpose-cleaner',
+    emoji: '🧹',
+    tip: 'Suitable for approved household surfaces. Always check label for compatibility.',
+    color: '#FEF9C3',
+  },
+  kitchen: {
+    product: 'Kitchen Cleaner',
+    href: '/shop/kitchen-cleaner',
+    emoji: '🍳',
+    tip: 'Apply as directed on label. Rinse food-contact surfaces thoroughly before use.',
+    color: '#FFE4E6',
+  },
+  laundry: {
+    product: 'Laundry Pods',
+    href: '/shop/laundry-pods',
+    emoji: '🫧',
+    tip: 'Place pod directly in the drum before adding clothes. Follow label for load size.',
+    color: '#DCFCE7',
   },
 }
 
@@ -74,10 +66,10 @@ export function CleaningFixFinder() {
           Quick Finder
         </p>
         <h2 className="text-subheadline mb-4" style={{ color: '#24333A' }}>
-          Find Your Cleaning Fix
+          Tell Us What Needs Cleaning.
         </h2>
         <p className="text-body mb-8" style={{ color: '#75828A' }}>
-          Select your cleaning challenge and we&apos;ll point you to the right product.
+          Choose your cleaning challenge and discover the right product for the task.
         </p>
 
         {/* Situation buttons */}

@@ -42,15 +42,15 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const productLinks = [
-  { label: 'Laundry Pods', href: '/shop/laundry-pods' },
-  { label: 'Laundry Beads', href: '/shop/laundry-beads' },
-  { label: 'Floor Cleaner', href: '/shop/floor-cleaner' },
-  { label: 'Kitchen Degreaser', href: '/shop/kitchen-degreaser' },
   { label: 'Shoe Cleaner', href: '/shop/shoe-cleaner' },
+  { label: 'Multipurpose Cleaner', href: '/shop/multipurpose-cleaner' },
+  { label: 'Kitchen Cleaner', href: '/shop/kitchen-cleaner' },
+  { label: 'Laundry Pods', href: '/shop/laundry-pods' },
   { label: 'Shop All', href: '/shop' },
 ]
 
 const helpLinks = [
+  { label: 'About Us', href: '/about' },
   { label: 'Cleaning Guides', href: '/guides' },
   { label: 'FAQs', href: '/faq' },
   { label: 'Contact Us', href: '/contact' },
@@ -102,12 +102,12 @@ export function SiteFooter() {
                     Mr <span className="text-[#166534]">GrimeGuru</span>
                   </span>
                   <span className="text-[10px] font-bold tracking-widest text-[#059669] uppercase mt-1">
-                    Plant Powered Clean
+                    Find Your Clean.
                   </span>
                 </div>
               </Link>
               <p className="text-sm text-gray-600 leading-relaxed mb-6 max-w-xs">
-                Plant-powered, toxin-free household hygiene products designed specifically for modern Indian homes. Safe for toddlers, gentle on pets.
+                Practical cleaning essentials for shoes, household surfaces, kitchens, and laundry. Find the right solution for every mess.
               </p>
               {/* Social links */}
               <div className="flex items-center gap-3" role="list" aria-label="Social media links">
@@ -210,7 +210,7 @@ export function SiteFooter() {
         <div className="container-wide py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-gray-500">
-              © 2026 Mr GrimeGuru. All rights reserved. 100% Plant-Powered Home Care.
+              © 2026 Mr GrimeGuru. All rights reserved. Find Your Clean.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               {legalLinks.map(({ label, href }) => (

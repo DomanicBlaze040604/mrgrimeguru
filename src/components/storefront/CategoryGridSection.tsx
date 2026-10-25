@@ -20,51 +20,7 @@ interface CategoryItem {
 
 const CATEGORIES: CategoryItem[] = [
   {
-    id: 'laundry-care',
-    title: 'Laundry Care',
-    subtitle: '3-in-1 plant pods & liquid formulas',
-    href: '/shop/laundry-pods',
-    image: '/images/products/laundry-pods.jpg',
-    badge: 'Bestseller',
-    badgeColor: 'bg-emerald-700 text-white',
-    accentColor: '#166534',
-    count: 'From ₹899',
-  },
-  {
-    id: 'fabric-fragrance',
-    title: 'Fabric Fragrance & Beads',
-    subtitle: 'Long-lasting in-wash scent boosters',
-    href: '/shop/laundry-beads',
-    image: '/images/products/laundry-beads.jpg',
-    badge: '4 Scents',
-    badgeColor: 'bg-amber-600 text-white',
-    accentColor: '#D97706',
-    count: 'From ₹499',
-  },
-  {
-    id: 'floor-surfaces',
-    title: 'Floor & Surfaces',
-    subtitle: 'Pet & baby safe herbal floor clean',
-    href: '/shop/floor-cleaner',
-    image: '/images/products/floor-cleaner.jpg',
-    badge: 'Pet Safe',
-    badgeColor: 'bg-teal-700 text-white',
-    accentColor: '#0F766E',
-    count: 'From ₹299',
-  },
-  {
-    id: 'kitchen-degreaser',
-    title: 'Kitchen Degreasers',
-    subtitle: 'Cuts through chimney & stove grease',
-    href: '/shop/kitchen-degreaser',
-    image: '/images/products/kitchen-degreaser.jpg',
-    badge: 'Zero Scrub',
-    badgeColor: 'bg-rose-700 text-white',
-    accentColor: '#BE123C',
-    count: 'From ₹349',
-  },
-  {
-    id: 'shoe-sneaker',
+    id: 'shoe-cleaner',
     title: 'Shoe & Sneaker Care',
     subtitle: 'Deep foaming kit for all shoe fabrics',
     href: '/shop/shoe-cleaner',
@@ -75,15 +31,37 @@ const CATEGORIES: CategoryItem[] = [
     count: 'From ₹449',
   },
   {
-    id: 'mega-value-combos',
-    title: 'Value Combos & Kits',
-    subtitle: 'Complete home hygiene essentials',
-    href: '/shop',
-    image: '/images/brand/product-range.jpg',
-    badge: 'Save 35%',
-    badgeColor: 'bg-emerald-800 text-amber-300 font-extrabold',
-    accentColor: '#14532D',
-    count: 'From ₹1,299',
+    id: 'multipurpose-cleaner',
+    title: 'Multipurpose Cleaner',
+    subtitle: 'One cleaner for everyday household surfaces',
+    href: '/shop/multipurpose-cleaner',
+    image: '/images/products/floor-cleaner.jpg',
+    badge: 'Versatile',
+    badgeColor: 'bg-amber-600 text-white',
+    accentColor: '#D97706',
+    count: 'From ₹399',
+  },
+  {
+    id: 'kitchen-cleaner',
+    title: 'Kitchen Cleaner',
+    subtitle: 'Cuts through stovetop grease & kitchen residue',
+    href: '/shop/kitchen-cleaner',
+    image: '/images/products/kitchen-degreaser.jpg',
+    badge: 'Zero Scrub',
+    badgeColor: 'bg-rose-700 text-white',
+    accentColor: '#BE123C',
+    count: 'From ₹349',
+  },
+  {
+    id: 'laundry-care',
+    title: 'Laundry Pods',
+    subtitle: 'Pre-measured pods for every wash',
+    href: '/shop/laundry-pods',
+    image: '/images/products/laundry-pods.jpg',
+    badge: 'Bestseller',
+    badgeColor: 'bg-emerald-700 text-white',
+    accentColor: '#166534',
+    count: 'From ₹899',
   },
 ]
 
@@ -110,7 +88,7 @@ export function CategoryGridSection() {
         </div>
 
         {/* Squarish Rectangular Category Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
           {CATEGORIES.map((cat, index) => (
             <motion.div
               key={cat.id}

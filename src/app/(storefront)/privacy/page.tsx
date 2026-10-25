@@ -1,60 +1,107 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Shield } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Mr GrimeGuru',
-  description: 'How Mr GrimeGuru collects, protects, and respects your personal information.',
+  description: 'How Mr GrimeGuru collects, uses, stores, and shares your personal information.',
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="space-y-3">
+      <h2 className="text-xl font-bold text-[#24333A]">{title}</h2>
+      <div className="text-sm sm:text-base text-[#52636a] leading-relaxed space-y-2">{children}</div>
+    </section>
+  )
 }
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-[#FAF8F2] py-16">
-      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-8 text-[#24333A]">
+      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-10 text-[#24333A]">
         <div>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99] mb-3">
-            <Shield className="w-3.5 h-3.5" /> Data Security & Trust
+            <Shield className="w-3.5 h-3.5" /> Privacy Policy
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Privacy Policy</h1>
-          <p className="text-sm text-[#75828A]">Last Updated: October 2026</p>
+          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-sm text-[#52636a] mt-3">
+            Mr GrimeGuru respects your privacy. This Privacy Policy explains how we collect, use, store, and share personal information when you visit our website, browse products, place orders, or contact our team.
+          </p>
         </div>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">1. Information We Collect</h2>
-          <p>
-            When you visit or make a purchase from Mr GrimeGuru (mrgrimeguru.com), we collect certain details required to fulfill your order, including your full name, shipping and billing address, email address, and phone number.
-          </p>
-          <p>
-            We do not store your credit card or debit card numbers on our servers. All online transactions are handled through PCI-DSS Level 1 compliant gateways (Razorpay).
-          </p>
-        </section>
+        <Section title="1. Business Information">
+          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Website: https://mrgrimeguru.vercel.app/</p>
+          <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Customer support email: [SUPPORT EMAIL]</p>
+          <p>Privacy contact: [PRIVACY CONTACT EMAIL]</p>
+        </Section>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">2. How We Use Your Information</h2>
-          <p>
-            We use your data solely to process orders, communicate shipment tracking updates via SMS and WhatsApp, prevent fraud, and — if opted in — notify you of new product releases and exclusive discounts.
-          </p>
-          <p>
-            We never sell, rent, or trade your personal data to third-party data brokers under any circumstances.
-          </p>
-        </section>
+        <Section title="2. Information We Collect">
+          <p>Depending on how you use our website, we may collect:</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li><strong>Personal information:</strong> Name, email address, phone number, billing address, and shipping address.</li>
+            <li><strong>Order information:</strong> Products purchased, order numbers, transaction references, delivery information, and customer service communications.</li>
+            <li><strong>Payment information:</strong> Payment status and transaction references. We do not intentionally collect or store full card credentials, security codes, UPI PINs, or banking passwords.</li>
+            <li><strong>Technical information:</strong> IP address, browser type, operating system, and device information.</li>
+            <li><strong>Usage information:</strong> Pages visited, products viewed, and cart activity.</li>
+            <li><strong>Communications:</strong> Information you provide when contacting us.</li>
+          </ul>
+        </Section>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">3. Cookies & Analytics</h2>
-          <p>
-            We use essential cookies to maintain your shopping cart state and session security. Non-essential analytical cookies help us understand which cleaning guides and product pages are most useful to visitors.
-          </p>
-        </section>
+        <Section title="3. How We Collect Information">
+          <p>Information may be collected directly from you, automatically through website technologies, or from payment providers, shipping partners, and other lawful sources where necessary to fulfil orders and operate our business.</p>
+        </Section>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">4. Your Rights & Data Deletion</h2>
-          <p>
-            You have the right to request a copy of your personal data or ask for complete deletion of your customer account at any time by contacting{' '}
-            <a href="mailto:privacy@mrgrimeguru.com" className="text-[#347F99] font-bold underline">
-              privacy@mrgrimeguru.com
-            </a>.
-          </p>
-        </section>
+        <Section title="4. How We Use Information">
+          <p>We may use information to process and fulfil orders; arrange payments, shipping, returns, and refunds; send transactional notifications; respond to customer enquiries; improve website performance; detect fraud; maintain legally required records; send marketing communications where permitted; and comply with applicable laws.</p>
+        </Section>
+
+        <Section title="5. Cookies and Tracking Technologies">
+          <p>Our website may use essential cookies and, where enabled, analytics or advertising technologies. You can manage cookies through your browser settings and any consent controls offered on the website.</p>
+        </Section>
+
+        <Section title="6. Sharing Information">
+          <p>Information may be shared with relevant service providers including website hosting, payment processors, shipping partners, analytics services, professional advisers, and government authorities where legally required. We limit sharing to what is reasonably necessary for the relevant purpose.</p>
+          <p>We do not sell personal information as a standalone commercial product.</p>
+        </Section>
+
+        <Section title="7. Third-Party Services">
+          <p>Third-party websites and services operate under their own privacy policies. We are not responsible for the privacy practices of services we do not control.</p>
+        </Section>
+
+        <Section title="8. Data Retention">
+          <p>We retain information for as long as reasonably necessary for order fulfilment, customer support, business administration, dispute resolution, and legal compliance.</p>
+        </Section>
+
+        <Section title="9. Security">
+          <p>We use reasonable technical and organisational safeguards to help protect personal information. However, no online system can be guaranteed to be completely secure.</p>
+        </Section>
+
+        <Section title="10. Your Rights">
+          <p>Subject to applicable law, you may have rights to request access to your personal information, correction, erasure where legally permissible, withdrawal of consent, and grievance redressal.</p>
+          <p>Contact [PRIVACY CONTACT EMAIL] to submit a request.</p>
+        </Section>
+
+        <Section title="11. Marketing Communications">
+          <p>Where permitted by law, we may send promotional communications if you have opted in or another lawful basis applies. You may unsubscribe through the available link or contact [SUPPORT EMAIL].</p>
+        </Section>
+
+        <Section title="12. Children's Privacy">
+          <p>Our purchasing services are intended for adults who can lawfully enter into purchase transactions. We do not knowingly collect children's personal information in circumstances where such collection is prohibited.</p>
+        </Section>
+
+        <Section title="13. Policy Changes">
+          <p>We may update this Policy to reflect changes in our practices, technology, or legal obligations. The latest version will be published on this page with an updated date.</p>
+        </Section>
+
+        <Section title="14. Contact and Grievances">
+          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Email: [PRIVACY OR GRIEVANCE EMAIL]</p>
+          <p>Address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Governing law: applicable laws of India.</p>
+        </Section>
       </div>
     </div>
   )

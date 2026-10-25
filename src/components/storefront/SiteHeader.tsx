@@ -15,11 +15,10 @@ const navLinks = [
     href: '/shop',
     children: [
       { label: 'All Products', href: '/shop', description: 'Browse the full range' },
-      { label: 'Laundry Pods', href: '/shop/laundry-pods', description: 'Powerful 3-in-1 pods' },
-      { label: 'Laundry Beads', href: '/shop/laundry-beads', description: '4 signature scents' },
-      { label: 'Floor Cleaner', href: '/shop/floor-cleaner', description: 'All-floor formula' },
-      { label: 'Kitchen Degreaser', href: '/shop/kitchen-degreaser', description: 'Cuts through grease' },
-      { label: 'Shoe Cleaner', href: '/shop/shoe-cleaner', description: 'For all materials' },
+      { label: 'Shoe Cleaner', href: '/shop/shoe-cleaner', description: 'For all footwear materials' },
+      { label: 'Multipurpose Cleaner', href: '/shop/multipurpose-cleaner', description: 'Everyday household surfaces' },
+      { label: 'Kitchen Cleaner', href: '/shop/kitchen-cleaner', description: 'Cuts through grease' },
+      { label: 'Laundry Pods', href: '/shop/laundry-pods', description: 'Pre-measured detergent pods' },
     ],
   },
   { label: 'Cleaning Guides', href: '/guides' },
@@ -65,7 +64,7 @@ export function SiteHeader() {
                 USE CODE: <strong className="text-white underline decoration-amber-400 underline-offset-2">CLEAN50</strong> FOR EXTRA 10% OFF
               </span>
               <span className="text-emerald-100/90 font-medium">
-                🚚 FREE SHIPPING ON ORDERS ₹499+
+                Cleaning made simple. Find the right solution for every mess.
               </span>
               <span className="text-emerald-100/90 font-medium">
                 🌿 100% PLANT POWERED & PET SAFE

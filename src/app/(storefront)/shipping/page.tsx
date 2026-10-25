@@ -1,54 +1,80 @@
 import type { Metadata } from 'next'
-import { Truck, CheckCircle, Clock } from 'lucide-react'
+import { Truck } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Shipping & Delivery Policy — Mr GrimeGuru',
-  description: 'Delivery timelines, courier partners, and free shipping terms for all orders across India.',
+  title: 'Shipping Policy — Mr GrimeGuru',
+  description: 'Delivery information, shipping charges, tracking, and order fulfilment details for Mr GrimeGuru.',
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="space-y-3">
+      <h2 className="text-xl font-bold text-[#24333A]">{title}</h2>
+      <div className="text-sm sm:text-base text-[#52636a] leading-relaxed space-y-2">{children}</div>
+    </section>
+  )
 }
 
 export default function ShippingPolicyPage() {
   return (
     <div className="min-h-screen bg-[#FAF8F2] py-16">
-      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-8 text-[#24333A]">
+      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-10 text-[#24333A]">
         <div>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99] mb-3">
-            <Truck className="w-3.5 h-3.5" /> Fast Nationwide Logistics
+            <Truck className="w-3.5 h-3.5" /> Shipping Policy
           </span>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Shipping & Delivery Policy</h1>
-          <p className="text-sm text-[#75828A]">Clear, predictable delivery for every modern home.</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Shipping Policy</h1>
+          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-sm text-[#52636a] mt-3">
+            Mr GrimeGuru aims to provide a straightforward and transparent delivery experience.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-[#D6E8ED] py-6">
-          <div className="p-4 rounded-2xl bg-[#FAF8F2] border border-[#D6E8ED]">
-            <Clock className="w-6 h-6 text-[#347F99] mb-2" />
-            <div className="font-bold text-sm text-[#24333A]">12-Hour Dispatch</div>
-            <div className="text-xs text-[#75828A]">Orders packed and dispatched same or next business day.</div>
-          </div>
-          <div className="p-4 rounded-2xl bg-[#FAF8F2] border border-[#D6E8ED]">
-            <Truck className="w-6 h-6 text-[#347F99] mb-2" />
-            <div className="font-bold text-sm text-[#24333A]">2 to 4 Days Metro</div>
-            <div className="text-xs text-[#75828A]">Fast delivery to Mumbai, Delhi NCR, Bangalore, Pune, Hyderabad.</div>
-          </div>
-          <div className="p-4 rounded-2xl bg-[#FAF8F2] border border-[#D6E8ED]">
-            <CheckCircle className="w-6 h-6 text-[#347F99] mb-2" />
-            <div className="font-bold text-sm text-[#24333A]">Free Over ₹499</div>
-            <div className="text-xs text-[#75828A]">Automatic free delivery applied at checkout.</div>
-          </div>
-        </div>
+        <Section title="1. Order Processing">
+          <p>Orders are processed after successful placement and any required payment or verification. Processing times may vary according to availability, order volume, and operational circumstances.</p>
+        </Section>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">Courier Partners & Tracking</h2>
-          <p>
-            We partner with premier logistics carriers including Blue Dart, Delhivery, Xpressbees, and DTDC. You will receive an automated tracking link on WhatsApp and SMS as soon as your package leaves our facility.
-          </p>
-        </section>
+        <Section title="2. Delivery Locations">
+          <p>We deliver to locations supported by our shipping partners. Delivery availability is determined by the PIN code entered at checkout.</p>
+        </Section>
 
-        <section className="space-y-4 text-sm sm:text-base text-[#52636a] leading-relaxed">
-          <h2 className="text-xl font-bold text-[#24333A]">Leak-Proof Packaging Guarantee</h2>
-          <p>
-            Liquids and laundry beads are sealed with induction cap barriers and shipped inside impact-absorbing honeycomb corrugated sleeves. In the rare event of transit leakage, we replace the item immediately at zero cost.
-          </p>
-        </section>
+        <Section title="3. Shipping Charges">
+          <p>Applicable shipping charges will be displayed at checkout before the order is completed.</p>
+          <p>Free shipping applies only to orders meeting the conditions and minimum order value displayed on our website at the time of purchase.</p>
+        </Section>
+
+        <Section title="4. Delivery Estimates">
+          <p>Estimated delivery timelines may be displayed during checkout or in shipping confirmations. Actual delivery times may vary because of destination, courier capacity, holidays, weather, and other circumstances.</p>
+        </Section>
+
+        <Section title="5. Tracking">
+          <p>Where available, tracking information will be shared after dispatch. Tracking may take time to become active after the shipment is handed to the courier.</p>
+        </Section>
+
+        <Section title="6. Incorrect Addresses">
+          <p>Customers are responsible for providing accurate delivery details. Contact us promptly if you notice an error. Address changes may not be possible after dispatch.</p>
+        </Section>
+
+        <Section title="7. Delayed or Undelivered Orders">
+          <p>If tracking indicates a delay, contact [SUPPORT EMAIL] with your order number. We will review available tracking information and coordinate with the delivery partner where appropriate.</p>
+        </Section>
+
+        <Section title="8. Damaged or Incorrect Products">
+          <p>Notify us promptly if an order arrives damaged, incomplete, or incorrect. Provide your order number and photographs of the packaging and product where available. We will review the request and explain the appropriate resolution.</p>
+        </Section>
+
+        <Section title="9. Failed Delivery Attempts">
+          <p>Courier redelivery or return procedures may apply when a recipient is unavailable or delivery details are incorrect. Any reshipping, cancellation, or refund will be handled under the applicable policy and law.</p>
+        </Section>
+
+        <Section title="10. Cash on Delivery">
+          <p>Cash on Delivery is available only where displayed at checkout and may depend on the delivery location, order value, and courier service.</p>
+        </Section>
+
+        <Section title="11. Contact">
+          <p>Email: [SUPPORT EMAIL]</p>
+          <p>Support hours: [BUSINESS DAYS AND HOURS]</p>
+        </Section>
       </div>
     </div>
   )

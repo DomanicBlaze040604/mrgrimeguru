@@ -7,34 +7,31 @@ import { AddToCartButton } from '@/components/storefront/AddToCartButton'
 import { Filter } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Shop All Products',
-  description: 'Browse the full Mr GrimeGuru range — Laundry Pods, Scented Beads, Floor Cleaner, Kitchen Degreaser, and Shoe Cleaner.',
+  title: 'Shop All Products — Mr GrimeGuru',
+  description: 'Browse the full Mr GrimeGuru range — Shoe Cleaner, Multipurpose Cleaner, Kitchen Cleaner, and Laundry Pods.',
 }
 
-type ProductFamily = 'laundry_pods' | 'laundry_beads' | 'floor_cleaner' | 'kitchen_degreaser' | 'shoe_cleaner'
+type ProductFamily = 'shoe_cleaner' | 'multipurpose_cleaner' | 'kitchen_cleaner' | 'laundry_pods'
 
 const FAMILY_LABELS: Record<ProductFamily, string> = {
-  laundry_pods: 'Laundry Pods',
-  laundry_beads: 'Laundry Beads',
-  floor_cleaner: 'Floor Cleaner',
-  kitchen_degreaser: 'Kitchen Degreaser',
   shoe_cleaner: 'Shoe Cleaner',
+  multipurpose_cleaner: 'Multipurpose Cleaner',
+  kitchen_cleaner: 'Kitchen Cleaner',
+  laundry_pods: 'Laundry Pods',
 }
 
 const FAMILY_EMOJIS: Record<ProductFamily, string> = {
-  laundry_pods: '🫧',
-  laundry_beads: '🌸',
-  floor_cleaner: '🏠',
-  kitchen_degreaser: '🍳',
   shoe_cleaner: '👟',
+  multipurpose_cleaner: '🧹',
+  kitchen_cleaner: '🍳',
+  laundry_pods: '🫧',
 }
 
 const PLACEHOLDER_PRODUCTS = [
-  { id: '1', name: 'Premium Laundry Pods', slug: 'laundry-pods', family: 'laundry_pods' as ProductFamily, short_description: '3-in-1 cleaning power for all temperatures.', price_paise: 89900, compare_price_paise: 109900, image_url: '/images/products/laundry-pods.jpg', variant_id: 'v1', variant_name: '30 Pods', sku: 'MGG-LP-30', in_stock: true },
-  { id: '2', name: 'Scented Laundry Beads', slug: 'laundry-beads', family: 'laundry_beads' as ProductFamily, short_description: 'Long-lasting fragrance in 4 signature scents.', price_paise: 49900, compare_price_paise: null, image_url: '/images/products/laundry-beads.jpg', variant_id: 'v2', variant_name: '500g — Lavender Dreams', sku: 'MGG-LB-LD', in_stock: true },
-  { id: '3', name: 'Floor Cleaner', slug: 'floor-cleaner', family: 'floor_cleaner' as ProductFamily, short_description: 'Lemon-fresh formula for all floor surfaces.', price_paise: 29900, compare_price_paise: 39900, image_url: '/images/products/floor-cleaner.jpg', variant_id: 'v3', variant_name: '1 Litre', sku: 'MGG-FC-1L', in_stock: true },
-  { id: '4', name: 'Kitchen Degreaser', slug: 'kitchen-degreaser', family: 'kitchen_degreaser' as ProductFamily, short_description: 'Cuts through grease and kitchen grime instantly.', price_paise: 34900, compare_price_paise: null, image_url: '/images/products/kitchen-degreaser.jpg', variant_id: 'v4', variant_name: '500ml Spray', sku: 'MGG-KD-500', in_stock: true },
-  { id: '5', name: 'Shoe Cleaner', slug: 'shoe-cleaner', family: 'shoe_cleaner' as ProductFamily, short_description: 'Restores all materials — canvas, leather, mesh & more.', price_paise: 44900, compare_price_paise: 54900, image_url: '/images/products/shoe-cleaner.jpg', variant_id: 'v5', variant_name: '200ml Kit', sku: 'MGG-SC-200', in_stock: true },
+  { id: '1', name: 'Laundry Pods', slug: 'laundry-pods', family: 'laundry_pods' as ProductFamily, short_description: 'Pre-measured detergent pods designed to simplify your wash routine.', price_paise: 89900, compare_price_paise: 109900, image_url: '/images/products/laundry-pods.jpg', variant_id: 'v1', variant_name: '30 Pods', sku: 'MGG-LP-30', in_stock: true },
+  { id: '2', name: 'Shoe Cleaner', slug: 'shoe-cleaner', family: 'shoe_cleaner' as ProductFamily, short_description: 'A dedicated solution for cleaning compatible footwear and tackling everyday dirt.', price_paise: 44900, compare_price_paise: 54900, image_url: '/images/products/shoe-cleaner.jpg', variant_id: 'v2', variant_name: '200ml Kit', sku: 'MGG-SC-200', in_stock: true },
+  { id: '3', name: 'Multipurpose Cleaner', slug: 'multipurpose-cleaner', family: 'multipurpose_cleaner' as ProductFamily, short_description: 'A versatile option for everyday cleaning on approved household surfaces.', price_paise: 39900, compare_price_paise: 49900, image_url: '/images/products/floor-cleaner.jpg', variant_id: 'v3', variant_name: '500ml Spray', sku: 'MGG-MP-500', in_stock: true },
+  { id: '4', name: 'Kitchen Cleaner', slug: 'kitchen-cleaner', family: 'kitchen_cleaner' as ProductFamily, short_description: 'A targeted solution for everyday kitchen messes and grease on compatible surfaces.', price_paise: 34900, compare_price_paise: null, image_url: '/images/products/kitchen-degreaser.jpg', variant_id: 'v4', variant_name: '500ml Spray', sku: 'MGG-KC-500', in_stock: true },
 ]
 
 async function getProducts(family?: string) {

@@ -53,10 +53,10 @@ export default function ContactPage() {
             <MessageSquare className="w-3.5 h-3.5" /> Support & Inquiries
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-[#24333A] tracking-tight mb-4">
-            We are Here to Help
+            We&apos;re Here to Help.
           </h1>
           <p className="text-[#75828A] text-base sm:text-lg">
-            Have a question about a formulation, tracking an existing order, or corporate bulk gifting? Reach out to our team.
+            Have a question about a product, need help choosing the right cleaner, or want an update on your order? Contact our team.
           </p>
         </div>
 

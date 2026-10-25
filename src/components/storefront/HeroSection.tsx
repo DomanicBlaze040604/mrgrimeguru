@@ -8,12 +8,11 @@ import { ArrowRight, Sparkles, Star } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 const ICON_CATEGORIES = [
-  { id: 'laundry-pods',      label: 'Laundry',  sublabel: 'Pods & Liquid',    href: '/shop?family=laundry_pods',      image: '/images/products/laundry-pods.jpg',     bg: '#DCFCE7' },
-  { id: 'laundry-beads',     label: 'Fabric',   sublabel: 'Fragrance Beads',  href: '/shop?family=laundry_beads',     image: '/images/products/laundry-beads.jpg',    bg: '#FEF9C3' },
-  { id: 'floor-cleaner',     label: 'Floor &',  sublabel: 'Surface Care',     href: '/shop?family=floor_cleaner',     image: '/images/products/floor-cleaner.jpg',    bg: '#CCFBF1' },
-  { id: 'kitchen-degreaser', label: 'Kitchen',  sublabel: 'Degreaser',        href: '/shop?family=kitchen_degreaser', image: '/images/products/kitchen-degreaser.jpg',bg: '#FFE4E6' },
-  { id: 'shoe-cleaner',      label: 'Shoe &',   sublabel: 'Sneaker Care',     href: '/shop?family=shoe_cleaner',      image: '/images/products/shoe-cleaner.jpg',     bg: '#EDE9FE' },
-  { id: 'all-products',      label: 'All',      sublabel: 'Products',         href: '/shop',                          image: '/images/brand/product-range.jpg',       bg: '#FEF3C7' },
+  { id: 'shoe-cleaner',      label: 'Shoe &',    sublabel: 'Sneaker Care',      href: '/shop?family=shoe_cleaner',        image: '/images/products/shoe-cleaner.jpg',     bg: '#EDE9FE' },
+  { id: 'multipurpose',      label: 'Multi',     sublabel: 'purpose Cleaner',   href: '/shop?family=multipurpose_cleaner', image: '/images/products/floor-cleaner.jpg',    bg: '#FEF3C7' },
+  { id: 'kitchen-cleaner',   label: 'Kitchen',   sublabel: 'Cleaner',           href: '/shop?family=kitchen_cleaner',     image: '/images/products/kitchen-degreaser.jpg',bg: '#FFE4E6' },
+  { id: 'laundry-pods',      label: 'Laundry',   sublabel: 'Pods',              href: '/shop?family=laundry_pods',        image: '/images/products/laundry-pods.jpg',     bg: '#DCFCE7' },
+  { id: 'all-products',      label: 'All',       sublabel: 'Products',          href: '/shop',                            image: '/images/brand/product-range.jpg',       bg: '#E0F2FE' },
 ]
 
 const fadeIn: Variants = {
@@ -116,7 +115,7 @@ export function HeroSection() {
               style={{ color: '#14532D' }}
             >
               Naturally Clean.{' '}
-              <span className="text-[#166534]">Truly Powerful.</span>
+              <span className="text-[#166534]">A Cleaner Life Starts Here.</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -127,7 +126,7 @@ export function HeroSection() {
               custom={0.2}
               className="text-body-lg mb-4 text-gray-600 leading-relaxed"
             >
-              Toxin-free, plant-powered cleaning solutions crafted for modern Indian homes. From in-wash laundry pods to kitchen degreasers — safe for playful pets, gentle on hands, ruthless on grime.
+              Toxin-free, plant-powered cleaning solutions crafted for modern Indian homes. From everyday shoe stains to stubborn kitchen grease — Mr GrimeGuru brings together practical cleaning solutions designed to make your routine simpler.
             </motion.p>
 
             {/* Grime meaning & synonym */}

@@ -12,50 +12,85 @@ interface FAQItem {
 }
 
 const FAQS: FAQItem[] = [
+  // Products
   {
-    category: 'Products & Ingredients',
-    q: 'Do Mr GrimeGuru Laundry Pods work in cold water washes?',
-    a: 'Yes, 100%. Our triple-chamber PVA membrane is engineered to dissolve completely within 30 seconds even in 15°C cold tap water, leaving behind zero gummy film or white powder residue on dark garments.',
+    category: 'Products',
+    q: 'What products does Mr GrimeGuru sell?',
+    a: 'We currently offer four product categories: Shoe Cleaner, Multipurpose Cleaner, Kitchen Cleaner, and Laundry Pods.',
   },
   {
-    category: 'Products & Ingredients',
-    q: 'Are your floor cleaners safe for crawling babies and pets?',
-    a: 'Absolutely. We formulate our Botanical Floor Cleaner without harsh chlorine, parabens, or toxic phthalates. It uses natural neem and citrus extracts with a neutral pH, ensuring your pets paws and baby skin remain completely irritation-free.',
+    category: 'Products',
+    q: 'How do I choose the right product?',
+    a: 'Choose according to the cleaning task. Use Shoe Cleaner for compatible footwear, Multipurpose Cleaner for approved household surfaces, Kitchen Cleaner for compatible kitchen surfaces, and Laundry Pods for washing clothes as directed.',
   },
   {
-    category: 'Products & Ingredients',
-    q: 'Can the Kitchen Degreaser be used on marble countertops and brass burners?',
-    a: 'The Kitchen Degreaser is safe for stainless steel, vitreous enamel, ceramic tiles, and engineered quartz. For natural porous stones (like unsealed Italian marble) and raw brass, we recommend testing a small inconspicuous patch first or rinsing immediately after 30 seconds.',
+    category: 'Products',
+    q: 'How do I use your products?',
+    a: 'Follow the specific instructions printed on the product packaging. Quantities, application methods, contact times, and rinsing requirements may vary between products.',
   },
   {
-    category: 'Shipping & Delivery',
-    q: 'How long does delivery take across India?',
-    a: 'Orders are dispatched within 12 hours from our fulfillment hubs in Mumbai, Delhi, and Bengaluru. Metro deliveries arrive in 1 to 3 business days, while non-metro and tier 2/3 cities typically arrive in 3 to 5 business days.',
+    category: 'Products',
+    q: 'Can I use Multipurpose Cleaner on every surface?',
+    a: 'Not necessarily. Always check the label for approved surfaces and material compatibility. Test a small, inconspicuous area first where recommended.',
   },
   {
-    category: 'Shipping & Delivery',
-    q: 'Is there a free shipping threshold?',
-    a: 'Yes! All orders above ₹499 qualify for Free Standard Delivery across India. For orders below ₹499, a nominal flat shipping fee of ₹49 is applied.',
+    category: 'Products',
+    q: 'Are the products safe around children and pets?',
+    a: 'Always follow the precautions printed on the packaging. Store cleaning products securely and keep them out of reach of children and pets.',
+  },
+  // Orders & Payments
+  {
+    category: 'Orders & Payments',
+    q: 'How do I place an order?',
+    a: 'Choose a product, select the available variant if applicable, add it to your cart, and complete checkout.',
   },
   {
-    category: 'Shipping & Delivery',
-    q: 'Do you offer Cash on Delivery (COD)?',
-    a: 'Yes, Cash on Delivery is available for all pin codes serviced by our courier partners with a small ₹39 handling charge.',
+    category: 'Orders & Payments',
+    q: 'Which payment methods do you accept?',
+    a: 'The payment methods available for your order are displayed at checkout. Availability depends on the payment options enabled on our website.',
   },
   {
-    category: 'Usage & Safety',
-    q: 'How many Laundry Pods should I use per wash cycle?',
-    a: 'For regular daily loads up to 6kg, 1 pod is sufficient. For heavy or soiled loads (like monsoon mud, curry stains, or bed linens) over 7kg, use 2 pods placed directly at the bottom or back of the washing drum before adding clothes.',
+    category: 'Orders & Payments',
+    q: 'Can I cancel or change my order?',
+    a: 'Contact customer support as soon as possible. Changes and cancellations depend on the order\'s fulfilment status and the applicable policy.',
+  },
+  // Shipping
+  {
+    category: 'Shipping',
+    q: 'Where do you deliver?',
+    a: 'Delivery is available to locations supported by our shipping partners. Enter your PIN code at checkout to check serviceability.',
   },
   {
-    category: 'Usage & Safety',
-    q: 'Where should I add the Laundry Scent Beads in my washing machine?',
-    a: 'Toss a capful of beads directly into the drum with your clothes! Do NOT put beads in the detergent or liquid fabric softener dispenser drawer, as they require direct water flow in the drum to dissolve and fuse their fragrance capsules.',
+    category: 'Shipping',
+    q: 'How can I track my order?',
+    a: 'Use the tracking link or shipment updates provided after dispatch. If you need assistance, contact customer support with your order number.',
+  },
+  {
+    category: 'Shipping',
+    q: 'What if my order arrives damaged?',
+    a: 'Contact customer support with your order number and photographs of the affected product and packaging. Your request will be reviewed under the applicable return and refund policy.',
+  },
+  // Returns & Refunds
+  {
+    category: 'Returns & Refunds',
+    q: 'Can I return a product?',
+    a: 'Returns are handled according to our published Return, Refund and Cancellation Policy and applicable law.',
   },
   {
     category: 'Returns & Refunds',
-    q: 'What is your Clean Guarantee return policy?',
-    a: 'If you are unsatisfied with your cleaning performance or if your bottles arrive damaged or leaking, contact us within 7 days of delivery. We will issue a free replacement or full refund with no hassle.',
+    q: 'What if I receive the wrong product?',
+    a: 'Contact support with your order number and photographs where available. We will review the issue and explain the available resolution.',
+  },
+  // Safety
+  {
+    category: 'Safety',
+    q: 'Can I mix two cleaners together?',
+    a: 'Do not mix cleaning products unless the manufacturer explicitly instructs you to do so.',
+  },
+  {
+    category: 'Safety',
+    q: 'What should I do if a product gets into my eyes?',
+    a: 'Follow the product\'s first-aid instructions printed on the packaging and seek medical advice when appropriate.',
   },
 ]
 
@@ -63,7 +98,7 @@ export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState<string>('All')
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
-  const categories = ['All', 'Products & Ingredients', 'Shipping & Delivery', 'Usage & Safety', 'Returns & Refunds']
+  const categories = ['All', 'Products', 'Orders & Payments', 'Shipping', 'Returns & Refunds', 'Safety']
 
   const filteredFaqs = activeCategory === 'All'
     ? FAQS
@@ -78,10 +113,10 @@ export default function FAQPage() {
             <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-[#24333A] tracking-tight mb-4">
-            Everything You Need to Know
+            Frequently Asked Questions
           </h1>
           <p className="text-[#75828A] text-base sm:text-lg max-w-xl mx-auto">
-            Got questions about our formulations, usage methods, or shipping? We have got you covered.
+            Questions about our products, orders, shipping, or safety? Find your answers here.
           </p>
         </div>
 
