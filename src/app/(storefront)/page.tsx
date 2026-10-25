@@ -39,7 +39,7 @@ const PLACEHOLDER_PRODUCTS = [
     short_description: 'A dedicated solution for cleaning compatible footwear and tackling everyday dirt.',
     price_paise: 44900,
     compare_price_paise: 54900,
-    image_url: '/images/products/shoe-cleaner.jpg',
+    image_url: '/images/products/shoe-cleaner-1.jpeg',
     variant_id: 'v2',
     variant_name: '200ml Kit',
     sku: 'MGG-SC-200',

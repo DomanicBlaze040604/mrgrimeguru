@@ -8,11 +8,11 @@ import { ArrowRight, Sparkles, Star } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 const ICON_CATEGORIES = [
-  { id: 'shoe-cleaner',      label: 'Shoe &',    sublabel: 'Sneaker Care',      href: '/shop?family=shoe_cleaner',        image: '/images/products/shoe-cleaner.jpg',     bg: '#EDE9FE' },
-  { id: 'multipurpose',      label: 'Multi',     sublabel: 'purpose Cleaner',   href: '/shop?family=multipurpose_cleaner', image: '/images/products/floor-cleaner.jpg',    bg: '#FEF3C7' },
-  { id: 'kitchen-cleaner',   label: 'Kitchen',   sublabel: 'Cleaner',           href: '/shop?family=kitchen_cleaner',     image: '/images/products/kitchen-degreaser.jpg',bg: '#FFE4E6' },
-  { id: 'laundry-pods',      label: 'Laundry',   sublabel: 'Pods',              href: '/shop?family=laundry_pods',        image: '/images/products/laundry-pods.jpg',     bg: '#DCFCE7' },
-  { id: 'all-products',      label: 'All',       sublabel: 'Products',          href: '/shop',                            image: '/images/brand/product-range.jpg',       bg: '#E0F2FE' },
+  { id: 'shoe-cleaner',      label: 'Shoe &',    sublabel: 'Sneaker Care',      href: '/shop?family=shoe_cleaner',         image: '/images/products/shoe-cleaner-1.jpeg',      bg: '#EDE9FE' },
+  { id: 'multipurpose',      label: 'Multi',     sublabel: 'purpose Cleaner',   href: '/shop?family=multipurpose_cleaner', image: '/images/products/multipurpose-cleaner-1.jpeg', bg: '#FEF3C7' },
+  { id: 'kitchen-cleaner',   label: 'Kitchen',   sublabel: 'Cleaner',           href: '/shop?family=kitchen_cleaner',      image: '/images/products/kitchen-cleaner-1.jpeg',   bg: '#FFE4E6' },
+  { id: 'laundry-pods',      label: 'Laundry',   sublabel: 'Pods',              href: '/shop?family=laundry_pods',         image: '/images/products/laundry-pods.jpg',          bg: '#DCFCE7' },
+  { id: 'all-products',      label: 'All',       sublabel: 'Products',          href: '/shop',                             image: '/images/products/all-products-frame.jpeg',   bg: '#E0F2FE' },
 ]
 
 const fadeIn: Variants = {
@@ -268,7 +268,7 @@ export function HeroSection() {
                 {/* Product thumbnail */}
                 <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-emerald-50 shrink-0">
                   <Image
-                    src="/images/products/laundry-pods.jpg"
+                    src="/images/products/shoe-cleaner-1.jpeg"
                     alt="Premium Laundry Pods"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
