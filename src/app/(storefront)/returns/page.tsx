@@ -11,23 +11,23 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-3">
-      <h2 className="text-xl font-bold text-[#24333A]">{title}</h2>
-      <div className="text-sm sm:text-base text-[#52636a] leading-relaxed space-y-2">{children}</div>
+      <h2 className="text-xl font-bold text-[#171714]">{title}</h2>
+      <div className="text-sm sm:text-base text-[#655e51] leading-relaxed space-y-2">{children}</div>
     </section>
   )
 }
 
 export default function ReturnsPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-16">
-      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-10 text-[#24333A]">
+    <div className="min-h-screen bg-[#fffbf0] py-16">
+      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#e5dcc9] p-8 sm:p-12 shadow-sm space-y-10 text-[#171714]">
         <div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99] mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#fff2be] text-[#b9460c] mb-3">
             <RotateCcw className="w-3.5 h-3.5" /> Returns & Refunds
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Return, Refund and Cancellation Policy</h1>
           <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
-          <p className="text-sm text-[#52636a] mt-3">
+          <p className="text-sm text-[#655e51] mt-3">
             This Policy explains how return, refund, and cancellation requests are handled for orders placed through Mr GrimeGuru.
           </p>
         </div>
@@ -85,9 +85,9 @@ export default function ReturnsPolicyPage() {
           <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
         </Section>
 
-        <div className="p-6 rounded-2xl bg-[#FAF8F2] border border-[#D6E8ED] flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-6 rounded-2xl bg-[#fffbf0] border border-[#e5dcc9] flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <div className="font-bold text-[#24333A]">Need to raise a return or refund request?</div>
+            <div className="font-bold text-[#171714]">Need to raise a return or refund request?</div>
             <div className="text-xs text-[#75828A]">Contact our support team with your order number.</div>
           </div>
           <Button variant="primary" asChild>

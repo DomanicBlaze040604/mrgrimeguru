@@ -1,3 +1,5 @@
+import { ProductImageGallery } from '@/components/storefront/ProductImageGallery'
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -144,8 +146,8 @@ const CATEGORY_META: Record<string, {
       { value: 'All', label: 'Machine Types' },
       { value: '🔜', label: 'Coming Soon' },
     ],
-    accentColor: '#166534',
-    bgColor: '#DCFCE7',
+    accentColor: '#111111',
+    bgColor: '#fff0bc',
   },
 }
 
@@ -164,7 +166,7 @@ function VideoPlayer({ src, label, accentColor }: { src: string; label: string; 
   return (
     <div className="relative rounded-2xl overflow-hidden bg-black aspect-[9/16] shadow-lg">
       <video
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         muted
         autoPlay
         loop
@@ -191,24 +193,31 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   let products: Array<{
     id: string; name: string; slug: string; price_paise: number;
     compare_at_price_paise: number | null; short_description: string;
-    images: string[]; in_stock: boolean;
+    images: string[]; in_stock: boolean; variant_id?: string; variant_name?: string;
   }> = []
 
   try {
-    const { data: categoryData } = await supabase
-      .from('product_categories')
-      .select('id')
-      .eq('slug', slug)
-      .single()
-
-    if (categoryData?.id) {
-      const { data } = await supabase
-        .from('products')
-        .select('id, name, slug, price_paise, compare_at_price_paise, short_description, images, in_stock')
-        .eq('category_id', categoryData.id)
-        .eq('is_published', true)
-      if (data?.length) products = data
-    }
+    const offer = getCleanerOffer(slug)
+    const { data } = await supabase.from('products')
+      .select('id, name, slug, short_description, product_variants!inner(id, name, price_paise, compare_at_price_paise, is_default)')
+      .in('slug', Array.from(new Set([slug, offer?.legacySlug ?? slug])))
+      .eq('status', 'active')
+      .eq('product_variants.is_default', true)
+    if (data?.length) products = data.map(product => {
+      const variant = product.product_variants[0]
+      return {
+        id: product.id,
+        name: offer?.name ?? product.name,
+        slug,
+        price_paise: offer?.price ?? variant.price_paise,
+        compare_at_price_paise: offer?.original ?? variant.compare_at_price_paise,
+        short_description: meta.description,
+        images: [meta.heroImage],
+        in_stock: true,
+        variant_id: variant.id,
+        variant_name: offer ? '560ml · Buy 1 Get 1' : variant.name,
+      }
+    })
   } catch { /* no DB yet */ }
 
   // Fallback placeholder
@@ -218,8 +227,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         id: `mock_${slug}_1`,
         name: `Mr GrimeGuru ${meta.name}`,
         slug,
-        price_paise: 39900,
-        compare_at_price_paise: 49900,
+        price_paise: slug === 'shoe-cleaner' ? 59900 : 49900,
+        compare_at_price_paise: slug === 'shoe-cleaner' ? 69900 : 59900,
         short_description: meta.description,
         images: [meta.heroImage],
         in_stock: true,
@@ -228,15 +237,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2]">
+    <div className="min-h-screen bg-[#fffbf0]">
 
       {/* ── Hero ── */}
       <section
         className="pt-8 pb-16 border-b border-gray-100"
-        style={{ background: `linear-gradient(160deg, ${meta.bgColor} 0%, #FAF8F2 100%)` }}
+        style={{ background: `linear-gradient(160deg, ${meta.bgColor} 0%, #fffbf0 100%)` }}
       >
         <div className="container-wide">
-          <Link href="/shop" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#166534] mb-8 transition-colors">
+          <Link href="/shop" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#111111] mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to All Products
           </Link>
 
@@ -255,7 +264,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <p className="text-xl font-semibold mb-4" style={{ color: meta.accentColor }}>
                 {meta.tagline}
               </p>
-              <p className="text-[#52636a] text-base leading-relaxed mb-8 max-w-lg">
+              <p className="text-[#655e51] text-base leading-relaxed mb-8 max-w-lg">
                 {meta.description}
               </p>
 
@@ -272,14 +281,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             {/* Right: hero image */}
             <div className="relative aspect-square max-w-md mx-auto rounded-3xl overflow-hidden shadow-xl border border-white">
-              <Image
-                src={meta.heroImage}
-                alt={meta.name}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <ProductImageGallery slug={slug} name={meta.name} image={meta.heroImage} preload />
               {meta.comingSoon && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
                   <Clock className="w-12 h-12 text-white mb-3" />
@@ -307,7 +309,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {meta.videos.map((src, i) => (
                 <div key={src} className="relative rounded-2xl overflow-hidden bg-black aspect-[9/16] shadow-lg">
                   <video
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     muted
                     autoPlay
                     loop
@@ -336,9 +338,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <h2 className="text-xl font-black text-[#111827] mb-6">Why {meta.name}?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {meta.benefits.map((b) => (
-              <div key={b} className="flex items-start gap-3 p-4 rounded-xl bg-[#FAF8F2] border border-gray-100">
+              <div key={b} className="flex items-start gap-3 p-4 rounded-xl bg-[#fffbf0] border border-gray-100">
                 <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: meta.accentColor }} />
-                <span className="text-sm font-medium text-[#24333A]">{b}</span>
+                <span className="text-sm font-medium text-[#171714]">{b}</span>
               </div>
             ))}
           </div>
@@ -346,7 +348,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* ── How to Use + Info Image ── */}
-      <section className="py-16 bg-[#FAF8F2]">
+      <section className="py-16 bg-[#fffbf0]">
         <div className="container-wide">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
@@ -360,7 +362,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     >
                       {i + 1}
                     </div>
-                    <p className="text-[#52636a] text-base leading-relaxed pt-0.5">{step}</p>
+                    <p className="text-[#655e51] text-base leading-relaxed pt-0.5">{step}</p>
                   </li>
                 ))}
               </ol>
@@ -372,7 +374,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   src={meta.infoImage}
                   alt={`${meta.name} info`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
@@ -393,7 +395,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 🫧
               </div>
               <h2 className="text-3xl font-black text-[#111827]">Coming Soon</h2>
-              <p className="text-[#52636a] max-w-md mx-auto">
+              <p className="text-[#655e51] max-w-md mx-auto">
                 Laundry Pods are on the way. Leave your email and we&apos;ll let you know the moment they launch.
               </p>
               <form
@@ -403,7 +405,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="flex-1 px-4 py-2.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#166534]"
+                  className="flex-1 px-4 py-2.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#111111]"
                 />
                 <button
                   type="submit"
@@ -429,9 +431,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     : 0
 
                   return (
-                    <div key={p.id} className="group bg-[#FAF8F2] rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
+                    <div key={p.id} className="group bg-[#fffbf0] rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
                       <div className="relative aspect-square overflow-hidden bg-white">
-                        <Image src={img} alt={p.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 33vw" />
+                        <ProductImageGallery slug={slug} name={p.name} image={img} />
                         {hasDiscount && (
                           <span className="absolute top-3 left-3 text-white text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: meta.accentColor }}>
                             Save {disc}%
@@ -440,12 +442,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       </div>
                       <div className="p-6 flex-1 flex flex-col">
                         <h3 className="font-black text-lg text-[#111827] mb-2">{p.name}</h3>
-                        <p className="text-sm text-[#52636a] line-clamp-2 mb-4 flex-1">{p.short_description}</p>
+                        <p className="text-sm text-[#655e51] line-clamp-2 mb-4 flex-1">{p.short_description}</p>
                         <div className="flex items-baseline gap-2 mb-4">
                           <span className="text-2xl font-black text-[#111827]">{formatPrice(p.price_paise)}</span>
                           {hasDiscount && <span className="text-sm text-gray-400 line-through">{formatPrice(p.compare_at_price_paise!)}</span>}
                         </div>
-                        <AddToCartButton product={{ id: p.id, name: p.name, slug: p.slug, price_paise: p.price_paise, image: img, in_stock: p.in_stock }} />
+                        <AddToCartButton product={{ id: p.id, name: p.name, slug: p.slug, price_paise: p.price_paise, variant_id: p.variant_id, variant_name: p.variant_name, image: img, in_stock: p.in_stock }} />
                       </div>
                     </div>
                   )
@@ -457,7 +459,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       </section>
 
       {/* ── All Products CTA ── */}
-      <section className="py-12 bg-[#FAF8F2] border-t border-gray-100 text-center">
+      <section className="py-12 bg-[#fffbf0] border-t border-gray-100 text-center">
         <p className="text-sm text-gray-500 mb-3">Explore the full range</p>
         <Link
           href="/shop"

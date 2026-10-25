@@ -16,12 +16,12 @@ const FAQS: FAQItem[] = [
   {
     category: 'Products',
     q: 'What products does Mr GrimeGuru sell?',
-    a: 'We currently offer four product categories: Shoe Cleaner, Multipurpose Cleaner, Kitchen Cleaner, and Laundry Pods.',
+    a: 'Our foam-cleaner range includes Kitchen Cleaner, Multipurpose Cleaner and Shoe Cleaner. Explore the shop for other available products.',
   },
   {
     category: 'Products',
     q: 'How do I choose the right product?',
-    a: 'Choose according to the cleaning task. Use Shoe Cleaner for compatible footwear, Multipurpose Cleaner for approved household surfaces, Kitchen Cleaner for compatible kitchen surfaces, and Laundry Pods for washing clothes as directed.',
+    a: 'Choose according to the cleaning task. Use Shoe Cleaner for compatible footwear, Multipurpose Cleaner for approved household surfaces, Kitchen Cleaner for compatible kitchen surfaces, and check the label for approved surfaces and materials.',
   },
   {
     category: 'Products',
@@ -105,14 +105,14 @@ export default function FAQPage() {
     : FAQS.filter((f) => f.category === activeCategory)
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-16">
+    <div className="min-h-screen bg-[#fffbf0] py-16">
       <div className="container-wide max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99] mb-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#fff2be] text-[#b9460c] mb-3">
             <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
           </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-[#24333A] tracking-tight mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-[#171714] tracking-tight mb-4">
             Frequently Asked Questions
           </h1>
           <p className="text-[#75828A] text-base sm:text-lg max-w-xl mx-auto">
@@ -131,8 +131,8 @@ export default function FAQPage() {
               }}
               className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                 activeCategory === cat
-                  ? 'bg-[#24333A] text-white shadow-sm'
-                  : 'bg-white text-[#75828A] border border-[#D6E8ED] hover:text-[#24333A]'
+                  ? 'bg-[#171714] text-white shadow-sm'
+                  : 'bg-white text-[#75828A] border border-[#e5dcc9] hover:text-[#171714]'
               }`}
             >
               {cat}
@@ -147,22 +147,22 @@ export default function FAQPage() {
             return (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-[#D6E8ED] overflow-hidden transition-all duration-200 shadow-sm"
+                className="bg-white rounded-2xl border border-[#e5dcc9] overflow-hidden transition-all duration-200 shadow-sm"
               >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-[#24333A] hover:bg-[#FAF8F2]/50 gap-4"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left font-bold text-[#171714] hover:bg-[#fffbf0]/50 gap-4"
                 >
                   <span className="text-base sm:text-lg">{faq.q}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-[#347F99] shrink-0 transition-transform duration-300 ${
+                    className={`w-5 h-5 text-[#b9460c] shrink-0 transition-transform duration-300 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#75828A] leading-relaxed border-t border-[#D6E8ED]/40 bg-[#FAF8F2]/30">
+                  <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#75828A] leading-relaxed border-t border-[#e5dcc9]/40 bg-[#fffbf0]/30">
                     {faq.a}
                   </div>
                 )}
@@ -172,9 +172,9 @@ export default function FAQPage() {
         </div>
 
         {/* Help Banner */}
-        <div className="p-8 rounded-3xl bg-[#E6F5F8] border border-[#9FD8E8] text-center space-y-4">
-          <Sparkles className="w-8 h-8 text-[#347F99] mx-auto" />
-          <h3 className="text-2xl font-bold text-[#24333A]">Still Need Assistance?</h3>
+        <div className="p-8 rounded-3xl bg-[#fff2be] border border-[#facc15] text-center space-y-4">
+          <Sparkles className="w-8 h-8 text-[#b9460c] mx-auto" />
+          <h3 className="text-2xl font-bold text-[#171714]">Still Need Assistance?</h3>
           <p className="text-sm text-[#75828A] max-w-md mx-auto">
             Our AI cleaning assistant is ready 24/7 in the bottom-right corner, or you can speak with our human customer care team.
           </p>

@@ -17,6 +17,26 @@ const DEFAULT_PRODUCTS: Record<string, {
   category_name: string
   reviews: { id: string; author_name: string; rating: number; title: string; body: string; created_at: string }[]
 }> = {
+  'kitchen-cleaner': {
+    name: 'Mr GrimeGuru Kitchen Cleaner (560ml · Buy 1 Get 1)',
+    price_paise: 49900,
+    compare_at_price_paise: 59900,
+    short_description: 'A foam-first fix for everyday kitchen grease and residue.',
+    description: 'Give cooking splashes and sticky residue the Guru treatment. Follow the product label for compatible surfaces, application and contact time.',
+    images: ['/images/products/kitchen-cleaner-1.jpeg'],
+    category_name: 'Kitchen Care',
+    reviews: [],
+  },
+  'multipurpose-cleaner': {
+    name: 'Mr GrimeGuru Multipurpose Cleaner (560ml · Buy 1 Get 1)',
+    price_paise: 49900,
+    compare_at_price_paise: 59900,
+    short_description: 'Foam-powered cleaning for compatible household surfaces.',
+    description: 'Take on everyday marks and messes around your home. Check the label for approved surfaces and spot-test before use.',
+    images: ['/images/products/multipurpose-cleaner-1.jpeg'],
+    category_name: 'Home Care',
+    reviews: [],
+  },
   'laundry-pods': {
     name: 'Mr GrimeGuru 3-in-1 Power Laundry Pods (Pack of 30)',
     price_paise: 39900,
@@ -102,9 +122,9 @@ const DEFAULT_PRODUCTS: Record<string, {
     ],
   },
   'shoe-cleaner': {
-    name: 'Mr GrimeGuru Instant Shoe & Sneaker Foam Cleaner (200ml)',
-    price_paise: 32900,
-    compare_at_price_paise: 39900,
+    name: 'Mr GrimeGuru Shoe Cleaner (560ml · Buy 1 Get 1)',
+    price_paise: 59900,
+    compare_at_price_paise: 69900,
     short_description: 'Waterless foaming solution with bristles safe for white sneakers, mesh, and suede.',
     description: 'No-water-soak cleaning foam with dual-density scrub brush that restores dirty white soles and delicate uppers in under 3 minutes.',
     images: ['/images/products/shoe-cleaner.jpg'],

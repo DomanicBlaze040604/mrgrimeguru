@@ -86,12 +86,12 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center bg-[#FAF8F2] py-20">
+      <div className="min-h-[70vh] flex items-center justify-center bg-[#fffbf0] py-20">
         <div className="max-w-md w-full mx-auto text-center px-4">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#E6F5F8] flex items-center justify-center text-[#347F99]">
+          <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#fff2be] flex items-center justify-center text-[#b9460c]">
             <ShoppingBag className="w-12 h-12" />
           </div>
-          <h1 className="text-3xl font-bold text-[#24333A] mb-3">Your Cart is Clean & Empty</h1>
+          <h1 className="text-3xl font-bold text-[#171714] mb-3">Your Cart is Clean & Empty</h1>
           <p className="text-[#75828A] text-base mb-8">
             Looks like you haven&apos;t added any GrimeGuru essentials yet. Explore our high-performance cleaning collection!
           </p>
@@ -106,9 +106,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-12">
+    <div className="min-h-screen bg-[#fffbf0] py-12">
       <div className="container-wide">
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#24333A] mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#171714] mb-8">
           Your Shopping Cart ({items.reduce((s, i) => s + i.quantity, 0)})
         </h1>
 
@@ -116,9 +116,9 @@ export default function CartPage() {
           {/* Cart Items List */}
           <div className="lg:col-span-8 space-y-4">
             {/* Free Shipping Progress Banner */}
-            <div className="p-4 rounded-2xl bg-white border border-[#D6E8ED] shadow-sm">
-              <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#24333A]">
-                <Truck className="w-4 h-4 text-[#347F99]" />
+            <div className="p-4 rounded-2xl bg-white border border-[#e5dcc9] shadow-sm">
+              <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#171714]">
+                <Truck className="w-4 h-4 text-[#b9460c]" />
                 {isFreeShipping ? (
                   <span className="text-emerald-700 flex items-center gap-1">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -126,13 +126,13 @@ export default function CartPage() {
                   </span>
                 ) : (
                   <span>
-                    Add <strong className="text-[#347F99]">{formatPrice(amountNeededForFreeShipping)}</strong> more to get FREE Shipping
+                    Add <strong className="text-[#b9460c]">{formatPrice(amountNeededForFreeShipping)}</strong> more to get FREE Shipping
                   </span>
                 )}
               </div>
               <div className="w-full bg-[#F2EBE0] h-2.5 rounded-full overflow-hidden">
                 <div
-                  className="bg-[#347F99] h-full transition-all duration-500 rounded-full"
+                  className="bg-[#b9460c] h-full transition-all duration-500 rounded-full"
                   style={{
                     width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%`,
                   }}
@@ -141,47 +141,47 @@ export default function CartPage() {
             </div>
 
             {/* Items */}
-            <div className="bg-white rounded-3xl border border-[#D6E8ED] divide-y divide-[#D6E8ED] shadow-sm overflow-hidden">
+            <div className="bg-white rounded-3xl border border-[#e5dcc9] divide-y divide-[#e5dcc9] shadow-sm overflow-hidden">
               {items.map((item) => (
                 <div key={item.id} className="p-6 flex flex-col sm:flex-row items-center gap-5">
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-[#FAF8F2] border border-[#D6E8ED] shrink-0">
+                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-[#fffbf0] border border-[#e5dcc9] shrink-0">
                     <Image
 src={item.image_url || '/images/placeholder.jpg'}
 alt={item.product_name}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
 
                   <div className="flex-1 text-center sm:text-left">
                     <Link
                       href={`/products/${item.slug}`}
-                      className="font-bold text-lg text-[#24333A] hover:text-[#347F99] transition-colors"
+                      className="font-bold text-lg text-[#171714] hover:text-[#b9460c] transition-colors"
                     >
                       {item.product_name}
                     </Link>
-                    <div className="text-sm font-semibold text-[#347F99] mt-1">
+                    <div className="text-sm font-semibold text-[#b9460c] mt-1">
                       {formatPrice(item.price_paise)}
                     </div>
                   </div>
 
                   {/* Quantity modifier */}
-                  <div className="flex items-center border border-[#D6E8ED] rounded-xl overflow-hidden bg-[#FAF8F2]">
+                  <div className="flex items-center border border-[#e5dcc9] rounded-xl overflow-hidden bg-[#fffbf0]">
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.variant_id, Math.max(1, item.quantity - 1))}
-                      className="p-2.5 hover:bg-white text-[#24333A] transition-colors"
+                      className="p-2.5 hover:bg-white text-[#171714] transition-colors"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="w-10 text-center font-bold text-sm text-[#24333A]">
+                    <span className="w-10 text-center font-bold text-sm text-[#171714]">
                       {item.quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.variant_id, item.quantity + 1)}
-                      className="p-2.5 hover:bg-white text-[#24333A] transition-colors"
+                      className="p-2.5 hover:bg-white text-[#171714] transition-colors"
                       aria-label="Increase quantity"
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ alt={item.product_name}
 
                   {/* Total line item price */}
                   <div className="text-right min-w-[90px]">
-                    <div className="font-bold text-base text-[#24333A]">
+                    <div className="font-bold text-base text-[#171714]">
                       {formatPrice(item.price_paise * item.quantity)}
                     </div>
                   </div>
@@ -210,11 +210,11 @@ alt={item.product_name}
             </div>
 
             {/* Quick add recommendation */}
-            <div className="p-4 rounded-2xl bg-[#E6F5F8]/50 border border-[#9FD8E8]/50 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-[#fff2be]/50 border border-[#facc15]/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Sparkles className="w-5 h-5 text-[#347F99]" />
+                <Sparkles className="w-5 h-5 text-[#b9460c]" />
                 <div>
-                  <div className="text-sm font-bold text-[#24333A]">Need a Microfiber Cloth?</div>
+                  <div className="text-sm font-bold text-[#171714]">Need a Microfiber Cloth?</div>
                   <div className="text-xs text-[#75828A]">Ultra-plush lint-free drying cloth for just ₹99</div>
                 </div>
               </div>
@@ -242,12 +242,12 @@ alt={item.product_name}
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-3xl border border-[#D6E8ED] p-6 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-[#24333A]">Order Summary</h2>
+            <div className="bg-white rounded-3xl border border-[#e5dcc9] p-6 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-[#171714]">Order Summary</h2>
 
               {/* Promo code form */}
               <form onSubmit={handleApplyPromo} className="space-y-2">
-                <label className="block text-xs font-bold text-[#24333A] uppercase tracking-wider">
+                <label className="block text-xs font-bold text-[#171714] uppercase tracking-wider">
                   Discount Code
                 </label>
                 <div className="flex gap-2">
@@ -256,12 +256,12 @@ alt={item.product_name}
                     placeholder="Enter coupon (e.g. CLEAN10)"
                     value={promoInput}
                     onChange={(e) => setPromoInput(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-[#D6E8ED] rounded-xl text-sm uppercase focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                    className="flex-1 px-3 py-2 border border-[#e5dcc9] rounded-xl text-sm uppercase focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                   />
                   <button
                     type="submit"
                     disabled={isValidatingPromo}
-                    className="px-4 py-2 bg-[#24333A] text-white rounded-xl text-xs font-bold hover:bg-[#347F99] transition-colors"
+                    className="px-4 py-2 bg-[#171714] text-white rounded-xl text-xs font-bold hover:bg-[#b9460c] transition-colors"
                   >
                     Apply
                   </button>
@@ -283,10 +283,10 @@ alt={item.product_name}
               </form>
 
               {/* Cost breakdown */}
-              <div className="border-t border-[#D6E8ED] pt-4 space-y-3 text-sm">
+              <div className="border-t border-[#e5dcc9] pt-4 space-y-3 text-sm">
                 <div className="flex justify-between text-[#75828A]">
                   <span>Subtotal</span>
-                  <span className="font-semibold text-[#24333A]">{formatPrice(subtotal)}</span>
+                  <span className="font-semibold text-[#171714]">{formatPrice(subtotal)}</span>
                 </div>
 
                 {discount > 0 && (
@@ -298,7 +298,7 @@ alt={item.product_name}
 
                 <div className="flex justify-between text-[#75828A]">
                   <span>Standard Shipping</span>
-                  <span className="font-semibold text-[#24333A]">
+                  <span className="font-semibold text-[#171714]">
                     {shippingFee === 0 ? (
                       <span className="text-emerald-700 font-bold uppercase text-xs">FREE</span>
                     ) : (
@@ -307,9 +307,9 @@ alt={item.product_name}
                   </span>
                 </div>
 
-                <div className="border-t border-[#D6E8ED] pt-4 flex justify-between items-baseline">
-                  <span className="text-base font-bold text-[#24333A]">Total Amount</span>
-                  <span className="text-2xl font-extrabold text-[#24333A]">
+                <div className="border-t border-[#e5dcc9] pt-4 flex justify-between items-baseline">
+                  <span className="text-base font-bold text-[#171714]">Total Amount</span>
+                  <span className="text-2xl font-extrabold text-[#171714]">
                     {formatPrice(grandTotal)}
                   </span>
                 </div>
@@ -329,13 +329,13 @@ alt={item.product_name}
               </Button>
 
               {/* Guarantees */}
-              <div className="border-t border-[#D6E8ED] pt-4 space-y-2 text-xs text-[#75828A]">
+              <div className="border-t border-[#e5dcc9] pt-4 space-y-2 text-xs text-[#75828A]">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#347F99]" />
+                  <ShieldCheck className="w-4 h-4 text-[#b9460c]" />
                   <span>256-bit encrypted secure checkout</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-[#347F99]" />
+                  <Truck className="w-4 h-4 text-[#b9460c]" />
                   <span>Delivered via Bluedart, Delhivery & DTDC</span>
                 </div>
               </div>

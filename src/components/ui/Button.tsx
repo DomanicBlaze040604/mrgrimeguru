@@ -17,28 +17,28 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-[#166534] text-white',
-          'hover:bg-[#14532D] hover:shadow-md',
+          'bg-[#F97316] text-[#111111]',
+          'hover:bg-[#ea650d] hover:shadow-md',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#166534]',
+          'focus-visible:ring-[#111111]',
         ],
         secondary: [
-          'bg-[#DCFCE7] text-[#14532D]',
-          'hover:bg-[#BBF7D0] hover:shadow-md',
+          'bg-[#fff0bc] text-[#171714]',
+          'hover:bg-[#ffe28a] hover:shadow-md',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#22C55E]',
+          'focus-visible:ring-[#facc15]',
         ],
         outline: [
-          'border-2 border-[#166534] text-[#166534] bg-transparent',
-          'hover:bg-[#166534] hover:text-white',
+          'border-2 border-[#111111] text-[#111111] bg-transparent',
+          'hover:bg-[#111111] hover:text-white',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#166534]',
+          'focus-visible:ring-[#111111]',
         ],
         ghost: [
-          'text-[#14532D] bg-transparent',
-          'hover:bg-[#F0FDF4]',
+          'text-[#171714] bg-transparent',
+          'hover:bg-[#fff7df]',
           'active:scale-[0.98]',
-          'focus-visible:ring-[#166534]',
+          'focus-visible:ring-[#111111]',
         ],
         destructive: [
           'bg-red-600 text-white',

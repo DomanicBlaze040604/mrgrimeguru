@@ -8,20 +8,20 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="space-y-3">
-      <h2 className="text-xl font-bold text-[#24333A]">{title}</h2>
-      <div className="text-sm sm:text-base text-[#52636a] leading-relaxed space-y-2">{children}</div>
+      <h2 className="text-xl font-bold text-[#171714]">{title}</h2>
+      <div className="text-sm sm:text-base text-[#655e51] leading-relaxed space-y-2">{children}</div>
     </section>
   )
 }
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-16">
-      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm space-y-10 text-[#24333A]">
+    <div className="min-h-screen bg-[#fffbf0] py-16">
+      <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#e5dcc9] p-8 sm:p-12 shadow-sm space-y-10 text-[#171714]">
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Terms of Service</h1>
           <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
-          <p className="text-sm text-[#52636a] mt-3">
+          <p className="text-sm text-[#655e51] mt-3">
             These Terms govern access to and use of the Mr GrimeGuru website and related services. By accessing the website or placing an order, you agree to these Terms and the applicable policies published on our website, subject to applicable law.
           </p>
         </div>

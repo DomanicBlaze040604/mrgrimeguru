@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingCart, Menu, X, Search, User, ChevronDown } from 'lucide-react'
+import { ShoppingCart, Menu, X, Search, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCartStore } from '@/lib/store/cart'
 import { cn } from '@/lib/utils'
@@ -86,10 +86,10 @@ export function SiteHeader() {
         )}
       >
         <div className="container-wide">
-          <div className="flex h-[68px] items-center justify-between gap-6">
+          <div className="flex h-[82px] items-center justify-between gap-3">
 
             {/* Logo — Bebas Neue display font */}
-            <Link href="/" className="flex flex-col shrink-0 group" aria-label="Mr GrimeGuru home">
+            <Link href="/" className="guru-header-logo flex flex-col shrink-0 group" aria-label="Mr GrimeGuru home">
               <span
                 className="font-black leading-none text-[#111111] tracking-wide group-hover:text-[#F97316] transition-colors"
                 style={{
@@ -101,7 +101,7 @@ export function SiteHeader() {
                 Mr GrimeGuru
               </span>
               <span
-                className="text-[9px] font-black uppercase tracking-[0.2em] text-[#F97316] mt-0.5"
+                className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#111111] mt-1"
                 style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}
               >
                 Secret Formula · Foam Spray
@@ -169,7 +169,7 @@ export function SiteHeader() {
               {/* "Shop all" CTA — black pill, desktop only */}
               <Link
                 href="/shop"
-                className="hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] transition-all ml-1"
+                className="guru-shop-all hidden md:inline-flex items-center px-5 py-2.5 rounded-full text-sm text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] transition-all ml-1"
                 style={{
                   backgroundColor: '#111111',
                   fontFamily: 'var(--font-syne), system-ui, sans-serif',

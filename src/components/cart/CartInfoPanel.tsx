@@ -68,15 +68,15 @@ export function CartInfoPanel() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 24, scale: 0.96 }}
           transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-          className="fixed bottom-6 left-6 z-50 w-72 bg-white rounded-2xl shadow-xl border border-[#E6F5F8] overflow-hidden"
+          className="fixed bottom-6 left-6 z-50 w-72 bg-white rounded-2xl shadow-xl border border-[#fff2be] overflow-hidden"
           role="dialog"
           aria-modal="false"
           aria-label="Product information"
         >
           {/* Header */}
           <div
-            className="flex items-center gap-2 px-4 py-3 border-b border-[#E6F5F8]"
-            style={{ backgroundColor: '#E6F5F8' }}
+            className="flex items-center gap-2 px-4 py-3 border-b border-[#fff2be]"
+            style={{ backgroundColor: '#fff2be' }}
           >
             <div className="w-10 h-10 rounded-lg overflow-hidden bg-white shrink-0">
               {lastAddedItem.image_url ? (
@@ -85,16 +85,16 @@ export function CartInfoPanel() {
                   alt={lastAddedItem.product_name}
                   width={40}
                   height={40}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-[#9FD8E8]">
-                  <ShoppingCart className="h-4 w-4 text-[#24333A]" />
+                <div className="w-full h-full flex items-center justify-center bg-[#facc15]">
+                  <ShoppingCart className="h-4 w-4 text-[#171714]" />
                 </div>
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-[#24333A] line-clamp-1">
+              <p className="text-xs font-bold text-[#171714] line-clamp-1">
                 {lastAddedItem.product_name}
               </p>
               <p className="text-xs text-[#75828A]">{lastAddedItem.variant_name}</p>
@@ -104,7 +104,7 @@ export function CartInfoPanel() {
               className="p-1 rounded-full hover:bg-white/80 transition-colors shrink-0"
               aria-label="Close product info"
             >
-              <X className="h-4 w-4 text-[#24333A]" />
+              <X className="h-4 w-4 text-[#171714]" />
             </button>
           </div>
 
@@ -120,7 +120,7 @@ export function CartInfoPanel() {
                 className="min-h-[80px]"
               >
                 <div className="text-2xl mb-2">{slides[slideIndex].icon}</div>
-                <p className="font-semibold text-sm text-[#24333A] mb-1">
+                <p className="font-semibold text-sm text-[#171714] mb-1">
                   {slides[slideIndex].title}
                 </p>
                 <p className="text-xs text-[#75828A] leading-relaxed">
@@ -135,10 +135,10 @@ export function CartInfoPanel() {
                 <button
                   onClick={prev}
                   disabled={slideIndex === 0}
-                  className="p-1 rounded-full hover:bg-[#E6F5F8] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  className="p-1 rounded-full hover:bg-[#fff2be] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Previous tip"
                 >
-                  <ChevronLeft className="h-4 w-4 text-[#24333A]" />
+                  <ChevronLeft className="h-4 w-4 text-[#171714]" />
                 </button>
                 <div className="flex gap-1.5" aria-label={`Tip ${slideIndex + 1} of ${slides.length}`}>
                   {slides.map((_, i) => (
@@ -147,7 +147,7 @@ export function CartInfoPanel() {
                       onClick={() => setSlideIndex(i)}
                       className="w-1.5 h-1.5 rounded-full transition-all"
                       style={{
-                        backgroundColor: i === slideIndex ? '#347F99' : '#D6E8ED',
+                        backgroundColor: i === slideIndex ? '#b9460c' : '#e5dcc9',
                         width: i === slideIndex ? '16px' : '6px',
                       }}
                       aria-label={`Go to tip ${i + 1}`}
@@ -157,10 +157,10 @@ export function CartInfoPanel() {
                 <button
                   onClick={next}
                   disabled={slideIndex === slides.length - 1}
-                  className="p-1 rounded-full hover:bg-[#E6F5F8] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                  className="p-1 rounded-full hover:bg-[#fff2be] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Next tip"
                 >
-                  <ChevronRight className="h-4 w-4 text-[#24333A]" />
+                  <ChevronRight className="h-4 w-4 text-[#171714]" />
                 </button>
               </div>
             )}

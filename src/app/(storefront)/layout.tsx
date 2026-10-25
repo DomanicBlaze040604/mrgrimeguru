@@ -1,8 +1,9 @@
+import '../storefront.css'
 import { SiteHeader } from '@/components/storefront/SiteHeader'
 import { SiteFooter } from '@/components/storefront/SiteFooter'
 import { CartDrawer } from '@/components/cart/CartDrawer'
-import { CartInfoPanel } from '@/components/cart/CartInfoPanel'
-import { ChatLauncher } from '@/components/chat/ChatLauncher'
+import { FloatingProductVideo } from '@/components/storefront/FloatingProductVideo'
+
 
 export default function StorefrontLayout({
   children,
@@ -10,15 +11,15 @@ export default function StorefrontLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="guru-storefront min-h-screen flex flex-col">
       <SiteHeader />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         {children}
       </main>
       <SiteFooter />
       <CartDrawer />
-      <CartInfoPanel />
-      <ChatLauncher />
+      <FloatingProductVideo />
+      
     </div>
   )
 }

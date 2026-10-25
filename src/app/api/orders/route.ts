@@ -1,3 +1,4 @@
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { generateOrderNumber } from '@/lib/utils'
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Shipping address is required' }, { status: 400 })
     }
 
-    // Calculate subtotal from DB prices (never trust client-side prices)
+    // Calculate subtotal from server offers and DB variant prices (never trust client-side prices)
     let subtotal_paise = 0
     const validatedItems: { product_id: string; variant_id: string; quantity: number; unit_price_paise: number; total_price_paise: number; product_name: string; variant_name: string; sku: string; image_url: string | null }[] = []
 
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
       const { data: variant, error } = await supabase
         .from('product_variants')
         .select(`
-          id, name, sku, price_paise, is_active,
+          id, name, sku, price_paise, is_active, is_default,
           products!inner(id, name, slug, status)
         `)
         .eq('id', item.variant_id)
@@ -58,19 +59,20 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: `Insufficient stock for ${variant.name}` }, { status: 400 })
       }
 
-      const total = variant.price_paise * item.quantity
-      subtotal_paise += total
-
       const product = Array.isArray(variant.products) ? variant.products[0] : variant.products
+      const offer = variant.is_default ? getCleanerOffer(product.slug) : undefined
+      const unitPrice = offer?.price ?? variant.price_paise
+      const total = unitPrice * item.quantity
+      subtotal_paise += total
 
       validatedItems.push({
         product_id: product.id,
         variant_id: variant.id,
         quantity: item.quantity,
-        unit_price_paise: variant.price_paise,
+        unit_price_paise: unitPrice,
         total_price_paise: total,
-        product_name: product.name,
-        variant_name: variant.name,
+        product_name: offer?.name ?? product.name,
+        variant_name: offer ? '560ml · Buy 1 Get 1' : variant.name,
         sku: variant.sku,
         image_url: item.image_url || null,
       })

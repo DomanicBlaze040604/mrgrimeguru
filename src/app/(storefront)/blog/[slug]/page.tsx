@@ -91,28 +91,28 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-12">
+    <div className="min-h-screen bg-[#fffbf0] py-12">
       <div className="container-wide max-w-4xl">
         {/* Back Link */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-sm text-[#347F99] hover:underline mb-8"
+          className="inline-flex items-center gap-2 text-sm text-[#b9460c] hover:underline mb-8"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Cleaning Guides
         </Link>
 
         {/* Article Header */}
         <div className="space-y-4 mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#fff2be] text-[#b9460c]">
             <Sparkles className="w-3.5 h-3.5" />
             {article.category}
           </span>
-          <h1 className="text-3xl sm:text-5xl font-bold text-[#24333A] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-bold text-[#171714] tracking-tight leading-tight">
             {article.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-6 text-xs text-[#75828A] pt-4 border-t border-[#D6E8ED]">
-            <span className="font-semibold text-[#24333A]">By {article.author}</span>
+          <div className="flex flex-wrap items-center gap-6 text-xs text-[#75828A] pt-4 border-t border-[#e5dcc9]">
+            <span className="font-semibold text-[#171714]">By {article.author}</span>
             <span className="flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5" /> {article.publishedAt}
             </span>
@@ -123,18 +123,18 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
         </div>
 
         {/* Featured Image */}
-        <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-[#D6E8ED] mb-12 shadow-sm bg-white">
+        <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-[#e5dcc9] mb-12 shadow-sm bg-white">
           <Image
             src={article.image}
             alt={article.title}
             fill
             priority
-            className="object-cover"
+            className="object-contain"
           />
         </div>
 
         {/* Article Body */}
-        <div className="bg-white rounded-3xl border border-[#D6E8ED] p-8 sm:p-12 shadow-sm mb-12 space-y-6 text-[#24333A] text-base sm:text-lg leading-relaxed">
+        <div className="bg-white rounded-3xl border border-[#e5dcc9] p-8 sm:p-12 shadow-sm mb-12 space-y-6 text-[#171714] text-base sm:text-lg leading-relaxed">
           {content.body.map((paragraph, i) => (
             <p key={i} className="text-[#3a4d55]">
               {paragraph}
@@ -144,22 +144,22 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
 
         {/* Shoppable Product Callout Box */}
         {content.recommendedProduct && (
-          <div className="p-8 rounded-3xl bg-gradient-to-r from-[#E6F5F8] via-[#FAF8F2] to-[#FAF8F2] border border-[#9FD8E8] shadow-sm mb-12">
-            <span className="text-xs font-bold text-[#347F99] uppercase tracking-wider block mb-2">
+          <div className="p-8 rounded-3xl bg-gradient-to-r from-[#fff2be] via-[#fffbf0] to-[#fffbf0] border border-[#facc15] shadow-sm mb-12">
+            <span className="text-xs font-bold text-[#b9460c] uppercase tracking-wider block mb-2">
               Featured Solution in This Guide
             </span>
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <div className="relative w-28 h-28 rounded-2xl overflow-hidden bg-white border border-[#D6E8ED] shrink-0">
+              <div className="relative w-28 h-28 rounded-2xl overflow-hidden bg-white border border-[#e5dcc9] shrink-0">
                 <Image
                   src={content.recommendedProduct.image}
                   alt={content.recommendedProduct.name}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
 
               <div className="flex-1 text-center sm:text-left">
-                <h3 className="font-bold text-xl text-[#24333A] mb-1">
+                <h3 className="font-bold text-xl text-[#171714] mb-1">
                   {content.recommendedProduct.name}
                 </h3>
                 <p className="text-xs text-[#75828A] mb-4">
@@ -183,16 +183,16 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
         )}
 
         {/* Bottom Navigation */}
-        <div className="flex justify-between items-center pt-8 border-t border-[#D6E8ED]">
+        <div className="flex justify-between items-center pt-8 border-t border-[#e5dcc9]">
           <Link
             href="/blog"
-            className="font-bold text-sm text-[#347F99] hover:underline flex items-center gap-2"
+            className="font-bold text-sm text-[#b9460c] hover:underline flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" /> All Cleaning Guides
           </Link>
           <Link
             href="/shop"
-            className="font-bold text-sm text-[#24333A] hover:text-[#347F99] flex items-center gap-2"
+            className="font-bold text-sm text-[#171714] hover:text-[#b9460c] flex items-center gap-2"
           >
             Explore Cleaning Catalog <ShoppingBag className="w-4 h-4" />
           </Link>

@@ -86,15 +86,15 @@ export default async function BlogListingPage() {
     : ARTICLES
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-14">
+    <div className="min-h-screen bg-[#fffbf0] py-14">
       <div className="container-wide">
         {/* Page Hero */}
         <div className="max-w-2xl mb-12">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#E6F5F8] text-[#347F99] mb-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#fff2be] text-[#b9460c] mb-4">
             <BookOpen className="w-3.5 h-3.5" />
             Knowledge Base & Practical Hacks
           </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-[#24333A] tracking-tight mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-[#171714] tracking-tight mb-4">
             Cleaning Guides for Real Life
           </h1>
           <p className="text-[#75828A] text-base sm:text-lg leading-relaxed">
@@ -104,25 +104,25 @@ export default async function BlogListingPage() {
 
         {/* Featured Article */}
         {posts[0] && (
-          <div className="mb-14 bg-white rounded-3xl border border-[#D6E8ED] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+          <div className="mb-14 bg-white rounded-3xl border border-[#e5dcc9] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-              <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:h-full min-h-[320px] bg-[#FAF8F2]">
+              <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto lg:h-full min-h-[320px] bg-[#fffbf0]">
                 <Image
                   src={posts[0].image}
                   alt={posts[0].title}
                   fill
                   priority
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
 
               <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between">
                 <div>
-                  <span className="text-xs font-bold text-[#347F99] uppercase tracking-wider">
+                  <span className="text-xs font-bold text-[#b9460c] uppercase tracking-wider">
                     {posts[0].category}
                   </span>
                   <Link href={`/blog/${posts[0].slug}`}>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-[#24333A] hover:text-[#347F99] transition-colors mt-2 mb-4 leading-snug">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-[#171714] hover:text-[#b9460c] transition-colors mt-2 mb-4 leading-snug">
                       {posts[0].title}
                     </h2>
                   </Link>
@@ -131,7 +131,7 @@ export default async function BlogListingPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-[#75828A] pt-4 border-t border-[#D6E8ED]">
+                <div className="flex items-center justify-between text-xs text-[#75828A] pt-4 border-t border-[#e5dcc9]">
                   <div className="flex items-center gap-4">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5" /> {posts[0].publishedAt}
@@ -142,7 +142,7 @@ export default async function BlogListingPage() {
                   </div>
                   <Link
                     href={`/blog/${posts[0].slug}`}
-                    className="font-bold text-[#347F99] hover:underline flex items-center gap-1"
+                    className="font-bold text-[#b9460c] hover:underline flex items-center gap-1"
                   >
                     Read Guide <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
@@ -157,9 +157,9 @@ export default async function BlogListingPage() {
           {posts.slice(1).map((article) => (
             <div
               key={article.slug}
-              className="bg-white rounded-2xl border border-[#D6E8ED] overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
+              className="bg-white rounded-2xl border border-[#e5dcc9] overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
             >
-              <Link href={`/blog/${article.slug}`} className="relative aspect-[16/10] block overflow-hidden bg-[#FAF8F2]">
+              <Link href={`/blog/${article.slug}`} className="relative aspect-[16/10] block overflow-hidden bg-[#fffbf0]">
                 <Image
                   src={article.image}
                   alt={article.title}
@@ -170,11 +170,11 @@ export default async function BlogListingPage() {
 
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <span className="text-xs font-bold text-[#347F99] uppercase tracking-wider">
+                  <span className="text-xs font-bold text-[#b9460c] uppercase tracking-wider">
                     {article.category}
                   </span>
                   <Link href={`/blog/${article.slug}`}>
-                    <h3 className="font-bold text-lg text-[#24333A] hover:text-[#347F99] transition-colors mt-1 mb-3 line-clamp-2">
+                    <h3 className="font-bold text-lg text-[#171714] hover:text-[#b9460c] transition-colors mt-1 mb-3 line-clamp-2">
                       {article.title}
                     </h3>
                   </Link>
@@ -183,11 +183,11 @@ export default async function BlogListingPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-[#75828A] pt-4 border-t border-[#D6E8ED]">
+                <div className="flex items-center justify-between text-xs text-[#75828A] pt-4 border-t border-[#e5dcc9]">
                   <span>{article.readTime}</span>
                   <Link
                     href={`/blog/${article.slug}`}
-                    className="font-bold text-[#347F99] hover:underline flex items-center gap-1"
+                    className="font-bold text-[#b9460c] hover:underline flex items-center gap-1"
                   >
                     Read <ArrowRight className="w-3 h-3" />
                   </Link>

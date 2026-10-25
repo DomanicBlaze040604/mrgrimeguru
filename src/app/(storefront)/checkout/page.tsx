@@ -198,7 +198,7 @@ export default function CheckoutPage() {
               email: email,
               contact: phone,
             },
-            theme: { color: '#347F99' },
+            theme: { color: '#b9460c' },
           })
           rzp.open()
         } else {
@@ -225,9 +225,9 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 bg-[#FAF8F2]">
-        <h2 className="text-2xl font-bold text-[#24333A] mb-4">No items in your cart</h2>
-        <Link href="/shop" className="text-[#347F99] underline font-semibold">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 bg-[#fffbf0]">
+        <h2 className="text-2xl font-bold text-[#171714] mb-4">No items in your cart</h2>
+        <Link href="/shop" className="text-[#b9460c] underline font-semibold">
           Return to shop
         </Link>
       </div>
@@ -235,13 +235,13 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F2] py-10">
+    <div className="min-h-screen bg-[#fffbf0] py-10">
       <div className="container-wide">
         {/* Header */}
-        <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#D6E8ED]">
+        <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#e5dcc9]">
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 text-sm text-[#347F99] hover:underline"
+            className="inline-flex items-center gap-2 text-sm text-[#b9460c] hover:underline"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Cart
           </Link>
@@ -256,9 +256,9 @@ export default function CheckoutPage() {
             {/* Form Fields Column */}
             <div className="lg:col-span-7 space-y-8">
               {/* Contact Information */}
-              <div className="p-6 bg-white rounded-3xl border border-[#D6E8ED] shadow-sm space-y-4">
-                <h2 className="text-lg font-bold text-[#24333A] flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#E6F5F8] text-[#347F99] text-xs flex items-center justify-center font-bold">
+              <div className="p-6 bg-white rounded-3xl border border-[#e5dcc9] shadow-sm space-y-4">
+                <h2 className="text-lg font-bold text-[#171714] flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#fff2be] text-[#b9460c] text-xs flex items-center justify-center font-bold">
                     1
                   </span>
                   Contact Information
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#24333A] mb-1">
+                    <label className="block text-xs font-bold text-[#171714] mb-1">
                       Email Address *
                     </label>
                     <input
@@ -275,11 +275,11 @@ export default function CheckoutPage() {
                       placeholder="you@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                      className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-[#24333A] mb-1">
+                    <label className="block text-xs font-bold text-[#171714] mb-1">
                       Mobile Number (for updates) *
                     </label>
                     <input
@@ -289,16 +289,16 @@ export default function CheckoutPage() {
                       placeholder="9876543210"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                      className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Shipping Address */}
-              <div className="p-6 bg-white rounded-3xl border border-[#D6E8ED] shadow-sm space-y-4">
-                <h2 className="text-lg font-bold text-[#24333A] flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#E6F5F8] text-[#347F99] text-xs flex items-center justify-center font-bold">
+              <div className="p-6 bg-white rounded-3xl border border-[#e5dcc9] shadow-sm space-y-4">
+                <h2 className="text-lg font-bold text-[#171714] flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#fff2be] text-[#b9460c] text-xs flex items-center justify-center font-bold">
                     2
                   </span>
                   Delivery Address
@@ -306,7 +306,7 @@ export default function CheckoutPage() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#24333A] mb-1">
+                    <label className="block text-xs font-bold text-[#171714] mb-1">
                       Full Name *
                     </label>
                     <input
@@ -315,12 +315,12 @@ export default function CheckoutPage() {
                       placeholder="First and last name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                      className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#24333A] mb-1">
+                    <label className="block text-xs font-bold text-[#171714] mb-1">
                       Flat, House no., Building, Apartment *
                     </label>
                     <input
@@ -329,13 +329,13 @@ export default function CheckoutPage() {
                       placeholder="e.g. Flat 402, Sunshine Residency"
                       value={addressLine1}
                       onChange={(e) => setAddressLine1(e.target.value)}
-                      className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                      className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#24333A] mb-1">
+                      <label className="block text-xs font-bold text-[#171714] mb-1">
                         Area, Street, Sector
                       </label>
                       <input
@@ -343,11 +343,11 @@ export default function CheckoutPage() {
                         placeholder="e.g. Indiranagar 100ft Road"
                         value={addressLine2}
                         onChange={(e) => setAddressLine2(e.target.value)}
-                        className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                        className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#24333A] mb-1">
+                      <label className="block text-xs font-bold text-[#171714] mb-1">
                         Landmark
                       </label>
                       <input
@@ -355,14 +355,14 @@ export default function CheckoutPage() {
                         placeholder="e.g. Near Metro Station"
                         value={landmark}
                         onChange={(e) => setLandmark(e.target.value)}
-                        className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                        className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#24333A] mb-1">
+                      <label className="block text-xs font-bold text-[#171714] mb-1">
                         PIN Code *
                       </label>
                       <input
@@ -372,11 +372,11 @@ export default function CheckoutPage() {
                         placeholder="6-digit PIN"
                         value={pincode}
                         onChange={(e) => handlePincodeChange(e.target.value)}
-                        className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                        className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#24333A] mb-1">
+                      <label className="block text-xs font-bold text-[#171714] mb-1">
                         Town / City *
                       </label>
                       <input
@@ -385,11 +385,11 @@ export default function CheckoutPage() {
                         placeholder="City"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                        className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#24333A] mb-1">
+                      <label className="block text-xs font-bold text-[#171714] mb-1">
                         State *
                       </label>
                       <input
@@ -398,7 +398,7 @@ export default function CheckoutPage() {
                         placeholder="State"
                         value={stateName}
                         onChange={(e) => setStateName(e.target.value)}
-                        className="w-full px-4 py-2.5 border border-[#D6E8ED] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#9FD8E8]"
+                        className="w-full px-4 py-2.5 border border-[#e5dcc9] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#facc15]"
                       />
                     </div>
                   </div>
@@ -406,9 +406,9 @@ export default function CheckoutPage() {
               </div>
 
               {/* Payment Method */}
-              <div className="p-6 bg-white rounded-3xl border border-[#D6E8ED] shadow-sm space-y-4">
-                <h2 className="text-lg font-bold text-[#24333A] flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#E6F5F8] text-[#347F99] text-xs flex items-center justify-center font-bold">
+              <div className="p-6 bg-white rounded-3xl border border-[#e5dcc9] shadow-sm space-y-4">
+                <h2 className="text-lg font-bold text-[#171714] flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#fff2be] text-[#b9460c] text-xs flex items-center justify-center font-bold">
                     3
                   </span>
                   Payment Method
@@ -419,8 +419,8 @@ export default function CheckoutPage() {
                   <label
                     className={`flex items-start gap-4 p-4 rounded-2xl border cursor-pointer transition-all ${
                       paymentMethod === 'razorpay'
-                        ? 'border-[#347F99] bg-[#E6F5F8]/40 ring-1 ring-[#347F99]'
-                        : 'border-[#D6E8ED] hover:border-[#75828A]'
+                        ? 'border-[#b9460c] bg-[#fff2be]/40 ring-1 ring-[#b9460c]'
+                        : 'border-[#e5dcc9] hover:border-[#75828A]'
                     }`}
                   >
                     <input
@@ -428,12 +428,12 @@ export default function CheckoutPage() {
                       name="payment"
                       checked={paymentMethod === 'razorpay'}
                       onChange={() => setPaymentMethod('razorpay')}
-                      className="mt-1 text-[#347F99] focus:ring-[#9FD8E8]"
+                      className="mt-1 text-[#b9460c] focus:ring-[#facc15]"
                     />
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-sm text-[#24333A] flex items-center gap-2">
-                          <CreditCard className="w-4 h-4 text-[#347F99]" />
+                        <span className="font-bold text-sm text-[#171714] flex items-center gap-2">
+                          <CreditCard className="w-4 h-4 text-[#b9460c]" />
                           Online Payment (UPI, Cards, NetBanking)
                         </span>
                         <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
@@ -450,8 +450,8 @@ export default function CheckoutPage() {
                   <label
                     className={`flex items-start gap-4 p-4 rounded-2xl border cursor-pointer transition-all ${
                       paymentMethod === 'cod'
-                        ? 'border-[#347F99] bg-[#E6F5F8]/40 ring-1 ring-[#347F99]'
-                        : 'border-[#D6E8ED] hover:border-[#75828A]'
+                        ? 'border-[#b9460c] bg-[#fff2be]/40 ring-1 ring-[#b9460c]'
+                        : 'border-[#e5dcc9] hover:border-[#75828A]'
                     }`}
                   >
                     <input
@@ -459,12 +459,12 @@ export default function CheckoutPage() {
                       name="payment"
                       checked={paymentMethod === 'cod'}
                       onChange={() => setPaymentMethod('cod')}
-                      className="mt-1 text-[#347F99] focus:ring-[#9FD8E8]"
+                      className="mt-1 text-[#b9460c] focus:ring-[#facc15]"
                     />
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-sm text-[#24333A] flex items-center gap-2">
-                          <Banknote className="w-4 h-4 text-[#347F99]" />
+                        <span className="font-bold text-sm text-[#171714] flex items-center gap-2">
+                          <Banknote className="w-4 h-4 text-[#b9460c]" />
                           Cash on Delivery (Pay upon delivery)
                         </span>
                         <span className="text-xs text-[#75828A] font-semibold">+₹39 handling</span>
@@ -480,21 +480,21 @@ export default function CheckoutPage() {
 
             {/* Order Review & Pay Column */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="p-6 bg-white rounded-3xl border border-[#D6E8ED] shadow-sm space-y-6">
-                <h3 className="text-lg font-bold text-[#24333A]">Order Details ({items.length})</h3>
+              <div className="p-6 bg-white rounded-3xl border border-[#e5dcc9] shadow-sm space-y-6">
+                <h3 className="text-lg font-bold text-[#171714]">Order Details ({items.length})</h3>
 
                 {/* Mini Item List */}
-                <div className="max-h-60 overflow-y-auto divide-y divide-[#D6E8ED] pr-2">
+                <div className="max-h-60 overflow-y-auto divide-y divide-[#e5dcc9] pr-2">
                   {items.map((item) => (
                     <div key={item.id} className="py-3 flex items-center gap-3">
-                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#FAF8F2] border border-[#D6E8ED] shrink-0">
-                        <Image src={item.image} alt={item.name} fill className="object-cover" />
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#fffbf0] border border-[#e5dcc9] shrink-0">
+                        <Image src={item.image} alt={item.name} fill className="object-contain" />
                       </div>
                       <div className="flex-1 text-xs">
-                        <div className="font-bold text-[#24333A] line-clamp-1">{item.name}</div>
+                        <div className="font-bold text-[#171714] line-clamp-1">{item.name}</div>
                         <div className="text-[#75828A]">Qty: {item.quantity}</div>
                       </div>
-                      <div className="text-xs font-bold text-[#24333A]">
+                      <div className="text-xs font-bold text-[#171714]">
                         {formatPrice(item.price_paise * item.quantity)}
                       </div>
                     </div>
@@ -502,10 +502,10 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Price Breakdown */}
-                <div className="border-t border-[#D6E8ED] pt-4 space-y-2.5 text-sm">
+                <div className="border-t border-[#e5dcc9] pt-4 space-y-2.5 text-sm">
                   <div className="flex justify-between text-[#75828A]">
                     <span>Items Subtotal</span>
-                    <span className="font-semibold text-[#24333A]">{formatPrice(subtotal)}</span>
+                    <span className="font-semibold text-[#171714]">{formatPrice(subtotal)}</span>
                   </div>
 
                   {discount > 0 && (
@@ -517,7 +517,7 @@ export default function CheckoutPage() {
 
                   <div className="flex justify-between text-[#75828A]">
                     <span>Shipping Fee</span>
-                    <span className="font-semibold text-[#24333A]">
+                    <span className="font-semibold text-[#171714]">
                       {shippingFee === 0 ? (
                         <span className="text-emerald-700 font-bold uppercase text-xs">FREE</span>
                       ) : (
@@ -529,13 +529,13 @@ export default function CheckoutPage() {
                   {paymentMethod === 'cod' && (
                     <div className="flex justify-between text-[#75828A]">
                       <span>COD Handling Fee</span>
-                      <span className="font-semibold text-[#24333A]">{formatPrice(codFee)}</span>
+                      <span className="font-semibold text-[#171714]">{formatPrice(codFee)}</span>
                     </div>
                   )}
 
-                  <div className="border-t border-[#D6E8ED] pt-4 flex justify-between items-baseline">
-                    <span className="text-base font-bold text-[#24333A]">Amount Payable</span>
-                    <span className="text-2xl font-extrabold text-[#24333A]">
+                  <div className="border-t border-[#e5dcc9] pt-4 flex justify-between items-baseline">
+                    <span className="text-base font-bold text-[#171714]">Amount Payable</span>
+                    <span className="text-2xl font-extrabold text-[#171714]">
                       {formatPrice(grandTotal)}
                     </span>
                   </div>
