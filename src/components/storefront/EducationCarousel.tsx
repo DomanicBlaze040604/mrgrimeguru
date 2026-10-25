@@ -106,7 +106,7 @@ export function EducationCarousel() {
           <p className="text-caption mb-3" style={{ color: '#9FD8E8' }}>
             Cleaning Education
           </p>
-          <h2 className="text-headline mb-4" style={{ color: '#FAF8F2' }}>
+          <h2 className="text-headline mb-4" style={{ color: '#FAF8F2', fontFamily: 'var(--font-bebas), Impact, sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}>
             Every Mess Has a Match.
           </h2>
           <p className="text-body-lg max-w-xl mx-auto" style={{ color: '#75828A' }}>

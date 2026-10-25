@@ -4,23 +4,34 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, type Variants } from 'framer-motion'
-import { ArrowRight, Sparkles, Star } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { ArrowRight } from 'lucide-react'
+
+/* ── Brand colours from packaging ────────────────────────
+   Black  #111111   (primary text / can body)
+   Orange #F97316   (cap / accent)
+   Yellow #FACC15   (logo badge)
+   Cream  #FFFBF0   (background)
+──────────────────────────────────────────────────────── */
 
 const ICON_CATEGORIES = [
-  { id: 'shoe-cleaner',      label: 'Shoe &',    sublabel: 'Sneaker Care',      href: '/shop?family=shoe_cleaner',         image: '/images/products/shoe-cleaner-1.jpeg',      bg: '#EDE9FE' },
-  { id: 'multipurpose',      label: 'Multi',     sublabel: 'purpose Cleaner',   href: '/shop?family=multipurpose_cleaner', image: '/images/products/multipurpose-cleaner-1.jpeg', bg: '#FEF3C7' },
-  { id: 'kitchen-cleaner',   label: 'Kitchen',   sublabel: 'Cleaner',           href: '/shop?family=kitchen_cleaner',      image: '/images/products/kitchen-cleaner-1.jpeg',   bg: '#FFE4E6' },
-  { id: 'laundry-pods',      label: 'Laundry',   sublabel: 'Pods',              href: '/shop?family=laundry_pods',         image: '/images/products/laundry-pods.jpg',          bg: '#DCFCE7' },
-  { id: 'all-products',      label: 'All',       sublabel: 'Products',          href: '/shop',                             image: '/images/products/all-products-frame.jpeg',   bg: '#E0F2FE' },
+  { id: 'shoe-cleaner',    label: 'Shoe Cleaner',         href: '/shop/shoe-cleaner',         image: '/images/products/shoe-cleaner-1.jpeg',        bg: '#FFF3E0' },
+  { id: 'multipurpose',    label: 'Multipurpose Cleaner', href: '/shop/multipurpose-cleaner',  image: '/images/products/multipurpose-cleaner-1.jpeg', bg: '#FFFDE7' },
+  { id: 'kitchen-cleaner', label: 'Kitchen Cleaner',      href: '/shop/kitchen-cleaner',       image: '/images/products/kitchen-cleaner-1.jpeg',      bg: '#FFF3E0' },
+  { id: 'laundry-pods',    label: 'Laundry Pods',         href: '/shop/laundry-pods',          image: '/images/products/laundry-pods.jpg',            bg: '#F3F4F6' },
+  { id: 'all-products',    label: 'All Products',         href: '/shop',                       image: '/images/products/all-products-frame.jpeg',     bg: '#FFF8E1' },
 ]
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+const TRUST_STATS = [
+  { value: '3 Products', sub: 'Spray cleaners' },
+  { value: 'Secret Formula', sub: 'Made by us' },
+  { value: 'Free Shipping', sub: 'On orders ₹499+' },
+]
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (d = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, delay: d, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   }),
 }
 
@@ -28,54 +39,37 @@ export function HeroSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{
-        background: 'linear-gradient(160deg, #F0FDF4 0%, #FAFDF7 50%, #FFFFFF 100%)',
-      }}
+      style={{ backgroundColor: '#FFFBF0' }}
       aria-label="Brand hero"
     >
-      {/* Decorative background blobs */}
-      <div
-        className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-40 blur-3xl pointer-events-none"
-        style={{ backgroundColor: '#DCFCE7' }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full opacity-30 blur-3xl pointer-events-none"
-        style={{ backgroundColor: '#FEF3C7' }}
-        aria-hidden="true"
-      />
-
-      {/* ── Category Icon Strip — sits at the very top, above hero content ── */}
-      <div className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-sm">
-        <div className="container-wide py-5 md:py-6">
-          <div className="flex items-start justify-start md:justify-center gap-5 sm:gap-8 md:gap-10 overflow-x-auto scrollbar-hide px-1">
+      {/* ── Category strip ── */}
+      <div className="border-b border-orange-100 bg-white">
+        <div className="container-wide py-4 md:py-5">
+          <div className="flex items-start justify-start md:justify-center gap-4 sm:gap-7 md:gap-10 overflow-x-auto scrollbar-hide px-1">
             {ICON_CATEGORIES.map((cat, i) => (
               <motion.div
                 key={cat.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.07 }}
+                transition={{ duration: 0.3, delay: i * 0.06 }}
                 className="flex-shrink-0"
               >
                 <Link
                   href={cat.href}
-                  className="group flex flex-col items-center gap-2 text-center w-16 sm:w-20 md:w-24"
-                  aria-label={`Shop ${cat.label} ${cat.sublabel}`}
+                  className="group flex flex-col items-center gap-2 text-center w-[68px] sm:w-20 md:w-[90px]"
+                  aria-label={cat.label}
                 >
                   <div
-                    className="relative w-[62px] h-[62px] sm:w-[76px] sm:h-[76px] md:w-[88px] md:h-[88px] rounded-full overflow-hidden shadow-md ring-2 ring-transparent group-hover:ring-[#166534] group-hover:scale-105 transition-all duration-300"
+                    className="relative w-[60px] h-[60px] sm:w-[72px] sm:h-[72px] md:w-[82px] md:h-[82px] rounded-full overflow-hidden shadow ring-2 ring-transparent group-hover:ring-[#F97316] group-hover:scale-105 transition-all duration-300"
                     style={{ backgroundColor: cat.bg }}
                   >
-                    <Image
-                      src={cat.image}
-                      alt={cat.label}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 62px, (max-width: 1024px) 76px, 88px"
-                    />
+                    <Image src={cat.image} alt={cat.label} fill className="object-cover" sizes="82px" />
                   </div>
-                  <p className="text-[11px] sm:text-xs font-bold text-[#14532D] group-hover:text-[#166534] leading-tight transition-colors">
-                    {cat.label}<br /><span className="font-semibold">{cat.sublabel}</span>
+                  <p
+                    className="text-[10px] sm:text-[11px] font-bold text-[#111111] group-hover:text-[#F97316] leading-tight transition-colors"
+                    style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}
+                  >
+                    {cat.label}
                   </p>
                 </Link>
               </motion.div>
@@ -84,224 +78,155 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="container-wide relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8 py-16 lg:py-20">
-          {/* Text content */}
-          <div className="flex-1 max-w-xl">
-            {/* Eyebrow */}
-            <motion.div
-              variants={fadeIn}
-              initial="hidden"
-              animate="visible"
-              custom={0}
-              className="inline-flex items-center gap-2 mb-5"
-            >
+      {/* ── Hero body ── */}
+      <div className="container-wide">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 py-14 lg:py-16">
+
+          {/* Left: copy */}
+          <div className="flex-1 max-w-[540px]">
+
+            {/* Eyebrow pill — Syne */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0} className="mb-5">
               <span
-                className="badge text-xs font-bold tracking-wide uppercase px-3.5 py-1.5 rounded-full"
-                style={{ backgroundColor: '#DCFCE7', color: '#166534', border: '1px solid #86EFAC' }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 border-[#111111] bg-[#FACC15] text-[#111111] text-xs shadow-[2px_2px_0px_#111111]"
+                style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif', fontWeight: 800 }}
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#166534]" />
-                🌿 100% Plant Powered · 0% Harsh Chemicals
+                <span>✦</span> Secret Formula · Hydrogen Foam Spray
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline — Bebas Neue, massive condensed like the can label */}
             <motion.h1
-              variants={fadeIn}
+              variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.1}
-              className="text-display mb-5"
-              style={{ color: '#14532D' }}
+              custom={0.08}
+              className="leading-[0.95] tracking-wide mb-5"
+              style={{
+                fontFamily: 'var(--font-bebas), Impact, sans-serif',
+                fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+                color: '#111111',
+              }}
             >
-              Naturally Clean.{' '}
-              <span className="text-[#166534]">A Cleaner Life Starts Here.</span>
+              Let the foam{' '}
+              <span className="relative inline-block">
+                do the
+                <span
+                  className="absolute left-0 w-full h-4 -z-10 rounded-sm"
+                  style={{ backgroundColor: '#FACC15', bottom: '6px' }}
+                  aria-hidden="true"
+                />
+              </span>{' '}
+              hard work.
             </motion.h1>
 
-            {/* Subheadline */}
+            {/* Sub — DM Sans */}
             <motion.p
-              variants={fadeIn}
+              variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.2}
-              className="text-body-lg mb-4 text-gray-600 leading-relaxed"
+              custom={0.16}
+              className="text-base sm:text-lg text-[#444444] leading-relaxed mb-8 max-w-md"
+              style={{ fontFamily: 'var(--font-sans), system-ui, sans-serif' }}
             >
-              Toxin-free, plant-powered cleaning solutions crafted for modern Indian homes. From everyday shoe stains to stubborn kitchen grease — Mr GrimeGuru brings together practical cleaning solutions designed to make your routine simpler.
+              Foam that clings to grease, shoe dirt, and everyday grime — so you scrub less and wipe more. Our own secret formula, made for the way Indian homes actually get dirty.
             </motion.p>
 
-            {/* Grime meaning & synonym */}
+            {/* CTAs — Syne */}
             <motion.div
-              variants={fadeIn}
+              variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.25}
-              className="mb-8 px-4 py-3 rounded-2xl border border-emerald-100 bg-emerald-50/60 inline-block"
+              custom={0.22}
+              className="flex flex-wrap gap-3 mb-10"
             >
-              <p className="text-xs font-black text-[#166534] uppercase tracking-widest mb-0.5">
-                grime <span className="font-normal normal-case tracking-normal text-gray-400">/ ɡrʌɪm /</span>
-              </p>
-              <p className="text-sm text-gray-600 italic">
-                <span className="font-bold text-gray-800">noun</span> — dirt, filth, grease, soot, muck, crud.
-              </p>
-              <p className="text-xs text-[#059669] font-semibold mt-1">
-                We handle every synonym. 💪
-              </p>
+              <Link
+                href="/shop"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                style={{ backgroundColor: '#F97316', fontFamily: 'var(--font-syne), system-ui, sans-serif', fontWeight: 800 }}
+              >
+                Explore the range <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="#cleaning-fix"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm text-[#111111] bg-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif', fontWeight: 800 }}
+              >
+                See it work
+              </Link>
             </motion.div>
 
-            {/* CTAs */}
+            {/* Trust stats — Syne for values */}
             <motion.div
-              variants={fadeIn}
+              variants={fadeUp}
               initial="hidden"
               animate="visible"
-              custom={0.3}
-              className="flex flex-wrap gap-3"
+              custom={0.28}
+              className="flex flex-wrap gap-6 pt-5 border-t-2 border-[#111111]/10"
             >
-              <Button variant="primary" size="lg" className="bg-[#166534] hover:bg-[#14532D] shadow-md shadow-emerald-900/10" rightIcon={<ArrowRight className="h-4 w-4" />} asChild>
-                <Link href="/shop">Shop Best Cleaners</Link>
-              </Button>
-              <Button variant="outline" size="lg" className="border-2 border-[#166534] text-[#166534] hover:bg-[#F0FDF4]" asChild>
-                <Link href="#cleaning-fix">Find Your Cleaning Fix</Link>
-              </Button>
-            </motion.div>
-
-            {/* Trust signals */}
-            <motion.div
-              variants={fadeIn}
-              initial="hidden"
-              animate="visible"
-              custom={0.4}
-              className="flex flex-wrap items-center gap-6 mt-8"
-            >
-              {[
-                { stat: '100% Plant Actives', label: 'Biodegradable' },
-                { stat: '★ 4.9 Rating', label: '50,000+ happy homes' },
-                { stat: 'Free shipping', label: 'On orders above ₹499' },
-              ].map(({ stat, label }) => (
-                <div key={stat} className="flex flex-col">
-                  <span className="font-extrabold text-base text-[#14532D]">
-                    {stat}
-                  </span>
-                  <span className="text-xs text-gray-500">
-                    {label}
-                  </span>
+              {TRUST_STATS.map(({ value, sub }) => (
+                <div key={value}>
+                  <p className="font-black text-base text-[#111111]" style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}>{value}</p>
+                  <p className="text-xs text-[#666666]" style={{ fontFamily: 'var(--font-sans), system-ui, sans-serif' }}>{sub}</p>
                 </div>
               ))}
             </motion.div>
           </div>
 
-          {/* Hero image + Bestseller card */}
+          {/* Right: product image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="flex-1 relative max-w-lg w-full"
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="flex-1 relative w-full max-w-[520px]"
           >
-            {/* Decorative card behind */}
+            {/* "spray · 30 sec · wipe" badge */}
             <div
-              className="absolute inset-4 rounded-3xl"
-              style={{ backgroundColor: '#DCFCE7', opacity: 0.7 }}
+              className="absolute top-4 left-4 z-20 px-3 py-1.5 rounded-full border-2 border-[#111111] bg-white font-black text-xs text-[#111111] shadow-[2px_2px_0px_#111111]"
               aria-hidden="true"
-            />
+            >
+              spray · 30 sec · wipe
+            </div>
 
-            {/* Main hero image */}
-            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] border border-emerald-100">
+            {/* 1+1 badge */}
+            <motion.div
+              animate={{ rotate: [0, 3, -3, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-3 -right-3 z-20 w-[72px] h-[72px] sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center border-2 border-[#111111] shadow-[3px_3px_0px_#111111] text-center"
+              style={{ backgroundColor: '#FACC15' }}
+              aria-hidden="true"
+            >
+              <span className="font-black text-lg leading-none text-[#111111]">1+1</span>
+              <span className="text-[9px] font-bold text-[#111111] leading-tight">on every<br />cleaner</span>
+            </motion.div>
+
+            {/* Main image card */}
+            <div
+              className="relative rounded-3xl overflow-hidden border-2 border-[#111111] shadow-[6px_6px_0px_#111111] aspect-square sm:aspect-[4/3]"
+              style={{ backgroundColor: '#FFF3E0' }}
+            >
               <Image
-                src="/images/brand/hero-banner.jpg"
-                alt="Modern Indian home with Mr GrimeGuru cleaning products"
+                src="/images/products/all-products-frame.jpeg"
+                alt="Mr GrimeGuru Shoe Cleaner, Kitchen Cleaner and Multipurpose Cleaner spray products"
                 fill
                 className="object-cover"
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-
-              {/* Floating product badge */}
-              <div
-                className="absolute bottom-6 left-6 glass rounded-2xl px-4 py-3 shadow-lg border border-white/80"
-                aria-hidden="true"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-emerald-100">
-                    <span className="text-lg">🌿</span>
-                  </div>
-                  <div>
-                    <p className="text-xs font-black text-[#14532D]">Plant Powered Formulas</p>
-                    <div className="flex gap-0.5 mt-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            {/* Floating product icons */}
-            {[
-              { emoji: '🫧', label: 'Laundry Pods', top: '8%', right: '-4%' },
-              { emoji: '🌸', label: 'Scented Beads', bottom: '22%', right: '-6%' },
-              { emoji: '🏠', label: 'Floor Clean', top: '30%', left: '-6%' },
-            ].map(({ emoji, label, ...pos }) => (
-              <motion.div
-                key={label}
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
-                className="absolute w-12 h-12 rounded-2xl shadow-lg flex items-center justify-center bg-white"
-                style={pos as React.CSSProperties}
-                aria-hidden="true"
-              >
-                <span className="text-xl" role="img" aria-label={label}>{emoji}</span>
-              </motion.div>
-            ))}
-
-            {/* ── Bestseller product card ── */}
+            {/* Secret formula floating tag */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="mt-4 relative z-10"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
+              className="absolute -bottom-4 left-6 z-20 flex items-center gap-2 px-4 py-2.5 rounded-full border-2 border-[#111111] bg-white shadow-[3px_3px_0px_#111111]"
+              aria-hidden="true"
             >
-              <Link
-                href="/shop/laundry-pods"
-                className="group flex items-center gap-4 bg-white rounded-2xl p-3 shadow-lg border border-emerald-100 hover:border-[#166534] hover:shadow-xl transition-all duration-300"
-                aria-label="Shop our bestseller — Premium Laundry Pods"
-              >
-                {/* Product thumbnail */}
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-emerald-50 shrink-0">
-                  <Image
-                    src="/images/products/shoe-cleaner-1.jpeg"
-                    alt="Premium Laundry Pods"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="64px"
-                  />
-                </div>
-
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5 mb-0.5">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-white bg-amber-500 px-2 py-0.5 rounded-full">
-                      🏆 Bestseller
-                    </span>
-                  </div>
-                  <p className="font-extrabold text-sm text-[#14532D] leading-tight truncate">
-                    Premium Laundry Pods
-                  </p>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <span className="text-[11px] text-gray-500">50k+ sold</span>
-                  </div>
-                </div>
-
-                {/* Price + arrow */}
-                <div className="shrink-0 text-right">
-                  <p className="font-extrabold text-base text-[#14532D]">₹899</p>
-                  <p className="text-xs text-gray-400 line-through">₹1,099</p>
-                </div>
-              </Link>
+              <span className="text-lg">🔒</span>
+              <div>
+                <p className="text-xs font-black text-[#111111] leading-none" style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}>Secret Formula</p>
+                <p className="text-[10px] text-[#666666]" style={{ fontFamily: 'var(--font-sans), system-ui, sans-serif' }}>Made by us · Not white-label</p>
+              </div>
             </motion.div>
           </motion.div>
         </div>

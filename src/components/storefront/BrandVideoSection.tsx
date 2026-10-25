@@ -38,7 +38,7 @@ export function BrandVideoSection() {
           {/* Text */}
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-[#166534] mb-3">Why Mr GrimeGuru</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#14532D] mb-5 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-[#14532D] mb-5 leading-tight" style={{ fontFamily: 'var(--font-bebas), Impact, sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '0.02em' }}>
               We don&apos;t rebrand cleaners.<br />We make them.
             </h2>
             <p className="text-[#52636a] text-base leading-relaxed mb-5">

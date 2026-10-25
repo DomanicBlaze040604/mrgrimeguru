@@ -79,7 +79,7 @@ export function CategoryGridSection() {
             <Leaf className="w-3.5 h-3.5 text-[#166534]" />
             Plant-Powered Essentials
           </div>
-          <h2 id="shop-by-category-heading" className="text-3xl md:text-4xl lg:text-5xl font-black text-[#14532D] tracking-tight mb-4">
+          <h2 id="shop-by-category-heading" className="text-3xl md:text-4xl lg:text-5xl font-black text-[#14532D] tracking-tight mb-4" style={{ fontFamily: 'var(--font-bebas), Impact, sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', letterSpacing: '0.02em' }}>
             Shop By Category
           </h2>
           <p className="text-gray-600 text-base md:text-lg leading-relaxed">

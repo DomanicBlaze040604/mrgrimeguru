@@ -1,38 +1,48 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { DM_Sans, Syne, Bebas_Neue } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/Toaster'
 
-const inter = Inter({
+// Body copy — clean, readable, modern
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-sans',
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
-const playfair = Playfair_Display({
+// UI labels, nav, tags — geometric & punchy
+const syne = Syne({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-syne',
   display: 'swap',
-  weight: ['400', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+// Hero headlines — ultra-bold condensed, like packaging
+const bebasNeue = Bebas_Neue({
+  subsets: ['latin'],
+  variable: '--font-bebas',
+  display: 'swap',
+  weight: ['400'],
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mrgrimeguru.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mrgrimeguru.vercel.app'),
   title: {
-    default: 'Mr GrimeGuru — Premium Household Cleaning Products',
+    default: 'Mr GrimeGuru — Secret Formula Foam Spray Cleaners',
     template: '%s | Mr GrimeGuru',
   },
   description:
-    'Mr GrimeGuru brings premium cleaning solutions to modern Indian homes. Laundry pods, scented beads, floor cleaner, kitchen degreaser, and shoe cleaner.',
+    'Mr GrimeGuru secret formula hydrogen foam sprays. Shoe Cleaner, Kitchen Cleaner, Multipurpose Cleaner. Spray. 30 sec. Wipe.',
   keywords: [
-    'household cleaning',
-    'laundry pods india',
-    'laundry beads',
-    'floor cleaner',
-    'kitchen degreaser',
-    'shoe cleaner',
-    'premium cleaning products india',
+    'foam spray cleaner india',
+    'shoe cleaner spray',
+    'kitchen cleaner spray',
+    'multipurpose cleaner',
+    'hydrogen foam cleaner',
     'Mr GrimeGuru',
+    'secret formula cleaner',
   ],
   openGraph: {
     type: 'website',
@@ -77,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${syne.variable} ${bebasNeue.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Toaster />
