@@ -28,7 +28,7 @@ const bebasNeue = Bebas_Neue({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mrgrimeguru.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.mrgrimeguru.com'),
   title: {
     default: 'Mr GrimeGuru — Secret Formula Foam Spray Cleaners',
     template: '%s | Mr GrimeGuru',

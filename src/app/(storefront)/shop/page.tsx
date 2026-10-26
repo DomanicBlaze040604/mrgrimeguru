@@ -1,3 +1,4 @@
+import { LaundryComingSoon } from '@/components/storefront/LaundryComingSoon'
 import { getCleanerOffer, getDatabaseFamily } from '@/lib/cleaner-offers'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -30,9 +31,9 @@ const FAMILY_EMOJIS: Record<ProductFamily, string> = {
 
 const PLACEHOLDER_PRODUCTS = [
   { id: '1', name: 'Laundry Pods', slug: 'laundry-pods', family: 'laundry_pods' as ProductFamily, short_description: 'Pre-measured detergent pods designed to simplify your wash routine.', price_paise: 89900, compare_price_paise: 109900, image_url: '/images/products/laundry-pods.jpg', variant_id: 'v1', variant_name: '30 Pods', sku: 'MGG-LP-30', in_stock: true },
-  { id: '2', name: 'Shoe Cleaner', slug: 'shoe-cleaner', family: 'shoe_cleaner' as ProductFamily, short_description: 'A dedicated solution for cleaning compatible footwear and tackling everyday dirt.', price_paise: 59900, compare_price_paise: 69900, image_url: '/images/products/shoe-cleaner-1.jpeg', variant_id: 'v2', variant_name: '560ml · Buy 1 Get 1', sku: 'MGG-SC-200', in_stock: true },
-  { id: '3', name: 'Multipurpose Cleaner', slug: 'multipurpose-cleaner', family: 'multipurpose_cleaner' as ProductFamily, short_description: 'A versatile option for everyday cleaning on approved household surfaces.', price_paise: 49900, compare_price_paise: 59900, image_url: '/images/products/multipurpose-cleaner-1.jpeg', variant_id: 'v3', variant_name: '560ml · Buy 1 Get 1', sku: 'MGG-MP-500', in_stock: true },
-  { id: '4', name: 'Kitchen Cleaner', slug: 'kitchen-cleaner', family: 'kitchen_cleaner' as ProductFamily, short_description: 'A targeted solution for everyday kitchen messes and grease on compatible surfaces.', price_paise: 49900, compare_price_paise: 59900, image_url: '/images/products/kitchen-cleaner-1.jpeg', variant_id: 'v4', variant_name: '560ml · Buy 1 Get 1', sku: 'MGG-KC-500', in_stock: true },
+  { id: '2', name: 'Shoe Cleaner', slug: 'shoe-cleaner', family: 'shoe_cleaner' as ProductFamily, short_description: 'A dedicated solution for cleaning compatible footwear and tackling everyday dirt.', price_paise: 59900, compare_price_paise: 69900, image_url: '/images/products/shoe-cleaner-1.jpeg', variant_id: 'v2', variant_name: '500 ml', sku: 'MGG-SC-200', in_stock: true },
+  { id: '3', name: 'Multipurpose Cleaner', slug: 'multipurpose-cleaner', family: 'multipurpose_cleaner' as ProductFamily, short_description: 'A versatile option for everyday cleaning on approved household surfaces.', price_paise: 49900, compare_price_paise: 59900, image_url: '/images/products/multipurpose-cleaner-1.jpeg', variant_id: 'v3', variant_name: '500 ml', sku: 'MGG-MP-500', in_stock: true },
+  { id: '4', name: 'Kitchen Cleaner', slug: 'kitchen-cleaner', family: 'kitchen_cleaner' as ProductFamily, short_description: 'A targeted solution for everyday kitchen messes and grease on compatible surfaces.', price_paise: 49900, compare_price_paise: 59900, image_url: '/images/products/kitchen-cleaner-1.jpeg', variant_id: 'v4', variant_name: '500 ml', sku: 'MGG-KC-500', in_stock: true },
 ]
 
 async function getProducts(family?: string) {
@@ -89,7 +90,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           compare_price_paise: offer?.original ?? variant?.compare_at_price_paise ?? null,
           image_url: (offer ? `/images/products/${offer.slug}-1.jpeg` : heroMedia?.url) || `/images/products/${p.slug}.jpg`,
           variant_id: variant?.id,
-          variant_name: offer ? '560ml · Buy 1 Get 1' : variant?.name,
+          variant_name: offer ? '500 ml' : variant?.name,
           sku: variant?.sku,
           in_stock: true,
         }
@@ -98,7 +99,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     ? PLACEHOLDER_PRODUCTS.filter((p) => p.family === family)
     : PLACEHOLDER_PRODUCTS
 
-  const families = Object.entries(FAMILY_LABELS) as [ProductFamily, string][]
+  const families = Object.entries(FAMILY_LABELS).filter(([key]) => key !== 'laundry_pods') as [ProductFamily, string][]
 
   return (
     <div style={{ backgroundColor: '#fffbf0' }}>
@@ -149,7 +150,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
         {/* Products grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => {
+          {products.filter(product => product.slug !== 'laundry-pods').map((product) => {
             const discount = product.compare_price_paise
               ? Math.round(((product.compare_price_paise - product.price_paise) / product.compare_price_paise) * 100)
               : null
@@ -187,7 +188,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           })}
         </div>
 
-        {products.length === 0 && (
+        {(!family || family === 'laundry_pods') && <LaundryComingSoon />}
+
+        {products.length === 0 && family !== 'laundry_pods' && (
           <div className="text-center py-20">
             <p className="text-lg font-semibold text-[#171714] mb-2">No products found</p>
             <Link href="/shop" className="text-sm text-[#b9460c] hover:underline">

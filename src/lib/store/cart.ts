@@ -3,6 +3,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { CartItem, CartTotals } from '@/types'
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 
 interface CartStore {
   items: CartItem[]
@@ -62,6 +63,7 @@ export const useCartStore = create<CartStore>()(
       discountAmountPaise: 0,
 
       addItem: (newItem) => {
+        if (newItem.slug === 'laundry-pods') return
         set((state) => {
           const itemKey = newItem.variant_id || newItem.id || newItem.slug
           const existing = state.items.find(
@@ -78,7 +80,7 @@ export const useCartStore = create<CartStore>()(
           if (existing) {
             items = state.items.map((item) =>
               item === existing
-                ? { ...item, quantity: item.quantity + qty }
+                ? { ...item, variant_name: newItem.variant_name ?? item.variant_name, quantity: item.quantity + qty }
                 : item
             )
             addedItem = { ...existing, quantity: existing.quantity + qty }
@@ -172,6 +174,19 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'grimeguru-cart',
+      version: 1,
+      migrate: (persisted) => {
+        const previous = persisted as Partial<CartStore> | undefined
+        return {
+          ...previous,
+          items: (previous?.items ?? []).map(item => {
+            const offer = getCleanerOffer(item.slug)
+            return offer && /560\s*ml/i.test(`${item.name} ${item.variant_name}`)
+              ? { ...item, name: offer.name, product_name: offer.name, variant_name: '500 ml' }
+              : item
+          }),
+        }
+      },
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         items: state.items,

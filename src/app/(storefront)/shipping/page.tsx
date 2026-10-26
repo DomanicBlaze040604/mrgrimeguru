@@ -56,7 +56,7 @@ export default function ShippingPolicyPage() {
         </Section>
 
         <Section title="7. Delayed or Undelivered Orders">
-          <p>If tracking indicates a delay, contact [SUPPORT EMAIL] with your order number. We will review available tracking information and coordinate with the delivery partner where appropriate.</p>
+          <p>If tracking indicates a delay, contact support@mrgrimeguru.com with your order number. We will review available tracking information and coordinate with the delivery partner where appropriate.</p>
         </Section>
 
         <Section title="8. Damaged or Incorrect Products">
@@ -72,7 +72,7 @@ export default function ShippingPolicyPage() {
         </Section>
 
         <Section title="11. Contact">
-          <p>Email: [SUPPORT EMAIL]</p>
+          <p>Email: support@mrgrimeguru.com</p>
           <p>Support hours: [BUSINESS DAYS AND HOURS]</p>
         </Section>
       </div>

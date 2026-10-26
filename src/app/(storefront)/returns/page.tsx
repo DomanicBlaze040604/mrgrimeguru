@@ -39,7 +39,7 @@ export default function ReturnsPolicyPage() {
         </Section>
 
         <Section title="2. Damaged, Defective, or Incorrect Products">
-          <p>If an item arrives damaged, defective, leaking, incomplete, or different from the product ordered, contact [SUPPORT EMAIL] promptly.</p>
+          <p>If an item arrives damaged, defective, leaking, incomplete, or different from the product ordered, contact support@mrgrimeguru.com promptly.</p>
           <p>Provide your order number, a description of the issue, and photographs where available.</p>
           <p>We will review the request and determine the appropriate remedy, which may include replacement, refund, or another remedy required by applicable law.</p>
         </Section>
@@ -50,7 +50,7 @@ export default function ReturnsPolicyPage() {
 
         <Section title="4. How to Request a Return">
           <ol className="list-decimal list-inside space-y-1">
-            <li>Email [SUPPORT EMAIL] with your order number.</li>
+            <li>Email support@mrgrimeguru.com with your order number.</li>
             <li>Explain the reason for your request.</li>
             <li>Provide photographs if the issue involves damage or an incorrect item.</li>
             <li>Wait for return instructions from our support team.</li>
@@ -69,7 +69,7 @@ export default function ReturnsPolicyPage() {
         </Section>
 
         <Section title="7. Order Cancellations">
-          <p>Contact [SUPPORT EMAIL] as soon as possible if you wish to cancel an order. Cancellation may be possible before dispatch, subject to operational feasibility. Once dispatched, the order may need to be handled under the return procedure.</p>
+          <p>Contact support@mrgrimeguru.com as soon as possible if you wish to cancel an order. Cancellation may be possible before dispatch, subject to operational feasibility. Once dispatched, the order may need to be handled under the return procedure.</p>
         </Section>
 
         <Section title="8. Exchanges and Replacements">
@@ -81,7 +81,7 @@ export default function ReturnsPolicyPage() {
         </Section>
 
         <Section title="10. Contact">
-          <p>Email: [SUPPORT EMAIL]</p>
+          <p>Email: support@mrgrimeguru.com</p>
           <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
         </Section>
 

@@ -249,3 +249,37 @@
 .guru-storefront :focus-visible { outline-color:#b9460c; }
 @media(max-width:700px) { .guru-mini-video { width:155px; left:10px; bottom:10px; border-radius:13px; } .guru-mini-video video { height:190px; } .guru-mini-video-heading { padding:8px; } .guru-mini-video-heading span { font-size:6px; } .guru-mini-video-heading strong { font-size:9px; } }
 @media(prefers-reduced-motion:reduce) { .guru-gallery .guru-gallery-swap img { transition:none; } }
+
+.guru-purchase-panel { width:100%; max-width:550px; margin-inline:auto; border:1px solid #e5dcc9; border-radius:25px; overflow:hidden; background:#fffaf0; box-shadow:0 12px 35px #38270d10; }
+.guru-purchase-image { position:relative; width:100%; aspect-ratio:1/1; }
+.guru-purchase-details { padding:24px; }
+.guru-purchase-details .guru-eyebrow { color:#b9460c; font-size:10px; margin-bottom:10px; }
+.guru-purchase-details h2 { font-size:23px; }
+.guru-purchase-details p { font-size:13px; color:#655e51; margin-top:10px; line-height:1.7; }
+.guru-purchase-price { display:flex; align-items:baseline; gap:12px; padding:20px 0; }
+.guru-purchase-price strong { font-size:30px; }
+.guru-purchase-price s { font-size:14px; color:#877e6b; }
+.guru-purchase-price span { margin-left:auto; font-size:10px; color:#766b57; }
+.guru-purchase-details>button { min-height:48px; font-family:var(--font-syne),sans-serif; font-weight:800; }
+.guru-coming-soon { display:grid; grid-template-columns:1fr 1.4fr; gap:45px; align-items:center; margin-top:60px; padding:38px; border:2px dashed #c8b98f; border-radius:24px; background:#fff5d8; scroll-margin-top:110px; }
+.guru-coming-art { display:grid; place-items:center; gap:15px; padding:30px; background:#facc15; border:2px solid #111; border-radius:20px; transform:rotate(-3deg); }
+.guru-coming-art span { font:400 38px/.95 var(--font-bebas),Impact,sans-serif; text-align:center; }
+.guru-coming-soon h2 { font-size:30px; }
+.guru-coming-soon p { margin:16px 0; font-size:14px; color:#6b604c; line-height:1.75; }
+.guru-coming-label { display:inline-flex; padding:7px 12px; background:#171714; border-radius:30px; color:#facc15; font-size:11px; }
+.guru-coming-soon a { display:block; margin-top:18px; font-size:12px; text-decoration:underline; text-underline-offset:4px; }
+@media(max-width:650px) { .guru-coming-soon { grid-template-columns:1fr; gap:30px; padding:25px; } .guru-coming-art { max-width:250px; width:100%; margin:auto; } }
+
+/* A persistent, unobtrusive demo bubble; the same video keeps playing when resized. */
+.guru-mini-video { transition:width .25s ease,border-radius .25s ease; }
+.guru-mini-video.is-collapsed { width:76px; height:76px; border-radius:50%; border:2px solid #facc15; background:#111; }
+.guru-mini-video.is-collapsed video { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.guru-video-expand { position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent; border-radius:50%; cursor:pointer; }
+.guru-video-expand>span { position:absolute; bottom:3px; right:3px; width:23px; height:23px; display:grid; place-items:center; border-radius:50%; background:#facc15; color:#111; box-shadow:0 1px 5px #0004; }
+.guru-mini-video.is-expanded { width:min(290px,calc(100vw - 32px)); border-radius:18px; }
+.guru-mini-video.is-expanded video { height:min(390px,calc(100dvh - 200px)); object-fit:contain; }
+.guru-mini-video.is-collapsed>p { font-size:7px; text-align:center; padding:20px 4px; }
+@media(max-width:700px) { .guru-mini-video.is-collapsed { width:64px; height:64px; } .guru-mini-video.is-expanded { width:235px; } .guru-mini-video.is-expanded video { height:min(315px,calc(100dvh - 200px)); } }
+@media(prefers-reduced-motion:reduce) { .guru-mini-video { transition:none; animation:none; } }
+.guru-footer-email { display:block; font-size:12px; margin-bottom:18px; color:#facc15; text-underline-offset:4px; }
+@media(min-width:1024px) { .guru-product-intro>div:first-child { padding-top:18px; } }

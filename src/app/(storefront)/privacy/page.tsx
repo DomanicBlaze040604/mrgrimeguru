@@ -32,9 +32,9 @@ export default function PrivacyPolicyPage() {
 
         <Section title="1. Business Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
-          <p>Website: https://mrgrimeguru.vercel.app/</p>
+          <p>Website: https://www.mrgrimeguru.com/</p>
           <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
-          <p>Customer support email: [SUPPORT EMAIL]</p>
+          <p>Customer support email: support@mrgrimeguru.com</p>
           <p>Privacy contact: [PRIVACY CONTACT EMAIL]</p>
         </Section>
 
@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
         </Section>
 
         <Section title="11. Marketing Communications">
-          <p>Where permitted by law, we may send promotional communications if you have opted in or another lawful basis applies. You may unsubscribe through the available link or contact [SUPPORT EMAIL].</p>
+          <p>Where permitted by law, we may send promotional communications if you have opted in or another lawful basis applies. You may unsubscribe through the available link or contact support@mrgrimeguru.com.</p>
         </Section>
 
         <Section title="12. Children's Privacy">

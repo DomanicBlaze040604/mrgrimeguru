@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
       }
 
       const product = Array.isArray(variant.products) ? variant.products[0] : variant.products
+      if (product.slug === 'laundry-pods') return NextResponse.json({ error: 'Laundry Pods are coming soon and cannot be ordered yet.' }, { status: 409 })
       const offer = variant.is_default ? getCleanerOffer(product.slug) : undefined
       const unitPrice = offer?.price ?? variant.price_paise
       const total = unitPrice * item.quantity
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
         unit_price_paise: unitPrice,
         total_price_paise: total,
         product_name: offer?.name ?? product.name,
-        variant_name: offer ? '560ml · Buy 1 Get 1' : variant.name,
+        variant_name: offer ? '500 ml' : variant.name,
         sku: variant.sku,
         image_url: item.image_url || null,
       })

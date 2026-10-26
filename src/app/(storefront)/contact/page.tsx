@@ -189,10 +189,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <strong className="block text-[#171714] font-bold">Email Us</strong>
-                    <a href="mailto:hello@mrgrimeguru.com" className="text-[#b9460c] hover:underline">
-                      hello@mrgrimeguru.com
+                    <a href="mailto:support@mrgrimeguru.com" className="text-[#b9460c] hover:underline">
+                      support@mrgrimeguru.com
                     </a>
-                    <p className="text-xs text-[#75828A] mt-0.5">Average response under 4 hours</p>
+                    <p className="text-xs text-[#75828A] mt-0.5">Our team will get back to you</p>
                   </div>
                 </div>
 
@@ -202,9 +202,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <strong className="block text-[#171714] font-bold">WhatsApp & Helpline</strong>
-                    <a href="tel:+919876543210" className="text-[#b9460c] hover:underline">
-                      +91 98765 43210
-                    </a>
+                    <p className="text-[#75828A]">Phone details coming soon</p>
                     <p className="text-xs text-[#75828A] mt-0.5">Mon–Sat: 9:00 AM – 7:00 PM IST</p>
                   </div>
                 </div>
@@ -216,8 +214,8 @@ export default function ContactPage() {
                   <div>
                     <strong className="block text-[#171714] font-bold">Brand Headquarters</strong>
                     <p className="text-[#75828A] leading-relaxed">
-                      Mr GrimeGuru Innovations Pvt Ltd,<br />
-                      BKC Bandra East, Mumbai, Maharashtra 400051
+                      Mr GrimeGuru<br />
+                      Business address to be announced
                     </p>
                   </div>
                 </div>

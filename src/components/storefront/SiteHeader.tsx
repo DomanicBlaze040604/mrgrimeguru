@@ -71,7 +71,7 @@ export function SiteHeader() {
               <span className="text-white/80">🚚 FREE SHIPPING ON ORDERS ₹499+</span>
               <span className="text-white/80">✦ HYDROGEN FOAM · SECRET FORMULA</span>
               <span className="text-white/80">⭐ 4.9/5 RATED BY 50,000+ HOMES</span>
-              <span className="text-white/80">🎁 1+1 ON EVERY CLEANER</span>
+              <span className="text-white/80">✦ LESS GRIME. MORE GOOD TIMES.</span>
             </div>
           ))}
         </div>

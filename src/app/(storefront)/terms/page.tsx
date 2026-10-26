@@ -28,9 +28,9 @@ export default function TermsPage() {
 
         <Section title="1. Business Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
-          <p>Website: https://mrgrimeguru.vercel.app/</p>
+          <p>Website: https://www.mrgrimeguru.com/</p>
           <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
-          <p>Contact email: [SUPPORT EMAIL]</p>
+          <p>Contact email: support@mrgrimeguru.com</p>
         </Section>
 
         <Section title="2. Eligibility">
@@ -89,7 +89,7 @@ export default function TermsPage() {
 
         <Section title="15. Contact Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
-          <p>Email: [SUPPORT EMAIL]</p>
+          <p>Email: support@mrgrimeguru.com</p>
           <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
         </Section>
       </div>

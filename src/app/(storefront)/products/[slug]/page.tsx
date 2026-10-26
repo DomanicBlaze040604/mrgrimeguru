@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { ProductDetailView } from '@/components/storefront/ProductDetailView'
 
@@ -18,7 +18,7 @@ const DEFAULT_PRODUCTS: Record<string, {
   reviews: { id: string; author_name: string; rating: number; title: string; body: string; created_at: string }[]
 }> = {
   'kitchen-cleaner': {
-    name: 'Mr GrimeGuru Kitchen Cleaner (560ml · Buy 1 Get 1)',
+    name: 'Mr GrimeGuru Kitchen Cleaner (500 ml)',
     price_paise: 49900,
     compare_at_price_paise: 59900,
     short_description: 'A foam-first fix for everyday kitchen grease and residue.',
@@ -28,7 +28,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     reviews: [],
   },
   'multipurpose-cleaner': {
-    name: 'Mr GrimeGuru Multipurpose Cleaner (560ml · Buy 1 Get 1)',
+    name: 'Mr GrimeGuru Multipurpose Cleaner (500 ml)',
     price_paise: 49900,
     compare_at_price_paise: 59900,
     short_description: 'Foam-powered cleaning for compatible household surfaces.',
@@ -122,7 +122,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     ],
   },
   'shoe-cleaner': {
-    name: 'Mr GrimeGuru Shoe Cleaner (560ml · Buy 1 Get 1)',
+    name: 'Mr GrimeGuru Shoe Cleaner (500 ml)',
     price_paise: 59900,
     compare_at_price_paise: 69900,
     short_description: 'Waterless foaming solution with bristles safe for white sneakers, mesh, and suede.',
@@ -164,6 +164,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params
+  if (slug === 'laundry-pods') redirect('/shop#coming-soon')
   const supabase = await createClient()
 
   // Try fetching from Supabase

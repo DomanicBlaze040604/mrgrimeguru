@@ -22,7 +22,9 @@ interface Product {
 export function AddToCartButton({ product }: { product: Product }) {
   const { addItem } = useCartStore()
 
+  const comingSoon = product.slug === 'laundry-pods'
   function handleAddToCart() {
+    if (comingSoon) return
     addItem({
       id: product.id,
       product_id: product.id,
@@ -46,9 +48,9 @@ export function AddToCartButton({ product }: { product: Product }) {
       className="w-full mt-1"
       leftIcon={<ShoppingCart className="h-4 w-4" />}
       onClick={handleAddToCart}
-      disabled={!product.in_stock}
+      disabled={comingSoon || !product.in_stock}
     >
-      {product.in_stock ? 'Add to Cart' : 'Out of Stock'}
+      {comingSoon ? 'Coming soon' : product.in_stock ? 'Add to Cart' : 'Out of Stock'}
     </Button>
   )
 }
