@@ -27,7 +27,7 @@ const ARTICLE_CONTENT: Record<string, {
       name: 'Mr GrimeGuru Heavy-Duty Kitchen Degreaser Spray (500ml)',
       slug: 'kitchen-degreaser',
       price_paise: 29900,
-      image: '/images/products/kitchen-degreaser.jpg',
+      image: '/images/products/kitchen-cleaner-cutout.png',
     },
     body: [
       'Anyone who cooks daily Indian food knows that tadka mustard seeds, hot ghee splatters, and turmeric vapors create a stubborn film that regular dish soap simply smears around.',

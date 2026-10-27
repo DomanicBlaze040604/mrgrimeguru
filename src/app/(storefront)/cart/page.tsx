@@ -229,7 +229,7 @@ alt={item.product_name}
                     variant_name: 'Standard',
                     slug: 'microfiber-cloth',
                     price_paise: 9900,
-                    image_url: '/images/products/shoe-cleaner.jpg',
+                    image_url: '/images/products/shoe-cleaner-cutout.png',
                     quantity: 1,
                   })
                   toast({ title: 'Added Cloth Pack to cart!' })

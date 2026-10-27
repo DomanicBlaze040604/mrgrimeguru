@@ -2,7 +2,6 @@ import { ProductImageGallery } from '@/components/storefront/ProductImageGallery
 import { getCleanerOffer } from '@/lib/cleaner-offers'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { notFound, redirect } from 'next/navigation'
 import { ArrowLeft, CheckCircle2, Sparkles, Clock, ShoppingBag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
@@ -31,7 +30,7 @@ const CATEGORY_META: Record<string, {
     name: 'Shoe Cleaner',
     tagline: 'Give Your Footwear a Fresh Start.',
     description: 'A dedicated shoe-cleaning solution designed to help remove everyday dirt and surface marks from compatible footwear materials. Check the label for approved materials before use.',
-    heroImage: '/images/products/shoe-cleaner-1.jpeg',
+    heroImage: '/images/products/shoe-cleaner-cutout.png',
     infoImage: '/images/products/shoe-cleaner-info.jpeg',
     videos: [
       '/images/products/shoe-cleaner-1.mp4',
@@ -63,7 +62,7 @@ const CATEGORY_META: Record<string, {
     name: 'Multipurpose Cleaner',
     tagline: 'One Cleaner for Everyday Messes.',
     description: 'A versatile cleaning solution for compatible household surfaces, everyday spills, and routine cleaning tasks. Always check the label for approved surfaces.',
-    heroImage: '/images/products/multipurpose-cleaner-1.jpeg',
+    heroImage: '/images/products/multipurpose-cleaner-cutout.png',
     infoImage: '/images/products/multipurpose-cleaner-info.jpeg',
     videos: [
       '/images/products/multipurpose-1.mp4',
@@ -94,7 +93,7 @@ const CATEGORY_META: Record<string, {
     name: 'Kitchen Cleaner',
     tagline: 'Take on Everyday Kitchen Messes.',
     description: 'Designed to help tackle everyday kitchen residue and grease on compatible surfaces. Spray it on, let the formula work, wipe it away.',
-    heroImage: '/images/products/kitchen-cleaner-1.jpeg',
+    heroImage: '/images/products/kitchen-cleaner-cutout.png',
     infoImage: '/images/products/kitchen-cleaner-info.jpeg',
     videos: [
       '/images/products/kitchen-cleaner-1.mp4',
@@ -364,14 +363,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
 
             {meta.infoImage && (
-              <div className="relative rounded-3xl overflow-hidden shadow-lg aspect-square border border-gray-100">
-                <Image
-                  src={meta.infoImage}
-                  alt={`${meta.name} info`}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+              <div className="guru-product-info-art relative aspect-square">
+                <ProductImageGallery slug={slug} name={meta.name} image={meta.heroImage} informationOnly />
               </div>
             )}
           </div>

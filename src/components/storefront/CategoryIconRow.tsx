@@ -36,7 +36,7 @@ const ICON_CATEGORIES: CategoryIconItem[] = [
     label: 'Floor &',
     sublabel: 'Surface Care',
     href: '/shop?family=floor_cleaner',
-    image: '/images/products/floor-cleaner.jpg',
+    image: '/images/products/multipurpose-cleaner-cutout.png',
     bgColor: '#CCFBF1',
   },
   {
@@ -44,7 +44,7 @@ const ICON_CATEGORIES: CategoryIconItem[] = [
     label: 'Kitchen',
     sublabel: 'Degreaser',
     href: '/shop?family=kitchen_degreaser',
-    image: '/images/products/kitchen-degreaser.jpg',
+    image: '/images/products/kitchen-cleaner-cutout.png',
     bgColor: '#FFE4E6',
   },
   {
@@ -52,7 +52,7 @@ const ICON_CATEGORIES: CategoryIconItem[] = [
     label: 'Shoe &',
     sublabel: 'Sneaker Care',
     href: '/shop?family=shoe_cleaner',
-    image: '/images/products/shoe-cleaner.jpg',
+    image: '/images/products/shoe-cleaner-cutout.png',
     bgColor: '#EDE9FE',
   },
   {

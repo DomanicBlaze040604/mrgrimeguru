@@ -98,7 +98,7 @@ export function SiteHeader() {
                   letterSpacing: '0.02em',
                 }}
               >
-                Mr GrimeGuru
+                <span className="guru-logo-orange">Mr</span> <span className="guru-logo-white">Grime</span><span className="guru-logo-orange">Guru</span>
               </span>
               <span
                 className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#111111] mt-1"

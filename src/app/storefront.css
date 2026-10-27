@@ -283,3 +283,77 @@
 @media(prefers-reduced-motion:reduce) { .guru-mini-video { transition:none; animation:none; } }
 .guru-footer-email { display:block; font-size:12px; margin-bottom:18px; color:#facc15; text-underline-offset:4px; }
 @media(min-width:1024px) { .guru-product-intro>div:first-child { padding-top:18px; } }
+
+/* Transparent packshots share their section's backdrop instead of sitting in photo boxes. */
+.guru-gallery { background:transparent; }
+.guru-shop-product-art { background:radial-gradient(ellipse at 50% 42%,#fff9e4 0%,#f5e8c7 100%); }
+.guru-shop-product-art:has([data-product="multipurpose-cleaner"]) { background:radial-gradient(ellipse at 50% 42%,#f8faf1,#e5ecd9); }
+.guru-shop-product-art:has([data-product="shoe-cleaner"]) { background:radial-gradient(ellipse at 50% 42%,#fff6ea,#f1dfce); }
+.guru-purchase-image { background:radial-gradient(ellipse at 50% 45%,#fffdf4,#f6e9cf); }
+.guru-range-gallery { background:transparent; border-radius:0; }
+.guru-gallery .guru-gallery-swap img { padding:14px 12px 40px!important; filter:drop-shadow(0 10px 8px #4030181c); }
+.guru-gallery .guru-gallery-swap img.is-detail { padding:10px 10px 38px!important; filter:none; mix-blend-mode:multiply!important; }
+.guru-gallery-caption { background:transparent; }
+.guru-hero-slide { background:radial-gradient(ellipse at 50% 45%,#fff9e7,#f0dfba); }
+.guru-hero-slide.is-product { background:radial-gradient(ellipse at 50% 45%,#fff9e7,#f0dfba)!important; }
+.guru-hero-slide.is-product:nth-child(3) { background:radial-gradient(ellipse at 50% 45%,#f7faed,#dbe6cb)!important; }
+.guru-hero-slide.is-product:nth-child(4) { background:radial-gradient(ellipse at 50% 45%,#fff8e9,#f5d8bd)!important; }
+.guru-hero-slide.is-product .guru-slide-image { padding:38px 20px 24px!important; filter:drop-shadow(0 20px 12px #4f331a24); }
+.guru-category-circle { background:#f5e8c7!important; }
+.guru-category-circle.green { background:#e0e9d3!important; }
+.guru-category-circle.orange { background:#f1d8bf!important; }
+.guru-category-circle:not(.guru-category-all) img { padding:5px!important; filter:drop-shadow(0 5px 3px #17171425); }
+.guru-trio { position:absolute; display:block; inset:13% 4% 8%; }
+.guru-trio-bottle { position:absolute; display:block; width:40%; height:85%; bottom:0; }
+.guru-trio-bottle:nth-child(1) { left:0; transform:rotate(-8deg); }
+.guru-trio-bottle:nth-child(2) { left:30%; height:100%; z-index:1; }
+.guru-trio-bottle:nth-child(3) { right:0; transform:rotate(8deg); }
+.guru-trio .guru-trio-bottle img { object-fit:contain!important; padding:0!important; filter:drop-shadow(0 12px 9px #40281026); }
+.guru-trio-title { position:absolute; inset:5% 3% auto; text-align:center; font:400 clamp(1.8rem,4vw,3.8rem)/1 var(--font-bebas),Impact,sans-serif; letter-spacing:.035em; color:#171714; }
+.guru-trio-note { position:absolute; bottom:4%; left:0; right:0; text-align:center; font:700 9px/1.4 var(--font-syne),sans-serif; letter-spacing:.12em; }
+.guru-trio.is-compact { inset:7% 3% 5%; }
+.guru-trio.is-compact .guru-trio-bottle img { filter:drop-shadow(0 3px 2px #40281020); }
+.guru-product-info-art img { object-fit:contain; mix-blend-mode:multiply; }
+
+/* Shared branding and readable product information slides. */
+.guru-header-logo, .guru-brand-box { background:#171714; border-color:#f97316; }
+.guru-logo-orange { color:#f97316!important; }
+.guru-logo-white { color:#fff!important; }
+.guru-header-logo>span:last-child { color:#fffbf0; }
+.guru-brand-box { flex-direction:row; gap:4px; align-items:baseline; }
+.guru-purchase-image, .guru-shop-product-art, .guru-product-info-art { aspect-ratio:4/5; }
+.guru-product-info-art { border-radius:24px; overflow:hidden; background:#fff5df; }
+.guru-info-carousel { --info-height:145px; }
+.guru-info-carousel.has-information .guru-gallery-swap { bottom:calc(var(--info-height) + 36px); height:auto; }
+.guru-info-carousel .guru-gallery-swap img.is-scene { padding:0!important; filter:none; object-fit:contain!important; mask-image:linear-gradient(to bottom,#000 88%,transparent); }
+.guru-info-carousel .guru-gallery-swap img.is-packshot { padding:22px 18px 48px!important; }
+.guru-slide-info { position:absolute; bottom:36px; left:0; right:0; height:var(--info-height); padding:12px 22px; background:#fffbf0; animation:guru-slide-copy .35s ease both; color:#171714; }
+.guru-slide-info h3 { font:800 clamp(15px,1.6vw,22px)/1.15 var(--font-syne),sans-serif; margin:0 0 9px; letter-spacing:-.035em; }
+.guru-slide-info ul { display:grid; gap:4px; margin:0; padding:0; list-style:none; }
+.guru-slide-info li { font:400 12px/1.4 var(--font-dm-sans),sans-serif; display:flex; gap:7px; }
+.guru-slide-info li::before { content:'✦'; color:#ea660d; flex-shrink:0; }
+.guru-info-carousel .guru-gallery-caption { height:36px; padding:5px 12px; background:#fffbf0; }
+.guru-info-carousel .guru-gallery-caption>div { gap:1px; }
+.guru-info-carousel .guru-gallery-caption button { width:20px; height:26px; }
+.guru-range-gallery.guru-info-carousel { --info-height:135px; }
+.guru-range-gallery .guru-slide-info { padding:10px 12px; }
+.guru-range-gallery .guru-slide-info h3 { font-size:15px; }
+.guru-range-gallery .guru-slide-info li { font-size:10px; }
+.guru-range-gallery .guru-gallery-caption { padding:4px 7px; gap:2px; }
+.guru-range-gallery .guru-gallery-caption>span { font-size:8px; }
+@keyframes guru-slide-copy { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+@media(max-width:600px) {
+  .guru-info-carousel { --info-height:145px; }
+  .guru-slide-info { padding:10px 15px; }
+  .guru-slide-info h3 { font-size:17px; }
+  .guru-slide-info li { font-size:11px; }
+}
+@media(prefers-reduced-motion:reduce) { .guru-slide-info { animation:none; } }
+.guru-range .guru-product-art { height:480px; }
+.guru-info-carousel .guru-gallery-swap img.is-scene { mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent),linear-gradient(to bottom,transparent,#000 3%,#000 87%,transparent); mask-composite:intersect; }
+@media(max-width:600px) { .guru-range .guru-product-art { height:450px; } }
+.guru-range .guru-product-art:has(.has-information) { background:#fffbf0; }
+.guru-range-gallery.guru-info-carousel { --info-height:100px; }
+.guru-range-gallery .guru-slide-info, .guru-range-gallery .guru-gallery-caption { background:transparent; }
+.guru-range-gallery .guru-slide-info li { font-size:11px; }
+.guru-info-carousel .guru-gallery-swap img.is-scene { mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent),linear-gradient(to bottom,transparent,#000 5%,#000 85%,transparent); }

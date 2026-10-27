@@ -19,7 +19,7 @@ const stamp = '2026-10-26T00:00:00Z'
 const product = (id, slug, category_id = 'category-1') => ({ id, slug, name: slug, family: slug.replaceAll('-', '_'), category_id, status: 'active', description: '<script>bad</script>', short_description: '', created_at: stamp, updated_at: stamp })
 const variant = (id, product_id) => ({ id, product_id, name: 'Original', sku: id, price_paise: 12345, compare_at_price_paise: 15000, weight_grams: 560, is_default: true, is_active: true, created_at: stamp, updated_at: stamp })
 function fixture() {
-  return { products: [product('p1', 'kitchen-degreaser'), product('p2', 'shoe-cleaner', 'category-2'), product('pods', 'laundry-pods'), { ...product('draft', 'draft'), status: 'draft' }], variants: [variant('v1', 'p1'), variant('v2', 'p2'), variant('vp', 'pods'), variant('vd', 'draft'), { ...variant('inactive', 'p1'), is_active: false }], categories: ['category-1', 'category-2', 'empty'].map(id => ({ id, name: id, slug: id, description: '', created_at: stamp, updated_at: stamp })), inventory: [{ variant_id: 'v1', quantity: 10, reserved_quantity: 3 }, { variant_id: 'v2', quantity: 2, reserved_quantity: 4 }], media: [] }
+  return { products: [product('p1', 'kitchen-degreaser'), product('p2', 'shoe-cleaner', 'category-2'), product('pods', 'laundry-pods'), product('beads', 'laundry-beads'), { ...product('draft', 'draft'), status: 'draft' }], variants: [variant('v1', 'p1'), variant('v2', 'p2'), variant('vp', 'pods'), variant('vb', 'beads'), variant('vd', 'draft'), { ...variant('inactive', 'p1'), is_active: false }], categories: ['category-1', 'category-2', 'empty'].map(id => ({ id, name: id, slug: id, description: '', created_at: stamp, updated_at: stamp })), inventory: [{ variant_id: 'v1', quantity: 10, reserved_quantity: 3 }, { variant_id: 'v2', quantity: 2, reserved_quantity: 4 }], media: [] }
 }
 const origin = 'https://www.mrgrimeguru.com'
 test('numeric IDs stay stable, safe and namespaced', () => {
@@ -45,7 +45,7 @@ test('offer pricing, canonical images and reserved inventory match the storefron
   assert.equal(kitchen.variants[0].price, '499.00')
   assert.equal(kitchen.variants[0].compare_at_price, '599.00')
   assert.equal(kitchen.variants[0].quantity, 7)
-  assert.equal(kitchen.image.src, origin + '/images/products/kitchen-cleaner-1.jpeg')
+  assert.equal(kitchen.image.src, origin + '/images/products/kitchen-cleaner-cutout.png')
   assert.equal(catalog.products[1].value.variants[0].price, '599.00')
   assert.equal(catalog.products[1].value.variants[0].quantity, 0)
 })

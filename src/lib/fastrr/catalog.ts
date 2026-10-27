@@ -50,14 +50,14 @@ export function buildCatalog(rows: CatalogRows, origin: string) {
   }
   const inventory = new Map(rows.inventory.map(row => [row.variant_id, row]))
   const products = rows.products
-    .filter(product => product.status === 'active' && product.slug !== 'laundry-pods' && product.family !== 'laundry_pods')
+    .filter(product => product.status === 'active' && !['laundry-pods', 'laundry-beads'].includes(product.slug) && !['laundry_pods', 'laundry_beads'].includes(product.family))
     .filter(product => rows.variants.some(variant => variant.product_id === product.id && variant.is_active))
     .map(product => {
       const offer = getCleanerOffer(product.slug)
       const handle = offer?.slug ?? product.slug
       const media = rows.media.filter(item => item.product_id === product.id && item.type === 'image')
         .sort((a, b) => Number(b.is_hero) - Number(a.is_hero) || a.sort_order - b.sort_order)
-      const image = { src: absoluteImage(offer ? `/images/products/${handle}-1.jpeg` : media[0]?.url ?? `/images/products/${handle}.jpg`, origin) }
+      const image = { src: absoluteImage(offer ? `/images/products/${handle}-cutout.png` : media[0]?.url ?? `/images/products/${handle}.jpg`, origin) }
       const variants = rows.variants.filter(variant => variant.product_id === product.id && variant.is_active).map(variant => {
         const stock = inventory.get(variant.id)
         const available = stock ? Math.max(0, stock.quantity - stock.reserved_quantity) : 0

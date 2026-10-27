@@ -63,7 +63,7 @@ export const useCartStore = create<CartStore>()(
       discountAmountPaise: 0,
 
       addItem: (newItem) => {
-        if (newItem.slug === 'laundry-pods') return
+        if (['laundry-pods', 'laundry-beads'].includes(newItem.slug)) return
         set((state) => {
           const itemKey = newItem.variant_id || newItem.id || newItem.slug
           const existing = state.items.find(
@@ -71,7 +71,8 @@ export const useCartStore = create<CartStore>()(
           )
 
           const normalizedName = newItem.name || newItem.product_name || 'Product'
-          const normalizedImage = newItem.image || newItem.image_url || '/images/products/laundry-pods.jpg'
+          const cleaner = getCleanerOffer(newItem.slug)
+          const normalizedImage = cleaner ? `/images/products/${cleaner.slug}-cutout.png` : newItem.image || newItem.image_url || '/images/products/laundry-pods.jpg'
           const qty = newItem.quantity || 1
 
           let items: CartItem[]
@@ -94,7 +95,7 @@ export const useCartStore = create<CartStore>()(
               variant_name: newItem.variant_name || '',
               price_paise: newItem.price_paise,
               image: normalizedImage,
-              image_url: newItem.image_url || normalizedImage,
+              image_url: normalizedImage,
               slug: newItem.slug,
               quantity: qty,
             }
@@ -174,16 +175,20 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'grimeguru-cart',
-      version: 1,
+      version: 2,
       migrate: (persisted) => {
         const previous = persisted as Partial<CartStore> | undefined
         return {
           ...previous,
-          items: (previous?.items ?? []).map(item => {
+          items: (previous?.items ?? []).filter(item => !['laundry-pods', 'laundry-beads'].includes(item.slug)).map(item => {
             const offer = getCleanerOffer(item.slug)
-            return offer && /560\s*ml/i.test(`${item.name} ${item.variant_name}`)
-              ? { ...item, name: offer.name, product_name: offer.name, variant_name: '500 ml' }
-              : item
+            if (!offer) return item
+            return {
+              ...item,
+              image: `/images/products/${offer.slug}-cutout.png`,
+              image_url: `/images/products/${offer.slug}-cutout.png`,
+              ...(/560\s*ml/i.test(`${item.name} ${item.variant_name}`) ? { name: offer.name, product_name: offer.name, variant_name: '500 ml' } : {}),
+            }
           }),
         }
       },

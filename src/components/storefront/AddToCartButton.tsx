@@ -22,7 +22,7 @@ interface Product {
 export function AddToCartButton({ product }: { product: Product }) {
   const { addItem } = useCartStore()
 
-  const comingSoon = product.slug === 'laundry-pods'
+  const comingSoon = ['laundry-pods', 'laundry-beads'].includes(product.slug)
   function handleAddToCart() {
     if (comingSoon) return
     addItem({

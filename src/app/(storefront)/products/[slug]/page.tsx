@@ -23,7 +23,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     compare_at_price_paise: 59900,
     short_description: 'A foam-first fix for everyday kitchen grease and residue.',
     description: 'Give cooking splashes and sticky residue the Guru treatment. Follow the product label for compatible surfaces, application and contact time.',
-    images: ['/images/products/kitchen-cleaner-1.jpeg'],
+    images: ['/images/products/kitchen-cleaner-cutout.png'],
     category_name: 'Kitchen Care',
     reviews: [],
   },
@@ -33,7 +33,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     compare_at_price_paise: 59900,
     short_description: 'Foam-powered cleaning for compatible household surfaces.',
     description: 'Take on everyday marks and messes around your home. Check the label for approved surfaces and spot-test before use.',
-    images: ['/images/products/multipurpose-cleaner-1.jpeg'],
+    images: ['/images/products/multipurpose-cleaner-cutout.png'],
     category_name: 'Home Care',
     reviews: [],
   },
@@ -89,7 +89,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     compare_at_price_paise: 42900,
     short_description: 'Streak-free shine with pet & baby safe neem and citrus botanical extracts.',
     description: 'High-dilution botanical floor cleaning elixir that lifts deep dirt, removes grime, and leaves behind citrus botanical brilliance without harsh residue.',
-    images: ['/images/products/floor-cleaner.jpg'],
+    images: ['/images/products/multipurpose-cleaner-cutout.png'],
     category_name: 'Surface Care',
     reviews: [
       {
@@ -108,7 +108,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     compare_at_price_paise: 37900,
     short_description: 'Melts burnt-on tadka oil and sticky chimney exhaust grease in 60 seconds.',
     description: 'Foaming citrus-solvent degreasing formula that penetrates stubborn chimney soot, exhaust grease, stove burn marks, and fryer crust effortlessly.',
-    images: ['/images/products/kitchen-degreaser.jpg'],
+    images: ['/images/products/kitchen-cleaner-cutout.png'],
     category_name: 'Kitchen Care',
     reviews: [
       {
@@ -127,7 +127,7 @@ const DEFAULT_PRODUCTS: Record<string, {
     compare_at_price_paise: 69900,
     short_description: 'Waterless foaming solution with bristles safe for white sneakers, mesh, and suede.',
     description: 'No-water-soak cleaning foam with dual-density scrub brush that restores dirty white soles and delicate uppers in under 3 minutes.',
-    images: ['/images/products/shoe-cleaner.jpg'],
+    images: ['/images/products/shoe-cleaner-cutout.png'],
     category_name: 'Footwear Care',
     reviews: [
       {
@@ -165,6 +165,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params
   if (slug === 'laundry-pods') redirect('/shop#coming-soon')
+  if (slug === 'laundry-beads') redirect('/shop')
   const supabase = await createClient()
 
   // Try fetching from Supabase

@@ -60,7 +60,7 @@ export default async function AdminProductsPage() {
       compare_at_price_paise: 42900,
       in_stock: true,
       is_published: true,
-      images: ['/images/products/floor-cleaner.jpg'],
+      images: ['/images/products/multipurpose-cleaner-cutout.png'],
       category: { name: 'Surface Care' },
     },
     {
@@ -71,7 +71,7 @@ export default async function AdminProductsPage() {
       compare_at_price_paise: 37900,
       in_stock: true,
       is_published: true,
-      images: ['/images/products/kitchen-degreaser.jpg'],
+      images: ['/images/products/kitchen-cleaner-cutout.png'],
       category: { name: 'Kitchen Care' },
     },
     {
@@ -82,7 +82,7 @@ export default async function AdminProductsPage() {
       compare_at_price_paise: 39900,
       in_stock: true,
       is_published: true,
-      images: ['/images/products/shoe-cleaner.jpg'],
+      images: ['/images/products/shoe-cleaner-cutout.png'],
       category: { name: 'Footwear Care' },
     },
   ]

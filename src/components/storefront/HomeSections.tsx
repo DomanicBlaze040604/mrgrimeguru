@@ -1,16 +1,17 @@
+import { ProductTrio } from './ProductTrio'
 import { ProductImageGallery } from './ProductImageGallery'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight, Banknote, RotateCcw, Truck, MessagesSquare } from 'lucide-react'
 
 export const range = [
-  { slug: 'kitchen-cleaner', name: 'Kitchen Cleaner', category: 'Kitchen', image: 'kitchen-cleaner-1.jpeg', color: 'yellow', price: 499, original: 599, line: 'Grease, meet your guru.', description: 'A foam-first fix for cooking splashes, sticky residue and everyday kitchen grease.', tags: ['Gas stoves', 'Chimney filters', 'Kitchen tiles'] },
-  { slug: 'multipurpose-cleaner', name: 'Multipurpose Cleaner', category: 'Home', image: 'multipurpose-cleaner-1.jpeg', color: 'green', price: 499, original: 599, line: 'Every room. A little more vroom.', description: 'Take on everyday marks and messes across compatible surfaces around your home.', tags: ['Home surfaces', 'Doors & tiles', 'Furniture'] },
-  { slug: 'shoe-cleaner', name: 'Shoe Cleaner', category: 'Footwear', image: 'shoe-cleaner-1.jpeg', color: 'orange', price: 599, original: 699, line: 'Fresh kicks. Quick fix.', description: 'Give your everyday footwear a fresh start with foam that helps lift dirt and surface marks.', tags: ['Sneakers', 'Soles', 'Compatible uppers'] },
+  { slug: 'kitchen-cleaner', name: 'Kitchen Cleaner', category: 'Kitchen', image: 'kitchen-cleaner-cutout.png', color: 'yellow', price: 499, original: 599, line: 'Grease, meet your guru.', description: 'A foam-first fix for cooking splashes, sticky residue and everyday kitchen grease.', tags: ['Gas stoves', 'Chimney filters', 'Kitchen tiles'] },
+  { slug: 'multipurpose-cleaner', name: 'Multipurpose Cleaner', category: 'Home', image: 'multipurpose-cleaner-cutout.png', color: 'green', price: 499, original: 599, line: 'Every room. A little more vroom.', description: 'Take on everyday marks and messes across compatible surfaces around your home.', tags: ['Home surfaces', 'Doors & tiles', 'Furniture'] },
+  { slug: 'shoe-cleaner', name: 'Shoe Cleaner', category: 'Footwear', image: 'shoe-cleaner-cutout.png', color: 'orange', price: 599, original: 699, line: 'Fresh kicks. Quick fix.', description: 'Give your everyday footwear a fresh start with foam that helps lift dirt and surface marks.', tags: ['Sneakers', 'Soles', 'Compatible uppers'] },
 ]
 
 export function CircularCategories() {
-  return <section className="guru-categories" aria-label="Shop by category"><div className="guru-container guru-category-inner"><div className="guru-category-intro"><span className="guru-eyebrow">PICK YOUR GURU</span><p>A little foam.<br />A cleaner home.</p></div><div className="guru-category-links">{range.map(p => <Link href={`/shop/${p.slug}`} key={p.slug}><span className={`guru-category-circle ${p.color}`}><Image src={`/images/products/${p.image}`} alt={p.name} fill sizes="140px" /></span><strong>{p.name}</strong></Link>)}<Link href="/shop"><span className="guru-category-circle guru-category-all"><Image src="/images/products/all-products-frame.jpeg" alt="All three Mr GrimeGuru cleaners" fill sizes="140px" /></span><strong>All products <ArrowUpRight size={14} /></strong></Link></div></div></section>
+  return <section className="guru-categories" aria-label="Shop by category"><div className="guru-container guru-category-inner"><div className="guru-category-intro"><span className="guru-eyebrow">PICK YOUR GURU</span><p>A little foam.<br />A cleaner home.</p></div><div className="guru-category-links">{range.map(p => <Link href={`/shop/${p.slug}`} key={p.slug}><span className={`guru-category-circle ${p.color}`}><Image src={`/images/products/${p.image}`} alt={p.name} fill sizes="140px" /></span><strong>{p.name}</strong></Link>)}<Link href="/shop"><span className="guru-category-circle guru-category-all"><ProductTrio compact /></span><strong>All products <ArrowUpRight size={14} /></strong></Link></div></div></section>
 }
 
 export function SurfaceBanner() {

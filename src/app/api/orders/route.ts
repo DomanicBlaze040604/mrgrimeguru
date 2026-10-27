@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
       }
 
       const product = Array.isArray(variant.products) ? variant.products[0] : variant.products
+      if (product.slug === 'laundry-beads') return NextResponse.json({ error: 'This product is no longer available to order.' }, { status: 409 })
       if (product.slug === 'laundry-pods') return NextResponse.json({ error: 'Laundry Pods are coming soon and cannot be ordered yet.' }, { status: 409 })
       const offer = variant.is_default ? getCleanerOffer(product.slug) : undefined
       const unitPrice = offer?.price ?? variant.price_paise

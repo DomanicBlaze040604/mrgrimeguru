@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { ProductTrio } from './ProductTrio'
 import Link from 'next/link'
 import { ArrowRight, Play } from 'lucide-react'
 
 const slides = [
   { image: 'hero-collection.png', label: 'The grime-fighting trio', line: 'Three gurus. One clean home.' },
-  { image: 'kitchen-cleaner-1.jpeg', label: 'Kitchen Cleaner', line: 'Grease takes flight. Kitchens shine bright.' },
-  { image: 'multipurpose-cleaner-1.jpeg', label: 'Multipurpose Cleaner', line: 'Room to room. Make way for foam.' },
-  { image: 'shoe-cleaner-1.jpeg', label: 'Shoe Cleaner', line: 'Lose the grime. Step out in prime.' },
+  { image: 'kitchen-cleaner-cutout.png', label: 'Kitchen Cleaner', line: 'Grease takes flight. Kitchens shine bright.' },
+  { image: 'multipurpose-cleaner-cutout.png', label: 'Multipurpose Cleaner', line: 'Room to room. Make way for foam.' },
+  { image: 'shoe-cleaner-cutout.png', label: 'Shoe Cleaner', line: 'Lose the grime. Step out in prime.' },
 ]
 
 export function HeroSection() {
@@ -32,7 +33,7 @@ export function HeroSection() {
         <div className="guru-hero-stage">
           {slides.map((slide, i) => <div key={slide.image} className={`guru-hero-slide ${i === active ? 'is-active' : ''} ${i > 0 ? 'is-product' : ''}`} aria-hidden={i !== active}>
             {i > 0 && <><span className="guru-slide-word" aria-hidden="true">{i === 1 ? 'DEGREASE.' : i === 2 ? 'REFRESH.' : 'REPEAT.'}</span><span className="guru-slide-star" aria-hidden="true">✦</span></>}
-            <Image src={`/images/products/${slide.image}`} alt={slide.label} fill sizes="(max-width: 900px) 95vw, 55vw" preload={i === 0} className="guru-slide-image" />
+            {i === 0 ? <><span className="guru-trio-title">THE CLEAN TEAM.</span><ProductTrio /><span className="guru-trio-note">KITCHEN. HOME. SHOES. SORTED.</span></> : <Image src={`/images/products/${slide.image}`} alt={slide.label} fill sizes="(max-width: 900px) 95vw, 55vw" className="guru-slide-image" />}
           </div>)}
         </div>
         <div className="guru-carousel-bottom"><div><span>{String(active + 1).padStart(2, '0')} / 04</span><strong>{slides[active].line}</strong></div><div className="guru-carousel-controls">{slides.map((s, i) => <button key={s.image} className={i === active ? 'is-active' : ''} onClick={() => setActive(i)} aria-label={`Show ${s.label}`} aria-pressed={active === i} />)}</div></div>
