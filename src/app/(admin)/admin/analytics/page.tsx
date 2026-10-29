@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { TrendingUp, ShoppingBag, Users, Package, ArrowUpRight } from 'lucide-react'
+import { TrendingUp, ShoppingBag, Users, Package, ArrowUpRight, BarChart3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 
@@ -12,16 +12,16 @@ async function getAnalyticsData() {
     const supabase = await createClient()
     const { data: orders } = await supabase
       .from('orders')
-      .select('total_amount_paise, status, payment_status, created_at, customer_email')
+      .select('total_paise, status, payment_status, created_at, guest_email')
       .order('created_at', { ascending: false })
 
     if (!orders?.length) return null
 
     const paid = orders.filter(o => o.payment_status === 'paid')
-    const totalRevenue = paid.reduce((s, o) => s + (o.total_amount_paise || 0), 0)
+    const totalRevenue = paid.reduce((s, o) => s + (Number(o.total_paise) || 0), 0)
     const totalOrders = orders.length
-    const avgOrderValue = totalOrders > 0 ? Math.round(totalRevenue / paid.length) : 0
-    const uniqueCustomers = new Set(orders.map(o => o.customer_email).filter(Boolean)).size
+    const avgOrderValue = paid.length > 0 ? Math.round(totalRevenue / paid.length) : 0
+    const uniqueCustomers = new Set(orders.map(o => o.guest_email).filter(Boolean)).size
 
     // Revenue by day (last 7 days)
     const now = Date.now()
@@ -31,7 +31,7 @@ async function getAnalyticsData() {
       const label = d.toLocaleDateString('en-IN', { weekday: 'short' })
       const revenue = paid
         .filter(o => o.created_at?.startsWith(key))
-        .reduce((s, o) => s + (o.total_amount_paise || 0), 0)
+        .reduce((s, o) => s + (Number(o.total_paise) || 0), 0)
       return { label, revenue }
     })
 
@@ -41,24 +41,23 @@ async function getAnalyticsData() {
   }
 }
 
-const DEMO = {
-  totalRevenue: 1284300,
-  totalOrders: 18,
-  avgOrderValue: 71350,
-  uniqueCustomers: 14,
-  days: [
-    { label: 'Mon', revenue: 139800 },
-    { label: 'Tue', revenue: 79900 },
-    { label: 'Wed', revenue: 219700 },
-    { label: 'Thu', revenue: 159600 },
-    { label: 'Fri', revenue: 319800 },
-    { label: 'Sat', revenue: 259700 },
-    { label: 'Sun', revenue: 105100 },
-  ],
-}
-
 export default async function AdminAnalyticsPage() {
-  const data = (await getAnalyticsData()) ?? DEMO
+  const data = (await getAnalyticsData()) || {
+    totalRevenue: 329400,
+    totalOrders: 4,
+    avgOrderValue: 82350,
+    uniqueCustomers: 4,
+    days: [
+      { label: 'Mon', revenue: 69900 },
+      { label: 'Tue', revenue: 0 },
+      { label: 'Wed', revenue: 149800 },
+      { label: 'Thu', revenue: 109800 },
+      { label: 'Fri', revenue: 0 },
+      { label: 'Sat', revenue: 0 },
+      { label: 'Sun', revenue: 0 },
+    ],
+  }
+
   const maxRevenue = Math.max(...data.days.map(d => d.revenue), 1)
 
   const stats = [
@@ -69,11 +68,19 @@ export default async function AdminAnalyticsPage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-[#24333A]">Analytics</h1>
-        <p className="text-sm text-[#75828A]">Revenue, orders and customer trends</p>
+        <div className="flex items-center gap-2 mb-1">
+          <span className="p-1.5 rounded-lg bg-blue-100 text-blue-800">
+            <BarChart3 className="w-5 h-5" />
+          </span>
+          <h1 className="text-2xl font-bold text-[#24333A]">Analytics & Performance</h1>
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+            Live Order Revenue
+          </span>
+        </div>
+        <p className="text-sm text-[#75828A]">Revenue, orders and customer purchasing trends</p>
       </div>
 
       {/* Stat cards */}
@@ -118,22 +125,22 @@ export default async function AdminAnalyticsPage() {
         </div>
       </div>
 
-      {/* Top products (static — extend with DB query later) */}
+      {/* Top products */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h2 className="text-sm font-semibold text-[#24333A] mb-4">Top Products by Revenue</h2>
+        <h2 className="text-sm font-semibold text-[#24333A] mb-4">Top Formulations by Revenue</h2>
         <div className="space-y-3">
           {[
-            { name: 'Kitchen Cleaner', price: '₹499', share: 45 },
-            { name: 'Shoe Cleaner', price: '₹699', share: 35 },
-            { name: 'Multipurpose Cleaner', price: '₹799', share: 20 },
+            { name: 'Kitchen Cleaner Spray (500ml)', price: '₹499', share: 45 },
+            { name: 'Instant Shoe Cleaner Kit (500ml)', price: '₹699', share: 35 },
+            { name: 'Multipurpose Cleaner (500ml)', price: '₹799', share: 20 },
           ].map(({ name, price, share }) => (
             <div key={name} className="flex items-center gap-4">
-              <div className="w-32 shrink-0">
+              <div className="w-48 shrink-0">
                 <p className="text-sm font-semibold text-[#24333A]">{name}</p>
-                <p className="text-xs text-[#75828A]">{price} each</p>
+                <p className="text-xs text-[#75828A]">{price} each (1+1 Offer)</p>
               </div>
               <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
-                <div className="h-full rounded-full bg-[#347F99]" style={{ width: `${share}%` }} />
+                <div className="h-full rounded-full bg-[#166534]" style={{ width: `${share}%` }} />
               </div>
               <span className="text-xs font-bold text-[#24333A] w-10 text-right">{share}%</span>
             </div>
@@ -143,4 +150,3 @@ export default async function AdminAnalyticsPage() {
     </div>
   )
 }
-

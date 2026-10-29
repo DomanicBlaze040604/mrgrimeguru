@@ -12,8 +12,9 @@ async function getCustomers() {
     const supabase = await createClient()
     const { data } = await supabase
       .from('orders')
-      .select('customer_email, shipping_name, shipping_city, total_amount_paise, created_at')
+      .select('guest_email, shipping_address, total_paise, created_at')
       .order('created_at', { ascending: false })
+
     if (!data?.length) return null
 
     // Aggregate by email
@@ -21,20 +22,26 @@ async function getCustomers() {
       name: string; email: string; city: string;
       orders: number; spent: number; lastOrder: string
     }>()
+
     for (const o of data) {
-      const email = o.customer_email || 'guest'
+      const email = o.guest_email || 'guest@mrgrimeguru.com'
+      const addr = (o.shipping_address as any) || {}
+      const name = [addr.first_name, addr.last_name].filter(Boolean).join(' ') || 'Customer'
+      const city = addr.city || 'India'
+      const amount = Number(o.total_paise) || 0
+
       const existing = map.get(email)
       if (existing) {
         existing.orders++
-        existing.spent += o.total_amount_paise || 0
+        existing.spent += amount
         if (o.created_at > existing.lastOrder) existing.lastOrder = o.created_at
       } else {
         map.set(email, {
-          name: o.shipping_name || 'Guest',
+          name,
           email,
-          city: o.shipping_city || 'India',
+          city,
           orders: 1,
-          spent: o.total_amount_paise || 0,
+          spent: amount,
           lastOrder: o.created_at,
         })
       }
@@ -45,18 +52,8 @@ async function getCustomers() {
   }
 }
 
-const DEMO_CUSTOMERS = [
-  { name: 'Priya Sharma', email: 'priya.sharma@gmail.com', city: 'Mumbai', orders: 3, spent: 254700, lastOrder: new Date(Date.now() - 3600000 * 4).toISOString() },
-  { name: 'Arjun Mehta', email: 'arjun.mehta@yahoo.com', city: 'Bengaluru', orders: 2, spent: 139800, lastOrder: new Date(Date.now() - 86400000).toISOString() },
-  { name: 'Neha Kapoor', email: 'neha.kapoor@outlook.com', city: 'New Delhi', orders: 4, spent: 319600, lastOrder: new Date(Date.now() - 86400000 * 2).toISOString() },
-  { name: 'Rohit Verma', email: 'rohit.verma@gmail.com', city: 'Pune', orders: 1, spent: 69900, lastOrder: new Date(Date.now() - 86400000 * 3).toISOString() },
-  { name: 'Simran Kaur', email: 'simran.kaur@hotmail.com', city: 'Chandigarh', orders: 2, spent: 159800, lastOrder: new Date(Date.now() - 86400000 * 5).toISOString() },
-  { name: 'Deepak Nair', email: 'deepak.nair@gmail.com', city: 'Kochi', orders: 1, spent: 79900, lastOrder: new Date(Date.now() - 86400000 * 7).toISOString() },
-]
-
 export default async function AdminCustomersPage() {
-  const dbCustomers = await getCustomers()
-  const customers = dbCustomers ?? DEMO_CUSTOMERS
+  const customers = await getCustomers() || []
 
   const totalCustomers = customers.length
   const totalRevenue = customers.reduce((s, c) => s + c.spent, 0)
@@ -65,23 +62,28 @@ export default async function AdminCustomersPage() {
     : '0'
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#24333A]">Customers</h1>
-          <p className="text-sm text-[#75828A]">Track customer spend, order history and location</p>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="p-1.5 rounded-lg bg-blue-100 text-blue-800">
+              <Users className="w-5 h-5" />
+            </span>
+            <h1 className="text-2xl font-bold text-[#24333A]">Customers</h1>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+              Live Database ({totalCustomers} Customers)
+            </span>
+          </div>
+          <p className="text-sm text-[#75828A]">Track customer spend, repeat orders, and geographic locations</p>
         </div>
-        <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700">
-          {totalCustomers} Unique Customers
-        </span>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: 'Total Customers', value: totalCustomers.toString(), icon: Users, color: '#347F99' },
-          { label: 'Total Revenue', value: formatPrice(totalRevenue), icon: ShoppingBag, color: '#059669' },
+          { label: 'Total Customer Spend', value: formatPrice(totalRevenue), icon: ShoppingBag, color: '#059669' },
           { label: 'Avg Orders / Customer', value: avgOrdersPerCustomer, icon: Calendar, color: '#7C3AED' },
         ].map(({ label, value, icon: Icon, color }) => (
           <div key={label} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
@@ -144,4 +146,3 @@ export default async function AdminCustomersPage() {
     </div>
   )
 }
-

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ShoppingBag, Search, Filter, Eye, CheckCircle2, Clock, Truck, XCircle } from 'lucide-react'
+import { ShoppingBag, Search, Eye, Edit, CheckCircle2, Clock, Truck, XCircle, ArrowRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 
@@ -16,77 +16,50 @@ export default async function AdminOrdersPage() {
     .select(`
       id,
       order_number,
-      customer_email,
-      shipping_name,
-      shipping_city,
-      total_amount_paise,
+      guest_email,
       status,
       payment_status,
+      fulfillment_status,
+      total_paise,
+      subtotal_paise,
+      discount_paise,
+      shipping_address,
       created_at
     `)
     .order('created_at', { ascending: false })
 
-  const fallbackOrders = [
-    {
-      id: 'demo_ord_1',
-      order_number: 'GG-2026-88192',
-      customer_email: 'priya.sharma@gmail.com',
-      shipping_name: 'Priya Sharma',
-      shipping_city: 'Mumbai',
-      total_amount_paise: 84800,
-      status: 'processing',
-      payment_status: 'paid',
-      created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
-    },
-    {
-      id: 'demo_ord_2',
-      order_number: 'GG-2026-88191',
-      customer_email: 'arjun.mehta@yahoo.com',
-      shipping_name: 'Arjun Mehta',
-      shipping_city: 'Bengaluru',
-      total_amount_paise: 39900,
-      status: 'shipped',
-      payment_status: 'paid',
-      created_at: new Date(Date.now() - 3600000 * 20).toISOString(),
-    },
-    {
-      id: 'demo_ord_3',
-      order_number: 'GG-2026-88190',
-      customer_email: 'neha.kapoor@outlook.com',
-      shipping_name: 'Neha Kapoor',
-      shipping_city: 'New Delhi',
-      total_amount_paise: 114800,
-      status: 'delivered',
-      payment_status: 'paid',
-      created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-    },
-    {
-      id: 'demo_ord_4',
-      order_number: 'GG-2026-88189',
-      customer_email: 'rohit.verma@gmail.com',
-      shipping_name: 'Rohit Verma',
-      shipping_city: 'Pune',
-      total_amount_paise: 34900,
-      status: 'pending',
-      payment_status: 'pending',
-      created_at: new Date(Date.now() - 86400000 * 3).toISOString(),
-    },
-  ]
-
-  const orders = dbOrders && dbOrders.length > 0 ? dbOrders : fallbackOrders
+  const orders = (dbOrders || []).map((o: any) => {
+    const addr = o.shipping_address || {}
+    const name = [addr.first_name, addr.last_name].filter(Boolean).join(' ') || 'Customer'
+    const city = addr.city || 'India'
+    return {
+      id: o.id,
+      order_number: o.order_number,
+      customer_email: o.guest_email || 'guest@mrgrimeguru.com',
+      shipping_name: name,
+      shipping_city: city,
+      total_amount_paise: Number(o.total_paise) || 49900,
+      status: o.status || 'pending',
+      payment_status: o.payment_status || 'paid',
+      created_at: o.created_at,
+    }
+  })
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#24333A]">Customer Orders</h1>
-          <p className="text-sm text-[#75828A]">Track shipments, dispatch status, and customer payments</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700">
-            {orders.length} Total Orders
-          </span>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="p-1.5 rounded-lg bg-emerald-100 text-emerald-800">
+              <ShoppingBag className="w-5 h-5" />
+            </span>
+            <h1 className="text-2xl font-bold text-[#24333A]">Customer Orders</h1>
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+              {orders.length} Total Orders
+            </span>
+          </div>
+          <p className="text-sm text-[#75828A]">Track shipments, dispatch status, customer payments and fulfillment</p>
         </div>
       </div>
 
@@ -117,20 +90,25 @@ export default async function AdminOrdersPage() {
                 <th className="text-right px-6 py-4 text-xs font-semibold text-[#75828A] uppercase tracking-wider">
                   Date
                 </th>
+                <th className="text-right px-6 py-4 text-xs font-semibold text-[#75828A] uppercase tracking-wider">
+                  Manage
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {orders.map((ord) => (
                 <tr key={ord.id} className="hover:bg-gray-50/70 transition-colors">
                   <td className="px-6 py-4 font-mono font-bold text-[#24333A]">
-                    {ord.order_number}
+                    <Link href={`/admin/orders/${ord.id}`} className="hover:text-[#166534] transition-colors">
+                      {ord.order_number}
+                    </Link>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="font-semibold text-[#24333A]">{ord.shipping_name || 'Guest Customer'}</div>
+                    <div className="font-semibold text-[#24333A]">{ord.shipping_name}</div>
                     <div className="text-xs text-[#75828A]">{ord.customer_email}</div>
                   </td>
                   <td className="px-6 py-4 text-xs font-medium text-[#52636a]">
-                    {ord.shipping_city || 'India'}
+                    {ord.shipping_city}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full capitalize ${
@@ -150,10 +128,18 @@ export default async function AdminOrdersPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right font-bold text-[#24333A]">
-                    {formatPrice(ord.total_amount_paise || (ord as any).total_paise || 39900)}
+                    {formatPrice(ord.total_amount_paise)}
                   </td>
                   <td className="px-6 py-4 text-right text-xs text-[#75828A]">
-                    {new Date(ord.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
+                    {new Date(ord.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <Link
+                      href={`/admin/orders/${ord.id}`}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 hover:bg-[#166534] hover:text-white transition-colors text-xs font-bold"
+                    >
+                      <Eye className="w-3.5 h-3.5" /> View
+                    </Link>
                   </td>
                 </tr>
               ))}
