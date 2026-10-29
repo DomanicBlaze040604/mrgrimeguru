@@ -282,7 +282,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {/* Purchase panel stays beside the introduction, before the demos. */}
             <div className="guru-purchase-panel">
               <div className="guru-purchase-image"><ProductImageGallery slug={slug} name={meta.name} image={meta.heroImage} preload /></div>
-              {products.map(p => <div className="guru-purchase-details" key={p.id}><div><span className="guru-eyebrow">500 ML</span><h2>{p.name}</h2><p>{p.short_description}</p></div><div className="guru-purchase-price"><strong>{formatPrice(p.price_paise)}</strong>{p.compare_at_price_paise && <s>{formatPrice(p.compare_at_price_paise)}</s>}<span>Free shipping</span></div><AddToCartButton product={{...p, image:meta.heroImage}} /></div>)}
+              {products.map(p => <div className="guru-purchase-details" key={p.id}><div><span className="guru-eyebrow">500 ML</span><h2>{p.name}</h2><p>{p.short_description}</p></div><div className="guru-purchase-price"><strong>{formatPrice(p.price_paise)}</strong>{p.compare_at_price_paise && <s>{formatPrice(p.compare_at_price_paise)}</s>}<span>Free shipping</span></div><AddToCartButton product={{...p, image:meta.heroImage}} showBuyNow /></div>)}
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ShoppingBag, Trash2, Plus, Minus, Tag } from 'lucide-react'
+import { X, ShoppingBag, Trash2, Plus, Minus } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
 import { formatPrice } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
@@ -17,8 +17,6 @@ export function CartDrawer() {
     removeItem,
     updateQuantity,
     getTotals,
-    discountCode,
-    discountAmountPaise,
   } = useCartStore()
 
   const totals = getTotals()
@@ -171,14 +169,6 @@ export function CartDrawer() {
             {items.length > 0 && (
               <div className="border-t border-[#fff2be] p-5 bg-[#fffbf0]">
                 {/* Discount code */}
-                {discountCode && (
-                  <div className="flex items-center gap-2 mb-3 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
-                    <Tag className="h-4 w-4 text-emerald-600" />
-                    <span className="text-xs font-semibold text-emerald-700">
-                      Code &quot;{discountCode}&quot; applied — saving {formatPrice(typeof discountAmountPaise === 'function' ? (discountAmountPaise as any)() : (discountAmountPaise || 0))}
-                    </span>
-                  </div>
-                )}
 
                 {/* Order summary */}
                 <div className="flex flex-col gap-2 mb-4 text-sm">
@@ -186,12 +176,7 @@ export function CartDrawer() {
                     <span>Subtotal</span>
                     <span>{formatPrice(totals.subtotal_paise)}</span>
                   </div>
-                  {totals.discount_paise > 0 && (
-                    <div className="flex justify-between text-emerald-600">
-                      <span>Discount</span>
-                      <span>−{formatPrice(totals.discount_paise)}</span>
-                    </div>
-                  )}
+
                   <div className="flex justify-between text-[#75828A]">
                     <span>Shipping</span>
                     <span>
@@ -203,7 +188,7 @@ export function CartDrawer() {
                     </span>
                   </div>
                   <div className="flex justify-between text-[#75828A]">
-                    <span>GST (18%)</span>
+                    <span>GST included in prices</span>
                     <span>{formatPrice(totals.tax_paise)}</span>
                   </div>
                   <div className="flex justify-between font-bold text-base text-[#171714] border-t border-[#e5dcc9] pt-2 mt-1">
@@ -213,8 +198,8 @@ export function CartDrawer() {
                 </div>
 
                 <Button variant="primary" size="lg" className="w-full mb-2" asChild>
-                  <Link href="/checkout" onClick={closeCart}>
-                    Proceed to Checkout
+                  <Link href="/cart" onClick={closeCart}>
+                    Review Cart
                   </Link>
                 </Button>
                 <button

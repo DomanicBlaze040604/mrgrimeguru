@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/storefront/SiteHeader'
 import { SiteFooter } from '@/components/storefront/SiteFooter'
 import { CartDrawer } from '@/components/cart/CartDrawer'
 import { FloatingProductVideo } from '@/components/storefront/FloatingProductVideo'
+import { WhatsAppWidget } from '@/components/storefront/WhatsAppWidget'
 
 
 export default function StorefrontLayout({
@@ -19,6 +20,7 @@ export default function StorefrontLayout({
       <SiteFooter />
       <CartDrawer />
       <FloatingProductVideo />
+      <WhatsAppWidget />
       
     </div>
   )

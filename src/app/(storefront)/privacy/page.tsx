@@ -1,3 +1,4 @@
+import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 import { Shield } from 'lucide-react'
 
@@ -33,9 +34,9 @@ export default function PrivacyPolicyPage() {
         <Section title="1. Business Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
           <p>Website: https://www.mrgrimeguru.com/</p>
-          <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Business address: {CONTACT.address}</p>
           <p>Customer support email: support@mrgrimeguru.com</p>
-          <p>Privacy contact: [PRIVACY CONTACT EMAIL]</p>
+          <p>Privacy contact: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
         </Section>
 
         <Section title="2. Information We Collect">
@@ -81,7 +82,7 @@ export default function PrivacyPolicyPage() {
 
         <Section title="10. Your Rights">
           <p>Subject to applicable law, you may have rights to request access to your personal information, correction, erasure where legally permissible, withdrawal of consent, and grievance redressal.</p>
-          <p>Contact [PRIVACY CONTACT EMAIL] to submit a request.</p>
+          <p>Contact <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> to submit a request.</p>
         </Section>
 
         <Section title="11. Marketing Communications">
@@ -89,7 +90,7 @@ export default function PrivacyPolicyPage() {
         </Section>
 
         <Section title="12. Children's Privacy">
-          <p>Our purchasing services are intended for adults who can lawfully enter into purchase transactions. We do not knowingly collect children's personal information in circumstances where such collection is prohibited.</p>
+          <p>Our purchasing services are intended for adults who can lawfully enter into purchase transactions. We do not knowingly collect children&apos;s personal information in circumstances where such collection is prohibited.</p>
         </Section>
 
         <Section title="13. Policy Changes">
@@ -98,8 +99,9 @@ export default function PrivacyPolicyPage() {
 
         <Section title="14. Contact and Grievances">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
-          <p>Email: [PRIVACY OR GRIEVANCE EMAIL]</p>
-          <p>Address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Email: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+          <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
+          <p>Address: {CONTACT.address}</p>
           <p>Governing law: applicable laws of India.</p>
         </Section>
       </div>

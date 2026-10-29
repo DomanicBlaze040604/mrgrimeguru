@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { FastrrCheckoutButton } from '@/components/storefront/FastrrCheckoutButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
@@ -9,16 +10,13 @@ import {
   Minus,
   ArrowRight,
   ShoppingBag,
-  Tag,
   CheckCircle2,
   Truck,
-  Sparkles,
   ShieldCheck,
 } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
 import { formatPrice } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
-import { toast } from '@/components/ui/Toaster'
 
 export default function CartPage() {
   const {
@@ -26,63 +24,22 @@ export default function CartPage() {
     removeItem,
     updateQuantity,
     subtotalPaise,
-    discountCode,
-    discountAmountPaise,
-    applyDiscount,
-    removeDiscount,
   } = useCartStore()
 
-  const [promoInput, setPromoInput] = useState('')
-  const [isValidatingPromo, setIsValidatingPromo] = useState(false)
+  const [checkoutUnavailable, setCheckoutUnavailable] = useState(false)
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('checkout') === 'unavailable') {
+      const timer = window.setTimeout(() => setCheckoutUnavailable(true), 0)
+      return () => window.clearTimeout(timer)
+    }
+  }, [])
 
-  const subtotal = typeof subtotalPaise === 'function' ? subtotalPaise() : (subtotalPaise || 0)
-  const discount = typeof discountAmountPaise === 'function' ? (discountAmountPaise as any)() : (discountAmountPaise || 0)
+  const subtotal = subtotalPaise()
   const freeShippingThreshold = 49900
   const isFreeShipping = subtotal >= freeShippingThreshold
   const amountNeededForFreeShipping = Math.max(0, freeShippingThreshold - subtotal)
   const shippingFee = subtotal === 0 || isFreeShipping ? 0 : 4900
-  const grandTotal = Math.max(0, subtotal - discount + shippingFee)
-
-  const handleApplyPromo = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!promoInput.trim()) return
-
-    setIsValidatingPromo(true)
-    try {
-      const res = await fetch('/api/discount/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          code: promoInput.trim().toUpperCase(),
-          subtotal_paise: subtotal,
-        }),
-      })
-
-      const data = await res.json()
-      if (res.ok && data.valid) {
-        applyDiscount(data.discount.code, data.discount.calculated_discount_paise)
-        toast({
-          title: 'Coupon Applied!',
-          description: `You saved ${formatPrice(data.discount.calculated_discount_paise)} with code ${data.discount.code}`,
-        })
-        setPromoInput('')
-      } else {
-        toast({
-          title: 'Invalid Coupon',
-          description: data.error || 'This code is invalid or has expired',
-          variant: 'error',
-        })
-      }
-    } catch {
-      toast({
-        title: 'Error',
-        description: 'Failed to validate discount code',
-        variant: 'error',
-      })
-    } finally {
-      setIsValidatingPromo(false)
-    }
-  }
+  const grandTotal = Math.max(0, subtotal + shippingFee)
 
   if (items.length === 0) {
     return (
@@ -109,9 +66,11 @@ export default function CartPage() {
     <div className="min-h-screen bg-[#fffbf0] py-12">
       <div className="container-wide">
         <h1 className="text-3xl sm:text-4xl font-bold text-[#171714] mb-8">
-          Your Shopping Cart ({items.reduce((s, i) => s + i.quantity, 0)})
+          Review Your Cart ({items.reduce((s, i) => s + i.quantity, 0)})
         </h1>
 
+        <ol aria-label="Checkout steps" className="flex flex-wrap gap-6 text-sm mb-6"><li aria-current="step" className="font-bold text-[#b9460c]">1. Review cart</li><li className="text-[#655e51]">2. Secure checkout</li></ol>
+        {checkoutUnavailable && <p role="alert" className="mb-6 rounded-xl bg-amber-50 border border-amber-200 p-4">Checkout is temporarily unavailable. Your cart is saved. Please try again or contact us on WhatsApp.</p>}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Cart Items List */}
           <div className="lg:col-span-8 space-y-4">
@@ -146,8 +105,9 @@ export default function CartPage() {
                 <div key={item.id} className="p-6 flex flex-col sm:flex-row items-center gap-5">
                   <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-[#fffbf0] border border-[#e5dcc9] shrink-0">
                     <Image
-src={item.image_url || '/images/placeholder.jpg'}
-alt={item.product_name}
+                      src={item.image_url || '/images/placeholder.jpg'}
+                      alt={item.product_name}
+                      sizes="96px"
                       fill
                       className="object-contain"
                     />
@@ -209,35 +169,6 @@ alt={item.product_name}
               ))}
             </div>
 
-            {/* Quick add recommendation */}
-            <div className="p-4 rounded-2xl bg-[#fff2be]/50 border border-[#facc15]/50 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Sparkles className="w-5 h-5 text-[#b9460c]" />
-                <div>
-                  <div className="text-sm font-bold text-[#171714]">Need a Microfiber Cloth?</div>
-                  <div className="text-xs text-[#75828A]">Ultra-plush lint-free drying cloth for just ₹99</div>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  useCartStore.getState().addItem({
-                    product_id: 'addon_microfiber',
-                    variant_id: 'addon_microfiber',
-                    product_name: 'Mr GrimeGuru Microfiber Cloth (2-Pack)',
-                    variant_name: 'Standard',
-                    slug: 'microfiber-cloth',
-                    price_paise: 9900,
-                    image_url: '/images/products/shoe-cleaner-cutout.png',
-                    quantity: 1,
-                  })
-                  toast({ title: 'Added Cloth Pack to cart!' })
-                }}
-              >
-                + Add for ₹99
-              </Button>
-            </div>
           </div>
 
           {/* Order Summary Sidebar */}
@@ -245,42 +176,7 @@ alt={item.product_name}
             <div className="bg-white rounded-3xl border border-[#e5dcc9] p-6 shadow-sm space-y-6">
               <h2 className="text-xl font-bold text-[#171714]">Order Summary</h2>
 
-              {/* Promo code form */}
-              <form onSubmit={handleApplyPromo} className="space-y-2">
-                <label className="block text-xs font-bold text-[#171714] uppercase tracking-wider">
-                  Discount Code
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Enter coupon (e.g. CLEAN10)"
-                    value={promoInput}
-                    onChange={(e) => setPromoInput(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-[#e5dcc9] rounded-xl text-sm uppercase focus:outline-none focus:ring-2 focus:ring-[#facc15]"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isValidatingPromo}
-                    className="px-4 py-2 bg-[#171714] text-white rounded-xl text-xs font-bold hover:bg-[#b9460c] transition-colors"
-                  >
-                    Apply
-                  </button>
-                </div>
-                {discountCode && (
-                  <div className="flex items-center justify-between text-xs text-emerald-700 bg-emerald-50 px-3 py-2 rounded-lg mt-2">
-                    <span className="flex items-center gap-1 font-semibold">
-                      <Tag className="w-3.5 h-3.5" /> {discountCode} Applied (-{formatPrice(discount)})
-                    </span>
-                    <button
-                      type="button"
-                      onClick={removeDiscount}
-                      className="text-red-500 font-bold hover:underline"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                )}
-              </form>
+              <p className="text-sm text-[#655e51]">Review your items here. Add your delivery details and any discount code at checkout.</p>
 
               {/* Cost breakdown */}
               <div className="border-t border-[#e5dcc9] pt-4 space-y-3 text-sm">
@@ -288,13 +184,6 @@ alt={item.product_name}
                   <span>Subtotal</span>
                   <span className="font-semibold text-[#171714]">{formatPrice(subtotal)}</span>
                 </div>
-
-                {discount > 0 && (
-                  <div className="flex justify-between text-emerald-700">
-                    <span>Discount</span>
-                    <span className="font-semibold">-{formatPrice(discount)}</span>
-                  </div>
-                )}
 
                 <div className="flex justify-between text-[#75828A]">
                   <span>Standard Shipping</span>
@@ -316,27 +205,17 @@ alt={item.product_name}
                 <p className="text-[11px] text-[#75828A]">Tax included in product prices</p>
               </div>
 
-              {/* Proceed to checkout button */}
-              <Button
-                variant="primary"
-                size="lg"
-                className="w-full text-base shadow-md hover:shadow-lg"
-                asChild
-              >
-                <Link href="/checkout" className="flex items-center justify-center gap-2">
-                  Proceed to Checkout <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
+              <FastrrCheckoutButton />
 
               {/* Guarantees */}
               <div className="border-t border-[#e5dcc9] pt-4 space-y-2 text-xs text-[#75828A]">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#b9460c]" />
-                  <span>256-bit encrypted secure checkout</span>
+                  <span>Secure checkout with Shiprocket</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Truck className="w-4 h-4 text-[#b9460c]" />
-                  <span>Delivered via Bluedart, Delhivery & DTDC</span>
+                  <span>Delivery options confirmed at checkout</span>
                 </div>
               </div>
             </div>

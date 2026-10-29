@@ -49,7 +49,7 @@ function calculateShipping(subtotalPaise: number): number {
 
 // Tax calculation (configurable — GST rates vary by product)
 function calculateTax(subtotalPaise: number): number {
-  return Math.round(subtotalPaise * 0.18) // 18% GST placeholder
+  return Math.round(subtotalPaise - subtotalPaise / 1.18) // Included in displayed prices
 }
 
 export const useCartStore = create<CartStore>()(
@@ -152,7 +152,7 @@ export const useCartStore = create<CartStore>()(
       subtotalPaise: () => get().getTotals().subtotal_paise,
 
       getTotals: (): CartTotals => {
-        const { items, discountAmountPaise = 0 } = get()
+        const { items } = get()
 
         const subtotal_paise = items.reduce(
           (sum, item) => sum + item.price_paise * item.quantity,
@@ -161,11 +161,11 @@ export const useCartStore = create<CartStore>()(
         const item_count = items.reduce((sum, item) => sum + item.quantity, 0)
         const shipping_paise = calculateShipping(subtotal_paise)
         const tax_paise = calculateTax(subtotal_paise)
-        const total_paise = subtotal_paise - (typeof discountAmountPaise === 'number' ? discountAmountPaise : 0) + shipping_paise + tax_paise
+        const total_paise = subtotal_paise + shipping_paise
 
         return {
           subtotal_paise,
-          discount_paise: typeof discountAmountPaise === 'number' ? discountAmountPaise : 0,
+          discount_paise: 0, // Coupon validation and discounts now belong to Fastrr checkout.
           shipping_paise,
           tax_paise,
           total_paise: Math.max(0, total_paise),

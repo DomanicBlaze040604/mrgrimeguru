@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { ProductDetailView } from '@/components/storefront/ProductDetailView'
@@ -164,6 +165,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params
+  const cleaner = getCleanerOffer(slug)
+  if (cleaner) redirect(`/shop/${cleaner.slug}`)
   if (slug === 'laundry-pods') redirect('/shop#coming-soon')
   if (slug === 'laundry-beads') redirect('/shop')
   const supabase = await createClient()

@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { buildCatalog, catalogResponse, CatalogRequestError, parseCatalogQuery, type CatalogRows } from './catalog'
 
-async function loadCatalog(): Promise<CatalogRows> {
+export async function loadCatalog(): Promise<CatalogRows> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) throw new Error('Catalog database is not configured')

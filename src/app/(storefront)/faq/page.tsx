@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown, HelpCircle, MessageCircle, Mail, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { CONTACT } from '@/lib/contact'
 
 interface FAQItem {
   q: string
@@ -74,7 +75,7 @@ const FAQS: FAQItem[] = [
   {
     category: 'Returns & Refunds',
     q: 'Can I return a product?',
-    a: 'Returns are handled according to our published Return, Refund and Cancellation Policy and applicable law.',
+    a: 'Request a return within 7 days of delivery, subject to our Return, Refund and Cancellation Policy. Approved refunds are initiated within 7 days of approval; bank processing times may vary.',
   },
   {
     category: 'Returns & Refunds',
@@ -176,7 +177,7 @@ export default function FAQPage() {
           <Sparkles className="w-8 h-8 text-[#b9460c] mx-auto" />
           <h3 className="text-2xl font-bold text-[#171714]">Still Need Assistance?</h3>
           <p className="text-sm text-[#75828A] max-w-md mx-auto">
-            Our AI cleaning assistant is ready 24/7 in the bottom-right corner, or you can speak with our human customer care team.
+            Call {CONTACT.phone}, email {CONTACT.email}, or chat with our support team on WhatsApp.
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             <Button variant="primary" asChild>
@@ -184,16 +185,7 @@ export default function FAQPage() {
                 <Mail className="w-4 h-4" /> Contact Us
               </Link>
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                const chatBtn = document.querySelector('button[aria-label="Ask Mr GrimeGuru"]') as HTMLButtonElement
-                if (chatBtn) chatBtn.click()
-              }}
-              className="flex items-center gap-2"
-            >
-              <MessageCircle className="w-4 h-4" /> Ask GrimeGuru AI
-            </Button>
+            <Button variant="outline" asChild><a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2"><MessageCircle className="w-4 h-4" /> Chat on WhatsApp</a></Button>
           </div>
         </div>
       </div>

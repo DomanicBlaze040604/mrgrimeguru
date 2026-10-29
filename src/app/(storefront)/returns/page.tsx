@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { RotateCcw, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { CONTACT } from '@/lib/contact'
 
 export const metadata: Metadata = {
   title: 'Return, Refund & Cancellation Policy — Mr GrimeGuru',
@@ -26,14 +27,14 @@ export default function ReturnsPolicyPage() {
             <RotateCcw className="w-3.5 h-3.5" /> Returns & Refunds
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Return, Refund and Cancellation Policy</h1>
-          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-xs text-[#75828A]">Last updated: 29 October 2026</p>
           <p className="text-sm text-[#655e51] mt-3">
             This Policy explains how return, refund, and cancellation requests are handled for orders placed through Mr GrimeGuru.
           </p>
         </div>
 
         <Section title="1. Return Eligibility">
-          <p>Return requests may be considered within [NUMBER OF DAYS] days of delivery, subject to the conditions below and applicable law.</p>
+          <p>Return requests may be submitted within 7 days of delivery, subject to the conditions below and applicable law.</p>
           <p>Customers should provide proof of purchase or a valid order number and contact support before returning an item.</p>
           <p>Opened or used cleaning products may be subject to restrictions for hygiene, safety, and quality reasons, except where a return, replacement, refund, or other remedy is required by applicable law.</p>
         </Section>
@@ -60,7 +61,7 @@ export default function ReturnsPolicyPage() {
         </Section>
 
         <Section title="5. Refund Processing">
-          <p>Approved refunds will generally be issued to the original payment method where supported. Other methods may be used where appropriate and legally permitted.</p>
+          <p>Approved refunds will be initiated within 7 days of approval, generally to the original payment method where supported. Other methods may be used where appropriate and legally permitted.</p>
           <p>The time required for funds to appear in your account depends on the payment provider and financial institution.</p>
         </Section>
 
@@ -82,7 +83,8 @@ export default function ReturnsPolicyPage() {
 
         <Section title="10. Contact">
           <p>Email: support@mrgrimeguru.com</p>
-          <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
+          <p>Business address: {CONTACT.address}</p>
         </Section>
 
         <div className="p-6 rounded-2xl bg-[#fffbf0] border border-[#e5dcc9] flex flex-col sm:flex-row items-center justify-between gap-4">

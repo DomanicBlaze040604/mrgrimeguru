@@ -1,3 +1,4 @@
+import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 import { Truck } from 'lucide-react'
 
@@ -72,8 +73,9 @@ export default function ShippingPolicyPage() {
         </Section>
 
         <Section title="11. Contact">
-          <p>Email: support@mrgrimeguru.com</p>
-          <p>Support hours: [BUSINESS DAYS AND HOURS]</p>
+          <p>Email: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+          <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
+          <p>Business address: {CONTACT.address}</p>
         </Section>
       </div>
     </div>

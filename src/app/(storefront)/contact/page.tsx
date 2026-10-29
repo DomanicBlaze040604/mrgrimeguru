@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send, CheckCircle2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { toast } from '@/components/ui/Toaster'
+import { CONTACT } from '@/lib/contact'
 
 export default function ContactPage() {
   const [name, setName] = useState('')
@@ -202,7 +203,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <strong className="block text-[#171714] font-bold">WhatsApp & Helpline</strong>
-                    <p className="text-[#75828A]">Phone details coming soon</p>
+                    <a href={CONTACT.telephoneUrl} className="block text-[#b9460c] hover:underline">{CONTACT.phone}</a>
+                    <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 font-semibold text-emerald-800 underline">Chat on WhatsApp</a>
                     <p className="text-xs text-[#75828A] mt-0.5">Mon–Sat: 9:00 AM – 7:00 PM IST</p>
                   </div>
                 </div>
@@ -212,10 +214,10 @@ export default function ContactPage() {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <strong className="block text-[#171714] font-bold">Brand Headquarters</strong>
+                    <strong className="block text-[#171714] font-bold">Contact Address</strong>
                     <p className="text-[#75828A] leading-relaxed">
                       Mr GrimeGuru<br />
-                      Business address to be announced
+                      {CONTACT.address}
                     </p>
                   </div>
                 </div>

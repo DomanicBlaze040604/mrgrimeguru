@@ -2,6 +2,7 @@ import { ProductTrio } from './ProductTrio'
 import { ProductImageGallery } from './ProductImageGallery'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CONTACT } from '@/lib/contact'
 import { ArrowUpRight, Banknote, RotateCcw, Truck, MessagesSquare } from 'lucide-react'
 
 export const range = [
@@ -34,9 +35,9 @@ export function WhyFoam() {
 export function BuyingFromUs() {
   const cards = [
     { icon: Banknote, title: 'Your order. Your way.', text: 'Choose from the payment options available at checkout.', href: '/shop', link: 'Find your Guru' },
-    { icon: RotateCcw, title: 'A snag? We have your back.', text: 'Find the details on returns, refunds and help with your order.', href: '/returns', link: 'Returns & refunds' },
+    { icon: RotateCcw, title: 'A snag? We have your back.', text: 'Request a return within 7 days of delivery. See our policy for eligibility and refund details.', href: '/returns', link: 'Returns & refunds' },
     { icon: Truck, title: 'From our door to yours.', text: 'Free shipping on orders ₹499+. Delivery details, minus the guesswork.', href: '/shipping', link: 'Shipping information' },
-    { icon: MessagesSquare, title: 'Need a hand? Ask the Guru.', text: 'Email support@mrgrimeguru.com for a helping hand. Phone support details are coming soon.', href: '/faq', link: 'Visit the help centre' },
+    { icon: MessagesSquare, title: 'Need a hand? Ask the Guru.', text: `Call ${CONTACT.phone} or email ${CONTACT.email}. A little help, a lot less hassle.`, href: CONTACT.whatsappUrl, link: 'Chat on WhatsApp' },
   ]
   return <section className="guru-section guru-buying" id="buying"><div className="guru-container"><span className="guru-eyebrow">04 / BUYING FROM US</span><h2>Easy to choose.<br /><span>No time to lose.</span></h2><div className="guru-buying-grid">{cards.map(({ icon: Icon, title, text, href, link }) => <article key={title}><span className="guru-service-icon"><Icon size={23} /></span><h3>{title}</h3><p>{text}</p><Link href={href}>{link} <ArrowUpRight size={15} /></Link></article>)}</div></div></section>
 }

@@ -1,3 +1,4 @@
+import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function TermsPage() {
         <Section title="1. Business Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
           <p>Website: https://www.mrgrimeguru.com/</p>
-          <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Business address: {CONTACT.address}</p>
           <p>Contact email: support@mrgrimeguru.com</p>
         </Section>
 
@@ -89,8 +90,9 @@ export default function TermsPage() {
 
         <Section title="15. Contact Information">
           <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
-          <p>Email: support@mrgrimeguru.com</p>
-          <p>Business address: [REGISTERED BUSINESS ADDRESS]</p>
+          <p>Email: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+          <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
+          <p>Business address: {CONTACT.address}</p>
         </Section>
       </div>
     </div>

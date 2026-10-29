@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { ShoppingCart } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/store/cart'
 import { Button } from '@/components/ui/Button'
 import { toast } from '@/components/ui/Toaster'
@@ -19,12 +20,13 @@ interface Product {
   in_stock: boolean
 }
 
-export function AddToCartButton({ product }: { product: Product }) {
-  const { addItem } = useCartStore()
+export function AddToCartButton({ product, showBuyNow = false }: { product: Product; showBuyNow?: boolean }) {
+  const { addItem, closeCart, closeInfoPanel } = useCartStore()
+  const router = useRouter()
 
   const comingSoon = ['laundry-pods', 'laundry-beads'].includes(product.slug)
-  function handleAddToCart() {
-    if (comingSoon) return
+  function handleAddToCart(buyNow = false) {
+    if (comingSoon || !product.in_stock) return
     addItem({
       id: product.id,
       product_id: product.id,
@@ -38,19 +40,25 @@ export function AddToCartButton({ product }: { product: Product }) {
       image_url: product.image_url || product.image || '/images/products/laundry-pods.jpg',
       slug: product.slug,
     })
-    toast({ title: 'Added to cart!', description: `${product.name}`, variant: 'success' })
+    if (buyNow) {
+      closeCart()
+      closeInfoPanel()
+      router.push('/cart')
+    } else {
+      toast({ title: 'Added to cart!', description: `${product.name}`, variant: 'success' })
+    }
   }
 
   return (
-    <Button
+    <div className={showBuyNow ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}><Button
       variant="primary"
       size="sm"
       className="w-full mt-1"
       leftIcon={<ShoppingCart className="h-4 w-4" />}
-      onClick={handleAddToCart}
+      onClick={() => handleAddToCart()}
       disabled={comingSoon || !product.in_stock}
     >
       {comingSoon ? 'Coming soon' : product.in_stock ? 'Add to Cart' : 'Out of Stock'}
-    </Button>
+    </Button>{showBuyNow && <Button variant="outline" size="sm" className="w-full mt-1" onClick={() => handleAddToCart(true)} disabled={comingSoon || !product.in_stock}>Buy now</Button>}</div>
   )
 }
