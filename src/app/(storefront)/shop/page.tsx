@@ -75,29 +75,29 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   // Use DB products if available, otherwise use placeholders filtered by family
   const products = dbProducts
     ? dbProducts.map((p) => {
-        const offer = getCleanerOffer(p.slug)
-        const variant = Array.isArray(p.product_variants) ? p.product_variants[0] : p.product_variants
-        const heroMedia = Array.isArray(p.product_media)
-          ? p.product_media.find((m) => m.is_hero) || p.product_media[0]
-          : null
-        return {
-          id: p.id,
-          name: offer?.name ?? p.name,
-          slug: offer?.slug ?? p.slug,
-          family: (offer?.family ?? p.family) as ProductFamily,
-          short_description: offer?.description ?? p.short_description,
-          price_paise: offer?.price ?? variant?.price_paise ?? 0,
-          compare_price_paise: offer?.original ?? variant?.compare_at_price_paise ?? null,
-          image_url: (offer ? `/images/products/${offer.slug}-cutout.png` : heroMedia?.url) || `/images/products/${p.slug}.jpg`,
-          variant_id: variant?.id,
-          variant_name: offer ? '500 ml' : variant?.name,
-          sku: variant?.sku,
-          in_stock: true,
-        }
-      })
+      const offer = getCleanerOffer(p.slug)
+      const variant = Array.isArray(p.product_variants) ? p.product_variants[0] : p.product_variants
+      const heroMedia = Array.isArray(p.product_media)
+        ? p.product_media.find((m) => m.is_hero) || p.product_media[0]
+        : null
+      return {
+        id: p.id,
+        name: offer?.name ?? p.name,
+        slug: offer?.slug ?? p.slug,
+        family: (offer?.family ?? p.family) as ProductFamily,
+        short_description: offer?.description ?? p.short_description,
+        price_paise: offer?.price ?? variant?.price_paise ?? 0,
+        compare_price_paise: offer?.original ?? variant?.compare_at_price_paise ?? null,
+        image_url: (offer ? `/images/products/${offer.slug}-cutout.png` : heroMedia?.url) || `/images/products/${p.slug}.jpg`,
+        variant_id: variant?.id,
+        variant_name: offer ? '500 ml' : variant?.name,
+        sku: variant?.sku,
+        in_stock: true,
+      }
+    })
     : family
-    ? PLACEHOLDER_PRODUCTS.filter((p) => p.family === family)
-    : PLACEHOLDER_PRODUCTS
+      ? PLACEHOLDER_PRODUCTS.filter((p) => p.family === family)
+      : PLACEHOLDER_PRODUCTS
 
   const families = Object.entries(FAMILY_LABELS).filter(([key]) => key !== 'laundry_pods') as [ProductFamily, string][]
 
@@ -124,11 +124,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
           </div>
           <Link
             href="/shop"
-            className={`px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${
-              !family
+            className={`px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${!family
                 ? 'border-[#b9460c] bg-[#b9460c] text-white'
                 : 'border-[#e5dcc9] text-[#171714] hover:border-[#b9460c]'
-            }`}
+              }`}
           >
             All Products
           </Link>
@@ -136,11 +135,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             <Link
               key={key}
               href={`/shop?family=${key}`}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${
-                family === key
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border-2 transition-all ${family === key
                   ? 'border-[#b9460c] bg-[#b9460c] text-white'
                   : 'border-[#e5dcc9] text-[#171714] hover:border-[#b9460c]'
-              }`}
+                }`}
             >
               <span>{FAMILY_EMOJIS[key]}</span>
               {label}

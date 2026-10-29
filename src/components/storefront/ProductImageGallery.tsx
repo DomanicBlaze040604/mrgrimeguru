@@ -28,6 +28,8 @@ export function ProductImageGallery({ slug, name, image, images, className = '',
     <button type="button" className="guru-gallery-swap" aria-label={`Next ${name} slide. Showing ${shown + 1} of ${count}: ${current.title}`} onMouseEnter={advance} onClick={advance}>
       {photos.map((slide, i) => (i === shown || i === (shown + 1) % count) && <Image key={slide.src} src={slide.src} alt={slide.title} fill sizes="(max-width: 700px) 90vw, 45vw" preload={preload && i === 0} className={`${i === shown ? 'is-visible' : ''} ${slide.artwork ? 'is-scene' : 'is-packshot'}`} aria-hidden={i !== shown} />)}
     </button>
+    {/* 1+1 offer badge — always visible on every slide */}
+    <span className="guru-one-plus-one" aria-label="1 plus 1 offer">1+1</span>
     {current.artwork && <div className="guru-slide-info" key={current.src}><h3>{current.title}</h3><ul>{current.points.map(point => <li key={point}>{point}</li>)}</ul></div>}
     {count > 1 && <div className="guru-gallery-caption"><span>{shown + 1} / {count} · Hover or tap</span><div>{photos.map((slide, i) => <button key={slide.src} aria-label={`Show ${name}: ${slide.title}`} aria-pressed={shown === i} onClick={() => setSelected(i)} className={shown === i ? 'is-active' : ''} />)}</div></div>}
   </div>

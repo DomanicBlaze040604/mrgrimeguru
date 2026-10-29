@@ -141,6 +141,8 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
                           Save {discount}%
                         </div>
                       )}
+                      {/* 1+1 offer badge */}
+                      <span className="guru-one-plus-one guru-one-plus-one--card" aria-label="1 plus 1 offer">1+1</span>
                       {!product.in_stock && (
                         <div className="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center">
                           <span className="font-bold text-sm text-gray-500">Out of Stock</span>
