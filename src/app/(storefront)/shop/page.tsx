@@ -6,6 +6,7 @@ import { ProductImageGallery } from '@/components/storefront/ProductImageGallery
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
+import { CombosSection } from '@/components/storefront/CombosSection'
 import { Filter } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -185,6 +186,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             )
           })}
         </div>
+
+        {/* Super Saver Combos */}
+        <CombosSection />
 
         {(!family || family === 'laundry_pods') && <LaundryComingSoon />}
 

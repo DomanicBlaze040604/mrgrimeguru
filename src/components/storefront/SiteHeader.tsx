@@ -7,6 +7,7 @@ import { ShoppingCart, Menu, X, Search, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCartStore } from '@/lib/store/cart'
 import { cn } from '@/lib/utils'
+import { ThemeBanner } from './ThemeBanner'
 
 const navLinks = [
   {
@@ -55,6 +56,9 @@ export function SiteHeader() {
 
   return (
     <>
+      {/* ── Dynamic Festive Theme Banner (Diwali, Holi, Christmas, etc.) ── */}
+      <ThemeBanner />
+
       {/* ── Announcement bar — black like the packaging ── */}
       <div className="bg-[#111111] text-white overflow-hidden py-2.5 select-none relative z-50">
         <div className="flex animate-marquee whitespace-nowrap">

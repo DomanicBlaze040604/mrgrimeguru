@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Package, ShoppingBag, Users, Star,
   FileText, Image, Settings, BarChart3, Tag, ChevronRight,
-  Menu, X, Warehouse
+  Menu, X, Warehouse, Palette, Layers
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -68,6 +68,20 @@ const navItems: NavItem[] = [
     href: '/admin/discounts',
     icon: Tag,
     roles: ['owner', 'administrator'],
+  },
+  {
+    label: 'Combos & Bundles',
+    href: '/admin/combos',
+    icon: Layers,
+    roles: ['owner', 'administrator', 'operations'],
+    badge: 'New',
+  },
+  {
+    label: 'Theme Studio',
+    href: '/admin/themes',
+    icon: Palette,
+    roles: ['owner', 'administrator'],
+    badge: 'Live',
   },
   {
     label: 'Media Library',

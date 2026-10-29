@@ -82,7 +82,7 @@ export default async function AdminMediaPage() {
                 src={item.url}
                 alt={item.label}
                 className="w-full h-full object-contain p-3 transition-transform group-hover:scale-105"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                loading="lazy"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <p className="text-white text-[10px] font-semibold truncate">{item.label}</p>
