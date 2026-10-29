@@ -4,11 +4,45 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CONTACT } from '@/lib/contact'
 import { ArrowUpRight, Banknote, RotateCcw, Truck, MessagesSquare } from 'lucide-react'
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 
 export const range = [
-  { slug: 'kitchen-cleaner', name: 'Kitchen Cleaner', category: 'Kitchen', image: 'kitchen-cleaner-cutout.png', color: 'yellow', price: 499, original: 599, line: 'Grease, meet your guru.', description: 'A foam-first fix for cooking splashes, sticky residue and everyday kitchen grease.', tags: ['Gas stoves', 'Chimney filters', 'Kitchen tiles'] },
-  { slug: 'multipurpose-cleaner', name: 'Multipurpose Cleaner', category: 'Home', image: 'multipurpose-cleaner-cutout.png', color: 'green', price: 499, original: 599, line: 'Every room. A little more vroom.', description: 'Take on everyday marks and messes across compatible surfaces around your home.', tags: ['Home surfaces', 'Doors & tiles', 'Furniture'] },
-  { slug: 'shoe-cleaner', name: 'Shoe Cleaner', category: 'Footwear', image: 'shoe-cleaner-cutout.png', color: 'orange', price: 599, original: 699, line: 'Fresh kicks. Quick fix.', description: 'Give your everyday footwear a fresh start with foam that helps lift dirt and surface marks.', tags: ['Sneakers', 'Soles', 'Compatible uppers'] },
+  {
+    slug: 'kitchen-cleaner',
+    name: 'Kitchen Cleaner',
+    category: 'Kitchen',
+    image: 'kitchen-cleaner-cutout.png',
+    color: 'yellow',
+    price: getCleanerOffer('kitchen-cleaner') ? Math.round(getCleanerOffer('kitchen-cleaner')!.price / 100) : 499,
+    original: getCleanerOffer('kitchen-cleaner') ? Math.round(getCleanerOffer('kitchen-cleaner')!.original / 100) : 599,
+    line: 'Grease, meet your guru.',
+    description: 'A foam-first fix for cooking splashes, sticky residue and everyday kitchen grease.',
+    tags: ['Gas stoves', 'Chimney filters', 'Kitchen tiles']
+  },
+  {
+    slug: 'multipurpose-cleaner',
+    name: 'Multipurpose Cleaner',
+    category: 'Home',
+    image: 'multipurpose-cleaner-cutout.png',
+    color: 'green',
+    price: getCleanerOffer('multipurpose-cleaner') ? Math.round(getCleanerOffer('multipurpose-cleaner')!.price / 100) : 799,
+    original: getCleanerOffer('multipurpose-cleaner') ? Math.round(getCleanerOffer('multipurpose-cleaner')!.original / 100) : 899,
+    line: 'Every room. A little more vroom.',
+    description: 'Take on everyday marks and messes across compatible surfaces around your home.',
+    tags: ['Home surfaces', 'Doors & tiles', 'Furniture']
+  },
+  {
+    slug: 'shoe-cleaner',
+    name: 'Shoe Cleaner',
+    category: 'Footwear',
+    image: 'shoe-cleaner-cutout.png',
+    color: 'orange',
+    price: getCleanerOffer('shoe-cleaner') ? Math.round(getCleanerOffer('shoe-cleaner')!.price / 100) : 699,
+    original: getCleanerOffer('shoe-cleaner') ? Math.round(getCleanerOffer('shoe-cleaner')!.original / 100) : 799,
+    line: 'Fresh kicks. Quick fix.',
+    description: 'Give your everyday footwear a fresh start with foam that helps lift dirt and surface marks.',
+    tags: ['Sneakers', 'Soles', 'Compatible uppers']
+  },
 ]
 
 export function CircularCategories() {
