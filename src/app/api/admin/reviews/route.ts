@@ -66,3 +66,4 @@ export async function DELETE(request: Request) {
     return Response.json({ error: err.message || 'Failed to delete review' }, { status: 500 })
   }
 }
+

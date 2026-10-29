@@ -54,3 +54,4 @@ export async function POST(request: Request) {
     return Response.json({ error: err.message || 'Failed to create article' }, { status: 500 })
   }
 }
+

@@ -92,3 +92,4 @@ export async function DELETE(request: Request) {
     return Response.json({ error: err.message || 'Failed to delete' }, { status: 500 })
   }
 }
+

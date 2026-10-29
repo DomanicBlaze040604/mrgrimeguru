@@ -48,3 +48,4 @@ export async function PATCH(request: Request) {
     return Response.json({ error: err.message || 'Failed to update stock' }, { status: 500 })
   }
 }
+
