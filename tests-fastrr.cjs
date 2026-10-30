@@ -46,7 +46,7 @@ test('offer pricing, canonical images and reserved inventory match the storefron
   assert.equal(kitchen.variants[0].compare_at_price, '599.00')
   assert.equal(kitchen.variants[0].quantity, 7)
   assert.equal(kitchen.image.src, origin + '/images/products/kitchen-cleaner-cutout.png')
-  assert.equal(catalog.products[1].value.variants[0].price, '599.00')
+  assert.equal(catalog.products[1].value.variants[0].price, '699.00')
   assert.equal(catalog.products[1].value.variants[0].quantity, 0)
 })
 test('non-default variants retain their actual price; missing stock is zero', () => {

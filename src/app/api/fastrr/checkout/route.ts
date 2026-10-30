@@ -1,5 +1,8 @@
 import { loadCatalog } from '@/lib/fastrr/handler'
 import { buildCheckoutPayload, checkoutConfig, CheckoutError, parseCheckoutItems, requestCheckoutToken } from '@/lib/fastrr/checkout'
+import { cookies } from 'next/headers'
+import { checkoutSnapshot, saveCheckoutSnapshot } from '@/lib/fastrr/orders'
+import { signGuestOrder } from '@/lib/fastrr/session'
 
 export const runtime = 'nodejs'
 
@@ -14,9 +17,13 @@ export async function POST(request: Request) {
     let body: unknown
     try { body = JSON.parse(text) } catch { throw new CheckoutError('Invalid cart request.') }
     const items = parseCheckoutItems(body)
-    const payload = buildCheckoutPayload(items, await loadCatalog(), config.origin)
-    const token = await requestCheckoutToken(payload, config)
-    return Response.json({ token, scriptUrl: `${config.uiBase}/assets/js/channels/shopify.js`, styleUrl: `${config.uiBase}/assets/styles/shopify.css` }, { headers })
+    const rows = await loadCatalog()
+    const payload = buildCheckoutPayload(items, rows, config.origin)
+    const { token, orderId } = await requestCheckoutToken(payload, config)
+    await saveCheckoutSnapshot(orderId, checkoutSnapshot(items, rows, config.origin))
+    const cookieStore = await cookies()
+    cookieStore.set(`fastrr_${orderId}`, signGuestOrder(orderId, config.apiSecret), { httpOnly: true, secure: new URL(request.url).protocol === 'https:', sameSite: 'lax', path: '/', maxAge: 7 * 86400 })
+    return Response.json({ token, orderId, scriptUrl: `${config.uiBase}/assets/js/channels/shopify.js`, styleUrl: `${config.uiBase}/assets/styles/shopify.css` }, { headers })
   } catch (error) {
     const status = error instanceof CheckoutError ? error.status : 503
     const message = error instanceof CheckoutError ? error.message : 'Checkout is temporarily unavailable. Your cart is saved; please try again shortly.'

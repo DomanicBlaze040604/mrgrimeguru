@@ -1,28 +1,34 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import {
-  ArrowLeft, ShoppingBag, Truck, CreditCard, MapPin,
-  Clock, CheckCircle2, Save, User, Package
+  ArrowLeft, Truck, CreditCard, Save, User
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { toast } from '@/components/ui/Toaster'
 import { formatPrice } from '@/lib/utils'
 
+interface AdminOrder {
+  id: string; order_number: string; status: string; payment_status: string; fulfillment_status: string;
+  tracking_number: string | null; notes: string | null; guest_email: string | null; created_at: string;
+  shipping_address: Record<string, string>; subtotal_paise: number; total_paise: number;
+  discount_paise: number; discount_code: string | null; shipping_paise: number; tax_paise: number;
+  order_items: { id: string; product_name: string; variant_name: string; sku: string; quantity: number; total_price_paise: number }[];
+  payments: { id: string; provider: string; provider_order_id: string; provider_payment_id: string | null; status: string; metadata: { payment_type?: string } }[];
+}
 export default function OrderDetailPage() {
   const params = useParams()
-  const router = useRouter()
   const id = params.id as string
 
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [order, setOrder] = useState<any>(null)
+  const [order, setOrder] = useState<AdminOrder | null>(null)
 
   // Editable fields
   const [status, setStatus] = useState('processing')
-  const [paymentStatus, setPaymentStatus] = useState('paid')
+  const [paymentStatus, setPaymentStatus] = useState('pending')
   const [fulfillmentStatus, setFulfillmentStatus] = useState('unfulfilled')
   const [trackingNumber, setTrackingNumber] = useState('')
   const [notes, setNotes] = useState('')
@@ -36,7 +42,7 @@ export default function OrderDetailPage() {
           const ord = data.order
           setOrder(ord)
           setStatus(ord.status || 'processing')
-          setPaymentStatus(ord.payment_status || 'paid')
+          setPaymentStatus(ord.payment_status || 'pending')
           setFulfillmentStatus(ord.fulfillment_status || 'unfulfilled')
           setTrackingNumber(ord.tracking_number || '')
           setNotes(ord.notes || '')
@@ -76,9 +82,9 @@ export default function OrderDetailPage() {
       })
     } catch {
       toast({
-        title: 'Order Status Updated',
-        description: 'Changes recorded successfully.',
-        variant: 'success',
+        title: 'Order update failed',
+        description: 'Your changes were not saved. Please try again.',
+        variant: 'error',
       })
     } finally {
       setSaving(false)
@@ -158,10 +164,16 @@ export default function OrderDetailPage() {
               <div>
                 <span className="text-[#75828A] block">Delivery Address</span>
                 <span className="font-bold text-[#24333A] block leading-relaxed">
-                  {[addr.line1, addr.city, addr.state, addr.postal_code, addr.country].filter(Boolean).join(', ')}
+                  {[addr.line1, addr.line2, addr.landmark, addr.city, addr.state, addr.postal_code || addr.pincode, addr.country].filter(Boolean).join(', ')}
                 </span>
               </div>
             </div>
+          </div>
+
+          <div className="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm space-y-4">
+            <h3 className="font-bold">Ordered products</h3>
+            {(order.order_items || []).map((item: { id: string; product_name: string; variant_name: string; sku: string; quantity: number; total_price_paise: number }) => <div key={item.id} className="flex justify-between gap-4 border-b py-3 text-sm"><div><strong>{item.product_name}</strong><p>{item.variant_name} · Qty {item.quantity}</p><p className="text-gray-500">SKU: {item.sku}</p></div><strong>{formatPrice(item.total_price_paise)}</strong></div>)}
+            {(order.payments || []).map((payment: { id: string; provider: string; provider_order_id: string; provider_payment_id: string | null; status: string; metadata: { payment_type?: string } }) => <div key={payment.id} className="text-xs space-y-1 break-all"><p>Provider: {payment.provider} · {payment.metadata?.payment_type || 'Payment'}</p><p>Provider order: {payment.provider_order_id}</p><p>Transaction: {payment.provider_payment_id || 'Not available yet'}</p><p>Payment: {payment.status}</p></div>)}
           </div>
 
           {/* Amount Summary */}
@@ -186,7 +198,7 @@ export default function OrderDetailPage() {
                 <span>{order.shipping_paise > 0 ? formatPrice(order.shipping_paise) : 'FREE'}</span>
               </div>
               <div className="flex justify-between text-[#75828A]">
-                <span>Estimated Tax (GST 18% Incl.)</span>
+                <span>Separately recorded tax</span>
                 <span>{formatPrice(order.tax_paise || 0)}</span>
               </div>
               <div className="pt-2 border-t border-gray-100 flex justify-between font-black text-sm text-[#14532D]">
@@ -214,6 +226,7 @@ export default function OrderDetailPage() {
                 className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs font-bold text-[#24333A] bg-white capitalize"
               >
                 <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
                 <option value="processing">Processing</option>
                 <option value="shipped">Shipped</option>
                 <option value="delivered">Delivered</option>

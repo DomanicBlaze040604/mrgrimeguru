@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-30",
+  "verdict": "PASS",
+  "validators": [
+    {
+      "command": "node tests-fastrr.cjs",
+      "result": "7 passed; numeric IDs stable, catalog filters draft/coming-soon items, offer pricing and canonical images verified"
+    },
+    {
+      "command": "node tests-fastrr-checkout.cjs",
+      "result": "13 passed; guest checkout flow, HMAC provider payload verification, guest session cookies, status reconciliation, idempotent sync"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "result": "exit 0; TypeScript check passed"
+    },
+    {
+      "command": "pnpm run build",
+      "result": "exit 0; 59 pages generated successfully in Next.js production build"
+    },
+    {
+      "command": "git diff --check",
+      "result": "exit 0; clean whitespace across working tree"
+    }
+  ],
+  "limitations": [
+    "Provider interactions authenticated against Fastrr API contract; live credentials configured server-side"
+  ]
+}

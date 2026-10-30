@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ShoppingBag, Search, Eye, Edit, CheckCircle2, Clock, Truck, XCircle, ArrowRight } from 'lucide-react'
+import { ShoppingBag, Eye } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
+import { FastrrOrderSync } from '@/components/admin/FastrrOrderSync'
 import { formatPrice } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -28,19 +29,20 @@ export default async function AdminOrdersPage() {
     `)
     .order('created_at', { ascending: false })
 
-  const orders = (dbOrders || []).map((o: any) => {
+  const orders = (dbOrders || []).map((o) => {
     const addr = o.shipping_address || {}
     const name = [addr.first_name, addr.last_name].filter(Boolean).join(' ') || 'Customer'
     const city = addr.city || 'India'
     return {
       id: o.id,
       order_number: o.order_number,
-      customer_email: o.guest_email || 'guest@mrgrimeguru.com',
+      customer_email: o.guest_email || 'Email not provided',
+      customer_phone: addr.phone || '',
       shipping_name: name,
       shipping_city: city,
-      total_amount_paise: Number(o.total_paise) || 49900,
+      total_amount_paise: Number(o.total_paise) || 0,
       status: o.status || 'pending',
-      payment_status: o.payment_status || 'paid',
+      payment_status: o.payment_status || 'pending',
       created_at: o.created_at,
     }
   })
@@ -63,6 +65,7 @@ export default async function AdminOrdersPage() {
         </div>
       </div>
 
+      <FastrrOrderSync />
       {/* Orders Table */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
@@ -106,6 +109,7 @@ export default async function AdminOrdersPage() {
                   <td className="px-6 py-4">
                     <div className="font-semibold text-[#24333A]">{ord.shipping_name}</div>
                     <div className="text-xs text-[#75828A]">{ord.customer_email}</div>
+                    <div className="text-xs text-[#75828A]">{ord.customer_phone}</div>
                   </td>
                   <td className="px-6 py-4 text-xs font-medium text-[#52636a]">
                     {ord.shipping_city}

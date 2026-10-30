@@ -73,8 +73,8 @@ export async function requestCheckoutToken(payload: ReturnType<typeof buildCheck
   })
   if (!response.ok) throw new CheckoutError('Checkout is temporarily unavailable. Your cart is saved; please try again shortly.', 502)
   const data = await response.json()
-  if (data?.ok !== true || typeof data?.result?.token !== 'string' || !data.result.token || data.result.token.length > 4096) {
+  if (data?.ok !== true || typeof data?.result?.token !== 'string' || !data.result.token || data.result.token.length > 4096 || !/^[a-f0-9]{24}$/.test(data?.result?.data?.order_id ?? '')) {
     throw new CheckoutError('Unable to start checkout. Please try again shortly.', 502)
   }
-  return data.result.token as string
+  return { token: data.result.token as string, orderId: data.result.data.order_id as string }
 }

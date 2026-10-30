@@ -1,62 +1,39 @@
 import { createClient } from '@/lib/supabase/server'
-
+import { z } from 'zod'
 export const runtime = 'nodejs'
-
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const { id } = await params
-    const supabase = await createClient()
-
-    const { data: order, error } = await supabase
-      .from('orders')
-      .select('*')
-      .eq('id', id)
-      .single()
-
-    if (error || !order) {
-      return Response.json({ error: 'Order not found' }, { status: 404 })
-    }
-
-    return Response.json({ order })
-  } catch (err: any) {
-    return Response.json({ error: err.message || 'Server error' }, { status: 500 })
-  }
+async function adminClient() {
+  const client = await createClient()
+  const { data: { user } } = await client.auth.getUser()
+  if (!user) return null
+  const { data } = await client.from('profiles').select('role').eq('id', user.id).single()
+  return data && ['owner', 'administrator', 'operations', 'customer_support'].includes(data.role) ? client : null
 }
-
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const client = await adminClient()
+  if (!client) return Response.json({ error: 'Forbidden' }, { status: 403 })
+  const { id } = await params
+  const { data: order, error } = await client.from('orders').select('*,order_items(*),payments(*)').eq('id', id).single()
+  if (error || !order) return Response.json({ error: 'Order not found' }, { status: 404 })
+  return Response.json({ order }, { headers: { 'Cache-Control': 'no-store' } })
+}
+const updatesSchema = z.object({
+  status: z.enum(['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded', 'partially_refunded']).optional(),
+  payment_status: z.enum(['pending', 'paid', 'failed', 'refunded', 'partially_refunded']).optional(),
+  fulfillment_status: z.enum(['unfulfilled', 'partial', 'fulfilled', 'returned']).optional(),
+  tracking_number: z.string().max(200).optional(), notes: z.string().max(5000).optional(),
+}).strict()
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (request.headers.get('origin') !== new URL(request.url).origin) return Response.json({ error: 'Forbidden' }, { status: 403 })
+  const client = await adminClient()
+  if (!client) return Response.json({ error: 'Forbidden' }, { status: 403 })
   try {
+    const input = updatesSchema.safeParse(await request.json())
+    if (!input.success) return Response.json({ error: 'Invalid order update' }, { status: 400 })
     const { id } = await params
-    const body = await request.json()
-    const supabase = await createClient()
-
-    const { status, payment_status, fulfillment_status, tracking_number, notes } = body
-
-    const updates: Record<string, any> = {
-      updated_at: new Date().toISOString(),
-    }
-    if (status !== undefined) updates.status = status
-    if (payment_status !== undefined) updates.payment_status = payment_status
-    if (fulfillment_status !== undefined) updates.fulfillment_status = fulfillment_status
-    if (tracking_number !== undefined) updates.tracking_number = tracking_number
-    if (notes !== undefined) updates.notes = notes
-
-    const { data, error } = await supabase
-      .from('orders')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single()
-
+    const { data, error } = await client.from('orders').update({ ...input.data, updated_at: new Date().toISOString() }).eq('id', id).select().single()
     if (error) throw error
     return Response.json({ order: data })
-  } catch (err: any) {
-    return Response.json({ error: err.message || 'Failed to update order' }, { status: 500 })
+  } catch {
+    return Response.json({ error: 'Order update was not saved. Please retry.' }, { status: 500 })
   }
 }
-

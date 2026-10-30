@@ -1,0 +1,61 @@
+{
+  "mode": "implement",
+  "objective": "Complete and deploy guest Fastrr payment, verified confirmation page and admin order/customer integration",
+  "planning_policy": {
+    "planning": "deep",
+    "context_depth": "dependency",
+    "verification_depth": "impact",
+    "delegation": "none",
+    "reason_codes": [
+      "production-config",
+      "payment-integration",
+      "guest-session-verification"
+    ]
+  },
+  "allowed_write_scope": [
+    "src",
+    "supabase/migrations",
+    "tests-fastrr-checkout.cjs",
+    "tests-fastrr.cjs",
+    "docs/fastrr-onboarding.md",
+    ".env.local",
+    ".vercel",
+    ".gitignore",
+    ".gravitas/sessions/fastrr-live"
+  ],
+  "acceptance_criteria": [
+    "No account login required for Fastrr checkout",
+    "Credentials stored server-only in Vercel production",
+    "Guest return verified against provider before success/cart reconciliation",
+    "Provider failures do not fabricate success",
+    "Build and tests pass, deployed guest checkout reaches provider without charging or submitting a real order",
+    "Confirmed order customer name, email, phone, address, line items and payment references appear in admin",
+    "Confirmation page includes order reference, total and Back to home"
+  ],
+  "authorization": "User explicitly requested completing checkout/payment, guest ordering and pushing variables to Vercel; production activation and necessary deployment authorized. No real purchase requested.",
+  "decisions": [
+    {
+      "action": "Inspect latest checkout and production configuration before editing",
+      "evidence": "Repository advanced since previous turn; latest commits already contain prices and persistent gallery badges",
+      "risk": "medium"
+    },
+    {
+      "action": "Use signed guest session plus provider order-details verification",
+      "evidence": "Public Postman documents SUCCESS separately from payment_status; redirect query alone is not payment proof",
+      "risk": "medium"
+    },
+    {
+      "action": "Use existing order tables and private checkout snapshot storage; sync completed Fastrr orders when admin loads",
+      "evidence": "Provider Order List authenticated successfully with zero completed orders; private storage created; deterministic database keys make retries safe",
+      "risk": "medium"
+    }
+  ],
+  "non_goals": [
+    "Charge a payment",
+    "Place a real COD order",
+    "Weaken admin authentication",
+    "Expose API credentials"
+  ],
+  "risk": "high",
+  "verification": "impact"
+}

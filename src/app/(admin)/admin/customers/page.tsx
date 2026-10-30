@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import { z } from 'zod'
 import { Users, Mail, ShoppingBag, MapPin, Calendar } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
+import { FastrrOrderSync } from '@/components/admin/FastrrOrderSync'
 import { formatPrice } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -12,33 +14,37 @@ async function getCustomers() {
     const supabase = await createClient()
     const { data } = await supabase
       .from('orders')
-      .select('guest_email, shipping_address, total_paise, created_at')
+      .select('id, guest_email, shipping_address, total_paise, created_at, status')
+      .in('status', ['confirmed', 'processing', 'shipped', 'delivered'])
       .order('created_at', { ascending: false })
 
     if (!data?.length) return null
 
     // Aggregate by email
     const map = new Map<string, {
-      name: string; email: string; city: string;
+      name: string; email: string; phone: string; city: string;
       orders: number; spent: number; lastOrder: string
     }>()
 
     for (const o of data) {
-      const email = o.guest_email || 'guest@mrgrimeguru.com'
-      const addr = (o.shipping_address as any) || {}
+      const email = o.guest_email || ''
+      const addr = z.object({first_name: z.string().nullish(), last_name: z.string().nullish(), city: z.string().nullish(), phone: z.string().nullish()}).catch({}).parse(o.shipping_address)
       const name = [addr.first_name, addr.last_name].filter(Boolean).join(' ') || 'Customer'
       const city = addr.city || 'India'
+      const phone = addr.phone || ''
+      const customerKey = email.toLowerCase() || phone || o.id
       const amount = Number(o.total_paise) || 0
 
-      const existing = map.get(email)
+      const existing = map.get(customerKey)
       if (existing) {
         existing.orders++
         existing.spent += amount
         if (o.created_at > existing.lastOrder) existing.lastOrder = o.created_at
       } else {
-        map.set(email, {
+        map.set(customerKey, {
           name,
           email,
+          phone,
           city,
           orders: 1,
           spent: amount,
@@ -79,6 +85,7 @@ export default async function AdminCustomersPage() {
         </div>
       </div>
 
+      <FastrrOrderSync />
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
@@ -122,8 +129,9 @@ export default async function AdminCustomersPage() {
                       <div>
                         <div className="font-semibold text-[#24333A]">{c.name}</div>
                         <div className="text-xs text-[#75828A] flex items-center gap-1">
-                          <Mail className="h-3 w-3" />{c.email}
+                          <Mail className="h-3 w-3" />{c.email || "Email not provided"}
                         </div>
+                        <div className="text-xs text-[#75828A]">{c.phone}</div>
                       </div>
                     </div>
                   </td>

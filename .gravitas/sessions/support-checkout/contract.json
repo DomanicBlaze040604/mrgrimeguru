@@ -1,0 +1,16 @@
+{
+  "mode": "implement",
+  "objective": "Update contact details, clean-team badge, seven-day policies and prepare cart-review to Fastrr checkout",
+  "planning_policy": { "planning": "deep", "context_depth": "dependency", "verification_depth": "impact", "delegation": "none", "reason_codes": ["multiple-files", "shared-module", "checkout-integration"] },
+  "acceptance_criteria": ["Contact and WhatsApp use +918779817007 and supplied Mumbai address", "1+1 circle appears only within first clean-team hero slide", "Return window and approved refund initiation are seven days", "Buy now adds selected product and opens cart review", "Old contact/address checkout redirects to cart", "Fastrr uses documented contract and authoritative catalog; missing credentials fail safely", "Typecheck, build and targeted checkout/browser checks pass"],
+  "allowed_write_scope": ["src/components/storefront", "src/components/cart", "src/app/(storefront)", "src/app/api/fastrr", "src/app/storefront.css", "src/lib/fastrr", "src/lib/store/cart.ts", "src/lib/contact.ts", "docs/fastrr-onboarding.md", "tests-fastrr-checkout.cjs", ".gravitas/sessions/support-checkout"],
+  "non_goals": ["Activate live payments", "Change production credentials", "Invent legal business entity", "Implement refunds or fulfillment automation"],
+  "risk": "medium",
+  "budget": "balanced",
+  "verification": "impact",
+  "decisions": [
+    { "action": "Centralize contact details and add native first-slide badge", "evidence": "Hero uses ProductTrio; support phone/address placeholders remain in footer, contact and policies", "risk": "low" },
+    { "action": "Replace bespoke checkout with cart review and provider checkout", "evidence": "Current checkout collects contact/address and uses Razorpay; user requested Fastrr and will configure credentials later", "risk": "medium" },
+    { "action": "Keep discounts/payment details in Fastrr and remove unsupported cloth/subscription purchase offers", "evidence": "Cart cloth ID is fabricated; subscription discount is client-only and has no recurring payment implementation", "risk": "low" }
+  ]
+}

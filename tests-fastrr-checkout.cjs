@@ -63,9 +63,9 @@ test('signs the exact serialized provider body; mocked provider receives documen
     assert.equal(options.headers['X-Api-Key'], 'test-key')
     assert.equal(options.headers['X-Api-HMAC-SHA256'], createHmac('sha256', 'test-secret').update(options.body).digest('base64'))
     assert.equal(options.body, JSON.stringify(value))
-    return Response.json({ ok: true, result: { token: 'test-checkout-token' } })
+    return Response.json({ ok: true, result: { token: 'test-checkout-token', data: { order_id: '000000000000000000000001' } } })
   })
-  assert.equal(token, 'test-checkout-token')
+  assert.deepEqual(token, {token: 'test-checkout-token', orderId: '000000000000000000000001'})
   assert.notEqual(signCheckoutBody('{}', 'a'), signCheckoutBody('{}', 'b'))
 })
 test('provider errors and malformed success responses never become successful checkout', async () => {
@@ -74,7 +74,7 @@ test('provider errors and malformed success responses never become successful ch
   }
 })
 test('API protects origin, hides secrets and preserves no-store responses', async () => {
-  const { POST } = load('src/app/api/fastrr/checkout/route.ts', { '@/lib/fastrr/handler': { loadCatalog: async () => rows() }, '@/lib/fastrr/checkout': checkout })
+  const { POST } = load('src/app/api/fastrr/checkout/route.ts', { '@/lib/fastrr/handler': { loadCatalog: async () => rows() }, '@/lib/fastrr/checkout': checkout, 'next/headers': {cookies:async()=>({set:()=>{}})}, '@/lib/fastrr/orders': {checkoutSnapshot:()=>({}),saveCheckoutSnapshot:async()=>{}}, '@/lib/fastrr/session': load('src/lib/fastrr/session.ts') })
   const old = { key: process.env.FASTRR_API_KEY, secret: process.env.FASTRR_API_SECRET, env: process.env.FASTRR_ENVIRONMENT, fetch: global.fetch }
   const request = (body, requestOrigin = origin) => new Request(`${origin}/api/fastrr/checkout`, { method: 'POST', headers: { origin: requestOrigin, 'Content-Type': 'application/json' }, body })
   try {
@@ -87,7 +87,7 @@ test('API protects origin, hides secrets and preserves no-store responses', asyn
     Object.assign(process.env, { FASTRR_API_KEY: 'test-key', FASTRR_API_SECRET: 'test-secret', FASTRR_ENVIRONMENT: 'staging' })
     res = await POST(request('{'))
     assert.equal(res.status, 400)
-    global.fetch = async () => Response.json({ ok: true, result: { token: 'mock-token' } })
+    global.fetch = async () => Response.json({ ok: true, result: { token: 'mock-token', data: { order_id: '000000000000000000000001' } } })
     res = await POST(request('{"items":[{"variant_id":"v1","quantity":1}]}'))
     const data = await res.json()
     assert.equal(res.status, 200)
@@ -97,5 +97,85 @@ test('API protects origin, hides secrets and preserves no-store responses', asyn
   } finally {
     for (const [key, value] of [['FASTRR_API_KEY', old.key], ['FASTRR_API_SECRET', old.secret], ['FASTRR_ENVIRONMENT', old.env]]) { if (value === undefined) delete process.env[key]; else process.env[key] = value }
     global.fetch = old.fetch
+  }
+})
+
+const {signGuestOrder,verifyGuestOrder} = load('src/lib/fastrr/session.ts')
+const orders = load('src/lib/fastrr/orders.ts')
+const oid='000000000000000000000001'
+const snapshot=()=>orders.checkoutSnapshot([{variant_id:'v1',quantity:1}],rows(),origin)
+const verified=()=>({order_id:oid,status:'SUCCESS',cart_data:{items:[{variant_id:String(catalogId('variant','v1')),quantity:1}]},shipping_address:{first_name:'Guest',last_name:'Buyer',phone:'9999999999',line1:'Test address',city:'Mumbai',state:'Maharashtra',pincode:'400059',country:'India'},payment_type:'PREPAID',payment_status:'Success',subtotal_price:499,total_amount_payable:499,shipping_charges:0,total_discount:0})
+
+test('guest order authorization rejects tampering, other orders, wrong key and expiration',()=>{
+  const value=signGuestOrder(oid,'key',1900000000000)
+  assert.equal(verifyGuestOrder(value,oid,'key',1800000000000),true)
+  assert.equal(verifyGuestOrder(value,oid,'other',1800000000000),false)
+  assert.equal(verifyGuestOrder(value,oid,'key',1900000000001),false)
+  assert.equal(verifyGuestOrder(value,'000000000000000000000002','key',1800000000000),false)
+  assert.equal(verifyGuestOrder(value+'.extra',oid,'key',1800000000000),false)
+  assert.equal(verifyGuestOrder(undefined,oid,'key'),false)
+})
+test('confirmed guest order preserves customer, products, prices and payment metadata',()=>{
+  const r=orders.confirmedOrderRecords(verified(),snapshot())
+  assert.equal(r.order.payment_status,'paid')
+  assert.equal(r.order.total_paise,49900)
+  assert.equal(r.order.guest_email,'')
+  assert.equal(r.order.shipping_address.postal_code,'400059')
+  assert.equal(r.order.shipping_address.phone,'9999999999')
+  assert.equal(r.items[0].variant_id,'v1')
+  assert.equal(r.items[0].unit_price_paise,49900)
+  assert.equal(r.payment.provider,'fastrr')
+  assert.equal(r.payment.metadata.payment_type,'PREPAID')
+  assert.equal(r.order.id,orders.confirmedOrderRecords(verified(),snapshot()).order.id)
+})
+test('COD is confirmed but never marked paid; unverified or pending payments never confirm',()=>{
+  const o=verified();o.payment_type='CASH_ON_DELIVERY';o.payment_status='Pending'
+  assert.equal(orders.confirmedOrderRecords(o,snapshot()).order.payment_status,'pending')
+  for(const status of ['CREATED','INITIATED','FAILED']) assert.equal(orders.confirmedOrderRecords({...verified(),status},snapshot()),null)
+  assert.equal(orders.confirmedOrderRecords({...verified(),payment_status:'Pending'},snapshot()),null)
+  assert.equal(orders.confirmedOrderRecords({...verified(),payment_status:'Failed'},snapshot()),null)
+})
+test('reject mismatched items, prices, incomplete customer data and unexplained totals',()=>{
+  for(const mutate of [o=>o.cart_data.items[0].quantity=2,o=>o.subtotal_price=1,o=>o.total_amount_payable=1,o=>o.shipping_address=null]){
+    const o=verified();mutate(o);assert.throws(()=>orders.confirmedOrderRecords(o,snapshot()))
+  }
+  const o=verified();o.total_discount=50;o.total_amount_payable=449
+  assert.equal(orders.confirmedOrderRecords(o,snapshot()).order.discount_paise,5000)
+})
+test('status endpoint rejects forged success query and missing guest cookie before contacting provider',async()=>{
+  let fetched=false
+  const {POST}=load('src/app/api/fastrr/status/route.ts',{'next/headers':{cookies:async()=>({get:()=>undefined})},'@/lib/fastrr/checkout':{...checkout,checkoutConfig:()=>config},'@/lib/fastrr/provider':load('src/lib/fastrr/provider.ts'),'@/lib/fastrr/orders':{syncFastrrOrder:async()=>{fetched=true}},'@/lib/fastrr/session':load('src/lib/fastrr/session.ts')})
+  const res=await POST(new Request(origin+'/api/fastrr/status?ost=SUCCESS',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({orderId:oid})}))
+  assert.equal(res.status,403);assert.equal(fetched,false)
+})
+
+test('order sync retries partial writes safely, is idempotent, and preserves later refunds',async()=>{
+  const tables={orders:new Map(),order_items:new Map(),payments:new Map()};let failLines=true
+  const db={storage:{from:()=>({download:async()=>({data:new Blob([JSON.stringify(snapshot())]),error:null})})},from:table=>{
+    let operation,values,options,filters=[]
+    const query={upsert(v,o){operation='upsert';values=v;options=o;return query},update(v){operation='update';values=v;return query},eq(k,v){filters.push([k,v]);return query},then(resolve,reject){return Promise.resolve().then(()=>{
+      if(table==='order_items'&&failLines){failLines=false;return{error:{message:'simulated transient failure'}}}
+      if(operation==='upsert')for(const row of Array.isArray(values)?values:[values]){if(!tables[table].has(row.id)||!options.ignoreDuplicates)tables[table].set(row.id,structuredClone(row))}
+      if(operation==='update')for(const row of tables[table].values()){if(filters.every(([k,v])=>row[k]===v))Object.assign(row,values)}
+      return{error:null}
+    }).then(resolve,reject)}};return query
+  }}
+  const oldUrl=process.env.NEXT_PUBLIC_SUPABASE_URL,oldKey=process.env.SUPABASE_SERVICE_ROLE_KEY
+  process.env.NEXT_PUBLIC_SUPABASE_URL='https://test.supabase.co';process.env.SUPABASE_SERVICE_ROLE_KEY='test'
+  try{
+    const lib=load('src/lib/fastrr/orders.ts',{'@supabase/supabase-js':{createClient:()=>db},'./provider':{fetchProviderOrder:async()=>verified()}})
+    await assert.rejects(()=>lib.syncFastrrOrder(oid))
+    assert.equal([...tables.orders.values()][0].status,'pending')
+    const result=await lib.syncFastrrOrder(oid)
+    assert.equal(result.state,'confirmed')
+    await lib.syncFastrrOrder(oid)
+    assert.deepEqual(Object.values(tables).map(t=>t.size),[1,1,1])
+    const saved=[...tables.orders.values()][0];saved.status='refunded';saved.payment_status='refunded'
+    const payment=[...tables.payments.values()][0];payment.status='refunded'
+    await lib.syncFastrrOrder(oid)
+    assert.equal(saved.status,'refunded');assert.equal(saved.payment_status,'refunded');assert.equal(payment.status,'refunded')
+  }finally{
+    if(oldUrl===undefined)delete process.env.NEXT_PUBLIC_SUPABASE_URL;else process.env.NEXT_PUBLIC_SUPABASE_URL=oldUrl
+    if(oldKey===undefined)delete process.env.SUPABASE_SERVICE_ROLE_KEY;else process.env.SUPABASE_SERVICE_ROLE_KEY=oldKey
   }
 })

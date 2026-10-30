@@ -1,6 +1,6 @@
 # Fastrr / Shiprocket catalog onboarding
 
-The three catalog endpoints are implemented and tested locally. These public URLs become available after deploying this code and connecting the domain to the deployment.
+The catalog and guest checkout use the production domain below. Credentials are server-only Vercel environment variables.
 
 ## Details to share
 
@@ -50,9 +50,14 @@ Use the credentials for the selected environment. Both credentials and an explic
 - `POST /api/fastrr/checkout` accepts `{ "items": [{ "variant_id": "database-variant-uuid", "quantity": 1 }] }` from this website's cart. Client prices, discounts and redirect URLs are ignored. It resolves active variants through the same catalog as the feeds, checks available inventory, combines duplicate variants, and rejects unsupported/unavailable items.
 - The server sends the documented `/api/v1/access-token/checkout` request with `X-Api-Key` and Base64 `X-Api-HMAC-SHA256` of the exact JSON body, using the API secret. The numeric external variant IDs remain identical to the catalog feeds. `catalog_data` supplies the authoritative current price (rupees), name and image. Configure any coupon promotions in Fastrr; the removed local coupon preview is not passed as a trusted discount.
 - The browser loads the documented `shopify.js` and `shopify.css` assets and calls `HeadlessCheckout.addToCart(event, token, { fallbackUrl, isInitiatedFromApp: true })`. Staging uses `fastrr-api-dev.pickrr.com` / `customcheckoutfastrr.netlify.app`; production uses `checkout-api.shiprocket.com` / `checkout-ui.shiprocket.com`.
-- Fallback returns to `/cart?checkout=unavailable` with a message and saved cart. The return URL is `/checkout/return`. This page does **not** trust `oid` / `ost` query parameters as payment proof, mark an order paid, or clear the cart.
+- Fallback returns to `/cart?checkout=unavailable` with a saved cart. `/checkout/return?oid=...` verifies a signed, HttpOnly guest cookie and retrieves the order through Fastrr’s authenticated Order Details API. It ignores `ost` as payment proof. Paid orders show a confirmation, reference, total and Back to home; COD orders clearly show payment due. Only confirmed purchased quantities are removed from the cart. No website account is required; Fastrr may verify the customer’s mobile number.
 - Before going live: have Shiprocket sync the catalog, enable the custom checkout for the domain, configure shipping (free at â‚¹499+, otherwise â‚¹49), tax-inclusive pricing, offers, payment methods and 7-day policy, and test a complete staging order. Confirm current inventory/pack weights in the database. Only then set the production environment and credentials.
-- **Remaining order integration:** signed order webhook ingestion, verified order status, local account/order synchronization, inventory reservation/reconciliation, cart clearing after verified completion, and refund automation are not implemented here. Coordinate these with Shiprocket before live activation to avoid duplicate fulfillment or overselling. This preparation does not change existing payment endpoints or production configuration.
+- Checkout snapshots are stored in the private Supabase Storage bucket `fastrr-checkouts` (public=false, JSON only, 64 KiB maximum). The service-role key is server-only. Snapshots contain product/price data, not customer contact details. Keep these records for reconciliation; apply your retention policy after orders are archived.
+- Verified orders, shipping/customer details, product lines and payment references are saved in the existing `orders`, `order_items` and `payments` tables. Deterministic IDs make repeated updates idempotent. Partial database failures remain retryable and do not return a false confirmation. Later manual fulfillment/refund states are preserved.
+- Admin Orders and Customers automatically pull completed Fastrr orders from the previous 90 days when opened; the Sync Fastrr orders button retries manually. Stored historical orders remain available. Customer records group by email, falling back to phone, so guest orders without email do not collapse into one invented customer. Sync errors are displayed.
+- Provider webhook URL: `https://www.mrgrimeguru.com/api/fastrr/webhook`. Register this URL with Shiprocket for immediate updates even if the customer closes the browser. The public documentation does not specify webhook signatures; this route discards all supplied order details and independently fetches the order using authenticated Fastrr credentials. Provider-side webhook registration is separate from deploying this route. Admin reconciliation works independently of webhook registration.
+- Stock is checked at checkout initiation. Existing inventory management remains in place; this integration does not introduce atomic stock reservations or automated refunds. Refunds/payment-method and shipping configuration remain managed in Fastrr.
+
 
 ## Checks
 
@@ -62,4 +67,4 @@ Use the credentials for the selected environment. Both credentials and an explic
 - TypeScript: `npx tsc --noEmit`
 - Production build: `npm run build`
 
-After deployment, run the three public URLs above once before sharing them with the onboarding team. Company ID and legal entity are intentionally left for manual entry. Live checkout has not been exercised without merchant credentials.
+After deployment, run the three public URLs above once before sharing them with the onboarding team. Company ID and legal entity are intentionally left for manual entry. Live credentials, token creation, order-status lookup and the guest checkout widget have been exercised without submitting a purchase or charging a payment. A completed live payment has not been performed.
