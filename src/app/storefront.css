@@ -281,7 +281,9 @@
 .guru-mini-video.is-collapsed>p { font-size:7px; text-align:center; padding:20px 4px; }
 @media(max-width:700px) { .guru-mini-video.is-collapsed { width:64px; height:64px; } .guru-mini-video.is-expanded { width:235px; } .guru-mini-video.is-expanded video { height:min(315px,calc(100dvh - 200px)); } }
 @media(prefers-reduced-motion:reduce) { .guru-mini-video { transition:none; animation:none; } }
-.guru-footer-email { display:block; font-size:12px; margin-bottom:18px; color:#facc15; text-underline-offset:4px; }
+.guru-footer-email { display:block; font-size:12px; margin-bottom:8px; color:#facc15; text-underline-offset:4px; }
+.guru-footer-instagram { display:inline-flex; align-items:center; gap:6px; font-size:12px; margin-bottom:18px; color:#facc15; text-underline-offset:4px; transition:color .2s; }
+.guru-footer-instagram:hover { color:#fff; text-decoration:underline; }
 @media(min-width:1024px) { .guru-product-intro>div:first-child { padding-top:18px; } }
 
 /* Transparent packshots share their section's backdrop instead of sitting in photo boxes. */

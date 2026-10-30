@@ -1,0 +1,33 @@
+{
+  "mode": "implement",
+  "objective": "Add verified Instagram link (@mrgrimeguru2026) to the footer and central contact configuration",
+  "planning_policy": {
+    "planning": "targeted",
+    "context_depth": "dependency",
+    "verification_depth": "impact",
+    "delegation": "none",
+    "reason_codes": [
+      "storefront-footer",
+      "social-link-integration"
+    ]
+  },
+  "allowed_write_scope": [
+    "src/lib/contact.ts",
+    "src/components/storefront/SiteFooter.tsx",
+    "src/app/storefront.css",
+    ".gravitas/sessions/instagram-footer"
+  ],
+  "acceptance_criteria": [
+    "Centralize Instagram handle (@mrgrimeguru2026) and URL (https://www.instagram.com/mrgrimeguru2026/) in src/lib/contact.ts",
+    "Add Instagram link in SiteFooter with target='_blank' and rel='noopener noreferrer'",
+    "Add Instagram link to THE GURU WORLD column in footer",
+    "Ensure all tests (node tests-fastrr.cjs, node tests-fastrr-checkout.cjs, npx tsc --noEmit) pass",
+    "Push verified changes to GitHub"
+  ],
+  "non_goals": [
+    "Modify payment flows or product pricing",
+    "Alter other social media accounts"
+  ],
+  "risk": "low",
+  "verification": "impact"
+}
