@@ -21,7 +21,7 @@ interface Product {
 }
 
 export function AddToCartButton({ product, showBuyNow = false }: { product: Product; showBuyNow?: boolean }) {
-  const { addItem, closeCart, closeInfoPanel } = useCartStore()
+  const { addItem, closeCart, closeInfoPanel, openCart } = useCartStore()
   const router = useRouter()
 
   const comingSoon = ['laundry-pods', 'laundry-beads'].includes(product.slug)
@@ -45,7 +45,7 @@ export function AddToCartButton({ product, showBuyNow = false }: { product: Prod
       closeInfoPanel()
       router.push('/cart')
     } else {
-      toast({ title: 'Added to cart!', description: `${product.name}`, variant: 'success' })
+      openCart()
     }
   }
 

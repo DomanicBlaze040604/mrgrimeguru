@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Syne, Bebas_Neue } from 'next/font/google'
+import { DM_Sans, Syne, Bebas_Neue, Black_Ops_One } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/Toaster'
 
@@ -23,6 +23,14 @@ const syne = Syne({
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
   variable: '--font-bebas',
+  display: 'swap',
+  weight: ['400'],
+})
+
+// Offer badge — military stencil, high-impact strike
+const blackOpsOne = Black_Ops_One({
+  subsets: ['latin'],
+  variable: '--font-black-ops',
   display: 'swap',
   weight: ['400'],
 })
@@ -87,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${syne.variable} ${bebasNeue.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${syne.variable} ${bebasNeue.variable} ${blackOpsOne.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Toaster />
