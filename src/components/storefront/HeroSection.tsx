@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ProductTrio } from './ProductTrio'
+import { OfferBadge } from './OfferBadge'
+import { useSwipeCarousel } from './useSwipeCarousel'
 import Link from 'next/link'
 import { ArrowRight, Play } from 'lucide-react'
 
@@ -15,11 +17,12 @@ const slides = [
 
 export function HeroSection() {
   const [active, setActive] = useState(0)
+  const swipe = useSwipeCarousel(direction => setActive(index => (index + direction + slides.length) % slides.length))
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (swipe.dragging || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = window.setInterval(() => setActive(i => (i + 1) % slides.length), 3500)
     return () => window.clearInterval(timer)
-  }, [])
+  }, [swipe.dragging])
   return <section className="guru-hero" aria-label="Meet Mr GrimeGuru">
     <div className="guru-container guru-hero-grid">
       <div className="guru-hero-copy">
@@ -30,13 +33,12 @@ export function HeroSection() {
         <div className="guru-hero-facts"><div><strong>3 clean machines</strong><span>Kitchen · Home · Shoes</span></div><div><strong>Our own formula</strong><span>Made by Mr GrimeGuru</span></div><div><strong>Free shipping</strong><span>On orders ₹499+</span></div></div>
       </div>
       <div className="guru-hero-carousel" aria-roledescription="carousel" aria-label="Our cleaner collection">
-        <div className="guru-hero-stage">
+        <div className="guru-hero-stage" {...swipe.handlers}>
           {slides.map((slide, i) => <div key={slide.image} className={`guru-hero-slide ${i === active ? 'is-active' : ''} ${i > 0 ? 'is-product' : ''}`} aria-hidden={i !== active}>
             {i > 0 && <><span className="guru-slide-word" aria-hidden="true">{i === 1 ? 'DEGREASE.' : i === 2 ? 'REFRESH.' : 'REPEAT.'}</span><span className="guru-slide-star" aria-hidden="true">✦</span></>}
             {i === 0 ? <><span className="guru-trio-title">THE CLEAN TEAM.</span><ProductTrio /><span className="guru-trio-note">KITCHEN. HOME. SHOES. SORTED.</span></> : <Image src={`/images/products/${slide.image}`} alt={slide.label} fill sizes="(max-width: 900px) 95vw, 55vw" className="guru-slide-image" />}
           </div>)}
-          {/* 1+1 badge — stays fixed on every slide */}
-          <span className="guru-trio-offer" aria-label="1 plus 1 offer">1+1</span>
+          <OfferBadge hero />
         </div>
         <div className="guru-carousel-bottom"><div><span>{String(active + 1).padStart(2, '0')} / 04</span><strong>{slides[active].line}</strong></div><div className="guru-carousel-controls">{slides.map((s, i) => <button key={s.image} className={i === active ? 'is-active' : ''} onClick={() => setActive(i)} aria-label={`Show ${s.label}`} aria-pressed={active === i} />)}</div></div>
       </div>

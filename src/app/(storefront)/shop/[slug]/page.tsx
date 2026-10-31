@@ -1,5 +1,7 @@
 import { ProductImageGallery } from '@/components/storefront/ProductImageGallery'
 import { getCleanerOffer } from '@/lib/cleaner-offers'
+import { getProductSlides } from '@/lib/product-gallery'
+import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
@@ -187,6 +189,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const meta = CATEGORY_META[slug]
 
   if (!meta) notFound()
+  const productInformation = getProductSlides(slug, meta.name, meta.heroImage).filter(slide => slide.artwork)
 
   // Try DB first
   const supabase = await createClient()
@@ -277,6 +280,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="guru-product-description">
+                <span className="guru-eyebrow">KNOW YOUR GURU</span>
+                <h2>A little know-how.<br />A cleaner home.</h2>
+                <p>What it does, where to use it, and how to get started.</p>
+                <div className="guru-product-accordions">
+                  {productInformation.map((info, index) => <details key={info.src} open={index === 0}>
+                    <summary>{info.title}<span aria-hidden="true">+</span></summary>
+                    <ul>{info.points.map(point => <li key={point}>{point}</li>)}</ul>
+                  </details>)}
+                </div>
+                <div className="guru-product-help"><Link href="/shipping">Free shipping ₹499+</Link><Link href="/returns">7-day return requests</Link><a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">Ask your Guru ↗</a></div>
             </div>
 
             {/* Purchase panel stays beside the introduction, before the demos. */}
