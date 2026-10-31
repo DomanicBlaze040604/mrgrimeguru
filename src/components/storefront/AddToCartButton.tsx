@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import { ShoppingCart } from 'lucide-react'
+import { Gift, ShoppingCart } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/store/cart'
 import { Button } from '@/components/ui/Button'
-import { toast } from '@/components/ui/Toaster'
+import { getCleanerOffer } from '@/lib/cleaner-offers'
 
 interface Product {
   id: string
@@ -25,6 +25,7 @@ export function AddToCartButton({ product, showBuyNow = false }: { product: Prod
   const router = useRouter()
 
   const comingSoon = ['laundry-pods', 'laundry-beads'].includes(product.slug)
+  const showOffer = showBuyNow && Boolean(getCleanerOffer(product.slug))
   function handleAddToCart(buyNow = false) {
     if (comingSoon || !product.in_stock) return
     addItem({
@@ -50,15 +51,17 @@ export function AddToCartButton({ product, showBuyNow = false }: { product: Prod
   }
 
   return (
-    <div className={showBuyNow ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}><Button
-      variant="primary"
+    <div className={showBuyNow ? 'guru-purchase-actions' : ''}>
+      {showOffer && <div className="guru-purchase-offer"><Gift size={23} aria-hidden="true" /><div><strong>Buy 1 Get 1 Free</strong><span>Two 500 ml cans. One great deal.</span></div></div>}
+      <div className={showBuyNow ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}><Button
+      variant={showBuyNow ? 'outline' : 'primary'}
       size="sm"
-      className="w-full mt-1"
+      className="w-full mt-1 min-h-12"
       leftIcon={<ShoppingCart className="h-4 w-4" />}
       onClick={() => handleAddToCart()}
       disabled={comingSoon || !product.in_stock}
     >
-      {comingSoon ? 'Coming soon' : product.in_stock ? 'Add to Cart' : 'Out of Stock'}
-    </Button>{showBuyNow && <Button variant="outline" size="sm" className="w-full mt-1" onClick={() => handleAddToCart(true)} disabled={comingSoon || !product.in_stock}>Buy now</Button>}</div>
+      {comingSoon ? 'Coming soon' : product.in_stock ? showOffer ? 'Add to Cart (1+1 Free)' : 'Add to Cart' : 'Out of Stock'}
+    </Button>{showBuyNow && <Button variant="primary" size="sm" className="w-full mt-1 min-h-12" onClick={() => handleAddToCart(true)} disabled={comingSoon || !product.in_stock}>{showOffer ? 'Order Now (1+1 Free)' : 'Buy now'}</Button>}</div></div>
   )
 }

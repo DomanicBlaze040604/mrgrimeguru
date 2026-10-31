@@ -6,10 +6,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
-import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ShoppingCart, Tag } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
 import { formatPrice } from '@/lib/utils'
+import { getProductSlides } from '@/lib/product-gallery'
 import { Button } from '@/components/ui/Button'
 import { toast } from '@/components/ui/Toaster'
 
@@ -33,8 +33,8 @@ interface ProductCarouselProps {
 }
 
 export function ProductCarousel({ products }: ProductCarouselProps) {
-  const autoplay = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
+  const [autoplay] = React.useState(
+    () => Autoplay({ delay: 5000, stopOnInteraction: true, stopOnMouseEnter: true })
   )
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -43,7 +43,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
       align: 'start',
       slidesToScroll: 1,
     },
-    [autoplay.current]
+    [autoplay]
   )
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
@@ -131,7 +131,7 @@ export function ProductCarousel({ products }: ProductCarouselProps) {
                       aria-label={`View ${product.name}`}
                     >
                       <Image
-                        src={product.image_url}
+                        src={getProductSlides(product.slug, product.name, product.image_url)[0].src}
                         alt={product.name}
                         fill
                         className="object-contain p-4 transition-transform duration-500 group-hover:scale-108"

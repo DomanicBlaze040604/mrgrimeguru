@@ -402,3 +402,8 @@
 @media(min-width:1024px) { .guru-product-description { grid-row:2; align-self:start; } .guru-product-intro>.guru-purchase-panel { grid-column:2; grid-row:1 / span 2; } .guru-product-intro { grid-template-rows:auto 1fr; } }
 @media(max-width:600px) { .guru-offer-badge { width:70px; height:70px; } .guru-offer-badge-line { font-size:14px; } .guru-offer-badge--hero { width:88px; height:88px; } .guru-offer-badge--hero .guru-offer-badge-line { font-size:17px; } }
 @media(prefers-reduced-motion:reduce) { .guru-product-accordions summary span { transition:none; } }
+.guru-info-carousel .guru-gallery-swap img.is-offer { padding:94px 8px 8px!important; filter:none; mask-image:none; }
+.guru-purchase-offer { display:flex; align-items:center; gap:12px; padding:14px 16px; margin-bottom:12px; border:1px solid #e5b82e; border-radius:14px; background:#fff0b5; color:#171714; }
+.guru-purchase-offer strong { display:block; font-size:16px; }
+.guru-purchase-offer span { display:block; margin-top:3px; font-size:12px; color:#655124; }
+@media(max-width:600px) { .guru-info-carousel .guru-gallery-swap img.is-offer { padding-top:78px!important; } }

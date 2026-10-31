@@ -1,6 +1,6 @@
 import { getCleanerOffer } from './cleaner-offers'
 
-export type ProductSlide = { src: string; title: string; points: string[]; artwork: boolean }
+export type ProductSlide = { src: string; title: string; points: string[]; artwork: boolean; promotion?: boolean }
 const details: Record<string, [string, string[]][]> = {
   "kitchen-cleaner": [
     [
@@ -159,8 +159,9 @@ export function getProductSlides(slug: string, name: string, image: string, imag
   if (!offer) return (images?.length ? images : [image]).map(src => ({ src, title: name, points: [], artwork: false }))
   const slides = details[offer.slug].map(([title, points], i) => ({ src: `/images/products/gallery/${offer.slug}-${i + 1}.png`, title, points, artwork: true }))
   const foam: ProductSlide = { src: `/images/products/${offer.slug}-foam.png`, title: `${name} surrounded by rich foam · 500 ml`, points: [], artwork: false }
+  const promotion: ProductSlide = { src: `/images/products/${offer.slug}-bogo.png`, title: `${name} · Buy 1 Get 1 Free · Two 500 ml cans`, points: [], artwork: false, promotion: true }
   return informationOnly
-    ? [slides[0], foam, ...slides.slice(1)]
-    : [{ src: `/images/products/${offer.slug}-cutout.png`, title: `${name} · 500 ml`, points: [], artwork: false }, foam, ...slides]
+    ? [promotion, foam, ...slides]
+    : [promotion, foam, { src: `/images/products/${offer.slug}-cutout.png`, title: `${name} · 500 ml`, points: [], artwork: false }, ...slides]
 }
 

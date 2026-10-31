@@ -1,0 +1,11 @@
+{
+  "objective": "Show generated Buy 1 Get 1 Free artwork first for all cleaners and make the purchase offer explicit",
+  "planning": "compact",
+  "context_depth": "dependency",
+  "verification_depth": "impact",
+  "delegation": "none",
+  "reason_codes": ["shared-gallery", "purchase-controls"],
+  "allowed_write_scope": ["src/lib/product-gallery.ts", "src/components/storefront/ProductImageGallery.tsx", "src/components/storefront/ProductCarousel.tsx", "src/components/storefront/AddToCartButton.tsx", "src/app/storefront.css", "public/images/products/*-bogo.png", "docs/product-offer-artwork.md", ".gravitas/sessions/product-offer-refresh/*"],
+  "acceptance_criteria": ["Offer artwork first and foam second for all three cleaners", "Explicit free-product offer on purchase controls", "Order Now adds one offer to cart review", "Swipe and descriptions continue working on desktop and mobile"],
+  "validators": ["TypeScript", "targeted ESLint", "production build", "browser checks"]
+}
