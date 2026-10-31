@@ -1,6 +1,6 @@
 import { ProductImageGallery } from '@/components/storefront/ProductImageGallery'
 import { getCleanerOffer } from '@/lib/cleaner-offers'
-import { getProductSlides } from '@/lib/product-gallery'
+import { getProductInformation } from '@/lib/product-gallery'
 import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -189,7 +189,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const meta = CATEGORY_META[slug]
 
   if (!meta) notFound()
-  const productInformation = getProductSlides(slug, meta.name, meta.heroImage).filter(slide => slide.artwork)
+  const productInformation = getProductInformation(slug)
 
   // Try DB first
   const supabase = await createClient()
@@ -379,7 +379,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             {meta.infoImage && (
               <div className="guru-product-info-art relative aspect-square">
-                <ProductImageGallery slug={slug} name={meta.name} image={meta.heroImage} informationOnly />
+                <ProductImageGallery slug={slug} name={meta.name} image={meta.heroImage} />
               </div>
             )}
           </div>
