@@ -93,7 +93,17 @@ export function SiteHeader() {
           <div className="flex h-[82px] items-center justify-between gap-3">
 
             {/* Logo — Bebas Neue display font */}
-            <Link href="/" className="guru-header-logo flex flex-col shrink-0 group" aria-label="Mr GrimeGuru home">
+            <Link
+              href="/"
+              className="guru-header-logo flex flex-col shrink-0 group"
+              aria-label="Mr GrimeGuru home"
+              onClick={(e) => {
+                if (pathname === '/') {
+                  e.preventDefault()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
+              }}
+            >
               <span
                 className="font-black leading-none text-[#111111] tracking-wide group-hover:text-[#F97316] transition-colors"
                 style={{
