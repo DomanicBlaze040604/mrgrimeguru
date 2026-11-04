@@ -1,13 +1,10 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { RotateCcw, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { CONTACT } from '@/lib/contact'
 
-export const metadata: Metadata = {
-  title: 'Return, Refund & Cancellation Policy — Mr GrimeGuru',
-  description: 'How return, refund, and cancellation requests are handled for orders placed through Mr GrimeGuru.',
-}
+export const metadata = pageMetadata('7-Day Returns & Refund Policy', 'Request an eligible return within 7 days of delivery. Read Mr GrimeGuru return, cancellation and refund conditions.', '/returns')
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

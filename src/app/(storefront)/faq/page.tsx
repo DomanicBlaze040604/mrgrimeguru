@@ -1,4 +1,5 @@
 'use client'
+import { JsonLd } from '@/components/storefront/JsonLd'
 
 import React, { useState } from 'react'
 import Link from 'next/link'
@@ -107,6 +108,7 @@ export default function FAQPage() {
 
   return (
     <div className="min-h-screen bg-[#fffbf0] py-16">
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQS.map(faq => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })) }} />
       <div className="container-wide max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
@@ -162,8 +164,8 @@ export default function FAQPage() {
                     }`}
                   />
                 </button>
-                {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#75828A] leading-relaxed border-t border-[#e5dcc9]/40 bg-[#fffbf0]/30">
+                {(
+                  <div hidden={!isOpen} className="px-6 pb-6 pt-1 text-sm sm:text-base text-[#75828A] leading-relaxed border-t border-[#e5dcc9]/40 bg-[#fffbf0]/30">
                     {faq.a}
                   </div>
                 )}

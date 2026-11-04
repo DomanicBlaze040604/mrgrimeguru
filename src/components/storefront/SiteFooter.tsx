@@ -18,7 +18,7 @@ const columns = [
       ['Our story', '/about'],
       ['Why our foam', '/#why-foam'],
       ['Watch it work', '/#see-it-work'],
-      ['Cleaning guides', '/guides'],
+      ['Cleaning guides', '/blog'],
       ['Instagram', CONTACT.instagramUrl],
     ],
   },

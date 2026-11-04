@@ -1,0 +1,13 @@
+{
+  "validation_date": "2026-11-04",
+  "checks": [
+    {"validator":"production-build","result":"PASS","evidence":"Next.js 16.4.2 compiled; TypeScript passed; 60 static pages generated including social-image, blog, sitemap and robots."},
+    {"validator":"scripts/publish-cleaning-guides.cjs","result":"PASS","evidence":"Six published records verified; three original article IDs and publication dates preserved; backup in ignored .vercel/seo-backup."},
+    {"validator":"scripts/verify-seo.mjs http://localhost:3008","result":"PASS","evidence":"All 20 sitemap URLs returned 200 with canonical metadata, unique titles, one H1 and Organization JSON-LD; six dated articles with concise headings; three correct INR product prices; FAQ markup; private noindex; legacy 308s; unknown 404s; robots; llms; valid PNG preview; About CTA present."},
+    {"validator":"browser-combo-gallery","result":"PASS","evidence":"Both live-catalog combos showed exactly three views; dot and drag interactions changed views; unfocused gallery rotated automatically. Desktop and 390px mobile images loaded with no horizontal overflow. Add Bundle showed Clean Home Starter Pack at INR 1249 in the cart; test item removed."},
+    {"validator":"browser-typography-and-tags","result":"PASS","evidence":"Computed headings use DM Sans; Google tag/library and Meta script appeared once with requested IDs; no browser warnings/errors observed during blog inspection. Vendor reporting receipt not inspected."},
+    {"validator":"browser-about-cta","result":"PASS","evidence":"Shop All Products link to /shop: white rgb(255,255,255) on rgb(23,23,20), width 226.6px at 390px viewport. Mobile screenshot shows readable centered button."}
+  ],
+  "limitations": ["Search Console submission remains an owner action in their other browser; no indexing or ranking guarantee", "Analytics vendor dashboards were not inspected"],
+  "deployment_validation": "Run the same HTTP validator against the canonical production host after GitHub deployment is ready."
+}

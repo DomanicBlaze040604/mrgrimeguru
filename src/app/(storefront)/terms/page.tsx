@@ -1,10 +1,7 @@
 import { CONTACT } from '@/lib/contact'
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Terms of Service — Mr GrimeGuru',
-  description: 'Terms governing access to and use of the Mr GrimeGuru website and related services.',
-}
+export const metadata = pageMetadata('Terms of Service', 'Read the terms for shopping, ordering and using the Mr GrimeGuru website.', '/terms')
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -21,14 +18,14 @@ export default function TermsPage() {
       <div className="container-wide max-w-4xl bg-white rounded-3xl border border-[#e5dcc9] p-8 sm:p-12 shadow-sm space-y-10 text-[#171714]">
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Terms of Service</h1>
-          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-xs text-[#75828A]">Last updated: 3 November 2026</p>
           <p className="text-sm text-[#655e51] mt-3">
             These Terms govern access to and use of the Mr GrimeGuru website and related services. By accessing the website or placing an order, you agree to these Terms and the applicable policies published on our website, subject to applicable law.
           </p>
         </div>
 
         <Section title="1. Business Information">
-          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Store brand: Mr GrimeGuru</p>
           <p>Website: https://www.mrgrimeguru.com/</p>
           <p>Business address: {CONTACT.address}</p>
           <p>Contact email: support@mrgrimeguru.com</p>
@@ -89,7 +86,7 @@ export default function TermsPage() {
         </Section>
 
         <Section title="15. Contact Information">
-          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Store brand: Mr GrimeGuru</p>
           <p>Email: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
           <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
           <p>Business address: {CONTACT.address}</p>

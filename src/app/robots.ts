@@ -1,16 +1,5 @@
-import { MetadataRoute } from 'next'
-
+import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/seo'
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.mrgrimeguru.com'
-
-  return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/admin', '/api/', '/account', '/checkout'],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-  }
+  return { rules: [{ userAgent: '*', allow: '/', disallow: ['/admin', '/api/'] }], sitemap: `${SITE_URL}/sitemap.xml`, host: SITE_URL }
 }

@@ -1,18 +1,17 @@
+import { JsonLd } from '@/components/storefront/JsonLd'
+import { breadcrumbs } from '@/lib/seo'
 import { LaundryComingSoon } from '@/components/storefront/LaundryComingSoon'
 import { getCleanerOffer, getDatabaseFamily } from '@/lib/cleaner-offers'
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { ProductImageGallery } from '@/components/storefront/ProductImageGallery'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
-import { CombosSection } from '@/components/storefront/CombosSection'
+import { CombosSection, type ProductCombo } from '@/components/storefront/CombosSection'
 import { Filter } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'Shop All Products — Mr GrimeGuru',
-  description: 'Browse the full Mr GrimeGuru range — Shoe Cleaner, Multipurpose Cleaner, Kitchen Cleaner, and Laundry Pods.',
-}
+export const metadata = pageMetadata('Shop Kitchen, Multipurpose & Shoe Cleaners', 'Explore Mr GrimeGuru 500 ml foam cleaners for kitchens, compatible household surfaces and shoes. Compare current offers and cleaner bundles.', '/shop')
 
 type ProductFamily = 'shoe_cleaner' | 'multipurpose_cleaner' | 'kitchen_cleaner' | 'laundry_pods'
 
@@ -72,6 +71,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const family = params.family
 
   const dbProducts = await getProducts(family)
+  const supabase = await createClient()
+  const { data: comboData } = await supabase.from('product_combos').select('id,name,slug,description,price_paise,compare_price_paise,products,is_active,sort_order').eq('is_active', true).order('sort_order')
+  const combos: ProductCombo[] = comboData || []
 
   // Use DB products if available, otherwise use placeholders filtered by family
   const products = dbProducts
@@ -104,12 +106,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   return (
     <div style={{ backgroundColor: '#fffbf0' }}>
+      <JsonLd data={breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Shop', path: '/shop' }])} />
       {/* Header */}
       <div
         className="py-16 text-center"
         style={{ background: 'linear-gradient(160deg, #fff2be 0%, #fffbf0 100%)' }}
       >
-        <h1 className="text-4xl font-bold text-[#171714] mb-3" style={{ fontFamily: 'var(--font-playfair)' }}>
+        <h1 className="text-4xl font-bold text-[#171714] mb-3" >
           Shop All Products
         </h1>
         <p className="text-[#75828A] max-w-md mx-auto">
@@ -188,7 +191,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         </div>
 
         {/* Super Saver Combos */}
-        <CombosSection />
+        <CombosSection combos={combos} />
 
         {(!family || family === 'laundry_pods') && <LaundryComingSoon />}
 

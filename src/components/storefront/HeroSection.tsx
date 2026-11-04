@@ -27,7 +27,7 @@ export function HeroSection() {
     <div className="guru-container guru-hero-grid">
       <div className="guru-hero-copy">
         <span className="guru-pill">✦ SECRET FORMULA. SERIOUS FOAM.</span>
-        <h1>BIG ON FOAM.<br /><span>TOUGH ON</span><br />GRIME.</h1>
+        <h1>BIG ON FOAM.<br /><span>TOUGH ON</span><br />GRIME.<span className="guru-hero-descriptor">Foam cleaners for kitchen, home &amp; shoes</span></h1>
         <p>Kitchen chaos? Sneaker crime? Call the Guru, skip the grime. Meet our foam-powered trio for the messes life throws at you.</p>
         <div className="guru-actions"><Link className="guru-button" href="#range">Explore the range <ArrowRight size={18} /></Link><Link className="guru-button guru-button-light" href="#see-it-work">See it work <Play size={16} /></Link></div>
         <div className="guru-hero-facts"><div><strong>3 clean machines</strong><span>Kitchen · Home · Shoes</span></div><div><strong>Our own formula</strong><span>Made by Mr GrimeGuru</span></div><div><strong>Free shipping</strong><span>On orders ₹499+</span></div></div>

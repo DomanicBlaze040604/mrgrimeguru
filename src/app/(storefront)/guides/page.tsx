@@ -1,4 +1,2 @@
-import BlogListingPage, { metadata } from '../blog/page'
-
-export { metadata }
-export default BlogListingPage
+import { permanentRedirect } from 'next/navigation'
+export default function GuidesPage() { permanentRedirect('/blog') }

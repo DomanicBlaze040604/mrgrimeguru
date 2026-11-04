@@ -1,3 +1,5 @@
+import { pageMetadata, breadcrumbs, absoluteUrl, SITE_URL } from '@/lib/seo'
+import { JsonLd } from '@/components/storefront/JsonLd'
 import { ProductImageGallery } from '@/components/storefront/ProductImageGallery'
 import { getCleanerOffer } from '@/lib/cleaner-offers'
 import { getProductInformation } from '@/lib/product-gallery'
@@ -5,7 +7,7 @@ import { CONTACT } from '@/lib/contact'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, Sparkles, Clock, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Sparkles, ShoppingBag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
@@ -156,31 +158,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const { slug } = await params
   const cat = CATEGORY_META[slug]
   if (!cat) return { title: 'Product — Mr GrimeGuru' }
-  return {
-    title: `${cat.name} — Mr GrimeGuru`,
-    description: cat.description,
-  }
-}
-
-function VideoPlayer({ src, label, accentColor }: { src: string; label: string; accentColor: string }) {
-  'use client'
-  return (
-    <div className="relative rounded-2xl overflow-hidden bg-black aspect-[9/16] shadow-lg">
-      <video
-        className="w-full h-full object-contain"
-        muted
-        autoPlay
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={`${label} video`}
-      >
-        <source src={src} type="video/mp4" />
-        <track kind="captions" />
-      </video>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-    </div>
-  )
+  return pageMetadata(`${cat.name} Foam Spray, 500 ml`, cat.description, `/shop/${slug}`, `/images/products/${slug}-bogo-transparent.png`)
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -230,8 +208,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         id: `mock_${slug}_1`,
         name: `Mr GrimeGuru ${meta.name}`,
         slug,
-        price_paise: slug === 'shoe-cleaner' ? 59900 : 49900,
-        compare_at_price_paise: slug === 'shoe-cleaner' ? 69900 : 59900,
+        price_paise: getCleanerOffer(slug)?.price ?? 49900,
+        compare_at_price_paise: getCleanerOffer(slug)?.original ?? 59900,
         short_description: meta.description,
         images: [meta.heroImage],
         in_stock: true,
@@ -241,6 +219,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="min-h-screen bg-[#fffbf0]">
+      <JsonLd data={breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Shop', path: '/shop' }, { name: meta.name, path: `/shop/${slug}` }])} />
+      {products[0] && <JsonLd data={{ '@context': 'https://schema.org', '@type': 'Product', '@id': absoluteUrl(`/shop/${slug}#product`), name: `${meta.name}, 500 ml`, description: meta.description, image: ['bogo-transparent', 'cutout', 'foam'].map(kind => absoluteUrl(`/images/products/${slug}-${kind}.png`)), brand: { '@type': 'Brand', name: 'Mr GrimeGuru' }, offers: { '@type': 'Offer', url: absoluteUrl(`/shop/${slug}`), priceCurrency: 'INR', price: (products[0].price_paise / 100).toFixed(2), availability: products[0].in_stock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock', itemCondition: 'https://schema.org/NewCondition', seller: { '@id': `${SITE_URL}/#organization` } } }} />}
 
       {/* ── Hero ── */}
       <section

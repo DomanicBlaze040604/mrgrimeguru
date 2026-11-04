@@ -1,20 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Syne, Bebas_Neue, Black_Ops_One } from 'next/font/google'
+import { DM_Sans, Bebas_Neue, Black_Ops_One } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/Toaster'
 
 // Body copy — clean, readable, modern
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-})
-
-// UI labels, nav, tags — geometric & punchy
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
+  variable: '--font-dm-sans',
   display: 'swap',
   weight: ['400', '500', '600', '700', '800'],
 })
@@ -36,13 +28,13 @@ const blackOpsOne = Black_Ops_One({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.mrgrimeguru.com'),
+  metadataBase: new URL('https://www.mrgrimeguru.com'),
   title: {
     default: 'Mr GrimeGuru — Secret Formula Foam Spray Cleaners',
     template: '%s | Mr GrimeGuru',
   },
   description:
-    'Mr GrimeGuru secret formula hydrogen foam sprays. Shoe Cleaner, Kitchen Cleaner, Multipurpose Cleaner. Spray. 30 sec. Wipe.',
+    'Mr GrimeGuru secret formula hydrogen foam sprays. Shoe Cleaner, Kitchen Cleaner, Multipurpose Cleaner. For compatible kitchen surfaces, household surfaces and footwear.',
   keywords: [
     'foam spray cleaner india',
     'shoe cleaner spray',
@@ -61,7 +53,7 @@ export const metadata: Metadata = {
       'Smart, effective cleaning for modern Indian homes. Grime Happens. We Handle It.',
     images: [
       {
-        url: '/images/brand/og-image.jpg',
+        url: '/social-image',
         width: 1200,
         height: 630,
         alt: 'Mr GrimeGuru — Premium Household Cleaning',
@@ -84,7 +76,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#9FD8E8',
+  themeColor: '#fffbf0',
   width: 'device-width',
   initialScale: 1,
 }
@@ -95,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${syne.variable} ${bebasNeue.variable} ${blackOpsOne.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${bebasNeue.variable} ${blackOpsOne.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Toaster />

@@ -1,4 +1,43 @@
 /* Mr GrimeGuru storefront: packaging-led orange, yellow, ink and cream. */
+.guru-combo-gallery { margin:-24px -24px 22px; background:#f7f0df; border-bottom:1px solid #e5dcc9; }
+.guru-combo-stage { position:relative; display:block; width:100%; aspect-ratio:1.65; border:0; background:radial-gradient(ellipse at center,#fffdf5,#eee0c4); cursor:grab; touch-action:pan-y; overflow:hidden; }
+.guru-combo-stage:active { cursor:grabbing; }
+.guru-combo-slide { position:absolute; inset:0; display:flex; justify-content:center; gap:6px; padding:24px 18px; opacity:0; transition:opacity .5s; pointer-events:none; }
+.guru-combo-slide.is-active { opacity:1; }
+.guru-combo-product { position:relative; flex:1; min-width:0; max-width:220px; }
+.guru-combo-product img { object-fit:contain; }
+.guru-combo-slide.is-lifestyle { padding:18px; gap:12px; background:#f7f0df; }
+.guru-combo-slide.is-lifestyle .guru-combo-product { max-width:none; }
+.guru-combo-caption { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 18px; font-size:12px; color:#655e51; }
+.guru-combo-caption>div { display:flex; gap:2px; }
+.guru-combo-caption button { width:32px; height:32px; display:grid; place-items:center; }
+.guru-combo-caption button::after { content:''; width:7px; height:7px; background:#aaa18c; border-radius:50%; }
+.guru-combo-caption button[aria-pressed=true]::after { width:20px; background:#b9460c; border-radius:8px; }
+.guru-journal { color:#171714; }
+.guru-storefront .guru-journal h1 { font:700 clamp(30px,4vw,48px)/1.15 var(--font-dm-sans),sans-serif; letter-spacing:-.035em; max-width:950px; margin:18px 0; }
+.guru-journal-intro { font-size:18px; line-height:1.7; color:#56534b; max-width:800px; margin-bottom:34px; }
+.guru-journal-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.guru-journal-grid article { background:white; border:1px solid #e5dcc9; border-radius:20px; overflow:hidden; }
+.guru-journal-cover { position:relative; display:block; aspect-ratio:1.4; background:#f4ecdb; }
+.guru-journal-cover img { object-fit:contain; }
+.guru-journal-card-copy { padding:24px; }
+.guru-journal-card-copy>span,.guru-article-byline { font-size:12px; line-height:1.8; color:#655e51; }
+.guru-storefront .guru-journal-card-copy h2 { font-size:22px; line-height:1.35; margin:12px 0; }
+.guru-journal-card-copy p { font-size:15px; line-height:1.7; color:#56534b; margin-bottom:18px; }
+.guru-journal-read,.guru-article-links a { color:#a13c08; font-weight:700; text-decoration:underline; text-underline-offset:4px; }
+.guru-article { max-width:900px; }
+.guru-article-image { position:relative; aspect-ratio:1.8; margin:30px 0; background:#f4ecdb; border-radius:20px; overflow:hidden; }
+.guru-article-image img { object-fit:contain; }
+.guru-article-body { font-size:17px; line-height:1.85; }
+.guru-article-body p { margin-bottom:20px; color:#45433c; white-space:pre-line; }
+.guru-storefront .guru-article-body h2 { font-size:27px; line-height:1.35; margin:38px 0 14px; }
+.guru-article-product { display:flex; gap:26px; align-items:center; border:1px solid #e5dcc9; background:#fff2be; border-radius:20px; padding:28px; margin:40px 0; }
+.guru-article-product img { object-fit:contain; }
+.guru-article-product p { margin:12px 0 20px; line-height:1.6; }
+.guru-article-links { display:flex; flex-wrap:wrap; gap:22px; padding:24px 0; }
+@media(max-width:900px) { .guru-journal-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .guru-journal-grid { grid-template-columns:1fr; } .guru-article-product { flex-direction:column; align-items:flex-start; } }
+@media(prefers-reduced-motion:reduce) { .guru-combo-slide { transition:none; } }
 .guru-home { background:#fffbf0; color:#171714; }
 .guru-container { width:min(1280px, 92%); margin-inline:auto; }
 .guru-home h2 { font-family:var(--font-bebas),Impact,sans-serif; font-size:clamp(2.8rem,5vw,4.6rem); line-height:1; font-weight:400; letter-spacing:.01em; color:#171714; }
@@ -426,3 +465,11 @@
 .guru-purchase-offer strong { display:block; font-size:16px; }
 .guru-purchase-offer span { display:block; margin-top:3px; font-size:12px; color:#655124; }
 @media(max-width:600px) { .guru-offer-art { width:min(96cqw,calc(100cqh - 70px)); top:calc(50% + 32px); } }
+
+.guru-storefront main>div:not(.guru-home) h1 { font-family:var(--font-dm-sans),sans-serif; font-weight:700; letter-spacing:-.035em; line-height:1.15; }
+
+.guru-hero-copy h1 .guru-hero-descriptor { display:block; font:600 16px/1.5 var(--font-dm-sans),sans-serif; color:#56534b; letter-spacing:0; margin-top:20px; }
+
+.guru-about-shop-link { display:inline-flex; align-items:center; justify-content:center; gap:12px; width:fit-content; max-width:100%; min-height:52px; padding:14px 28px; border:2px solid #171714; border-radius:999px; background:#171714; color:#fff; font:700 16px/1.4 var(--font-dm-sans),sans-serif; transition:background .2s,color .2s; }
+.guru-about-shop-link:hover { background:#facc15; color:#171714; }
+.guru-about-shop-link:focus-visible { outline:3px solid #b9460c; outline-offset:4px; }

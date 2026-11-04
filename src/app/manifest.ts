@@ -4,21 +4,21 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Mr GrimeGuru — Modern Indian Cleaning Essentials',
     short_name: 'Mr GrimeGuru',
-    description: 'High-performance household cleaning products for modern Indian homes. Laundry pods, scented beads, floor cleaner, degreaser, and shoe care.',
+    description: 'Kitchen, multipurpose and shoe foam cleaners for everyday home care.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#FAF8F2',
-    theme_color: '#347F99',
+    background_color: '#fffbf0',
+    theme_color: '#f97316',
     icons: [
       {
-        src: '/images/brand/logo.jpg',
+        src: '/icon.png',
         sizes: '192x192',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
       {
-        src: '/images/brand/logo.jpg',
-        sizes: '512x512',
-        type: 'image/jpeg',
+        src: '/apple-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
       },
     ],
   }

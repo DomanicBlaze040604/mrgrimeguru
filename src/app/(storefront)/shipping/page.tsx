@@ -1,11 +1,8 @@
 import { CONTACT } from '@/lib/contact'
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { Truck } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'Shipping Policy — Mr GrimeGuru',
-  description: 'Delivery information, shipping charges, tracking, and order fulfilment details for Mr GrimeGuru.',
-}
+export const metadata = pageMetadata('Shipping & Delivery Information', 'Find shipping information for Mr GrimeGuru orders, delivery serviceability and customer support details.', '/shipping')
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -25,7 +22,7 @@ export default function ShippingPolicyPage() {
             <Truck className="w-3.5 h-3.5" /> Shipping Policy
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Shipping Policy</h1>
-          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-xs text-[#75828A]">Last updated: 3 November 2026</p>
           <p className="text-sm text-[#655e51] mt-3">
             Mr GrimeGuru aims to provide a straightforward and transparent delivery experience.
           </p>

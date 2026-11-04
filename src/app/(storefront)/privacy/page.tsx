@@ -1,11 +1,8 @@
 import { CONTACT } from '@/lib/contact'
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import { Shield } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy — Mr GrimeGuru',
-  description: 'How Mr GrimeGuru collects, uses, stores, and shares your personal information.',
-}
+export const metadata = pageMetadata('Privacy Policy', 'How Mr GrimeGuru collects, uses and shares information when you browse, order or contact our team.', '/privacy')
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -25,14 +22,14 @@ export default function PrivacyPolicyPage() {
             <Shield className="w-3.5 h-3.5" /> Privacy Policy
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Privacy Policy</h1>
-          <p className="text-xs text-[#75828A]">Last updated: [DATE]</p>
+          <p className="text-xs text-[#75828A]">Last updated: 3 November 2026</p>
           <p className="text-sm text-[#655e51] mt-3">
             Mr GrimeGuru respects your privacy. This Privacy Policy explains how we collect, use, store, and share personal information when you visit our website, browse products, place orders, or contact our team.
           </p>
         </div>
 
         <Section title="1. Business Information">
-          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Store brand: Mr GrimeGuru</p>
           <p>Website: https://www.mrgrimeguru.com/</p>
           <p>Business address: {CONTACT.address}</p>
           <p>Customer support email: support@mrgrimeguru.com</p>
@@ -60,7 +57,7 @@ export default function PrivacyPolicyPage() {
         </Section>
 
         <Section title="5. Cookies and Tracking Technologies">
-          <p>Our website may use essential cookies and, where enabled, analytics or advertising technologies. You can manage cookies through your browser settings and any consent controls offered on the website.</p>
+          <p>Our website uses essential store cookies, Google Analytics (GA4) to measure visits, and Meta Pixel to measure visits and advertising performance. Google and Meta may process browser, device, cookie and page-visit information under their own privacy policies. You can manage cookies through your browser settings and any consent controls offered on the website.</p>
         </Section>
 
         <Section title="6. Sharing Information">
@@ -98,7 +95,7 @@ export default function PrivacyPolicyPage() {
         </Section>
 
         <Section title="14. Contact and Grievances">
-          <p>Legal business name: [REGISTERED LEGAL BUSINESS NAME]</p>
+          <p>Store brand: Mr GrimeGuru</p>
           <p>Email: <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
           <p>Phone: <a href={CONTACT.telephoneUrl}>{CONTACT.phone}</a> · <a href={CONTACT.whatsappUrl}>WhatsApp support</a></p>
           <p>Address: {CONTACT.address}</p>

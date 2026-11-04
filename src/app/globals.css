@@ -52,8 +52,9 @@
 
     /* Typography — updated font stack */
     --font-display: var(--font-bebas), 'Impact', sans-serif;
-    --font-heading: var(--font-syne), system-ui, sans-serif;
-    --font-sans: var(--font-sans), system-ui, sans-serif;
+    --font-syne: var(--font-dm-sans);
+    --font-heading: var(--font-dm-sans), system-ui, sans-serif;
+    --font-sans: var(--font-dm-sans), system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
     /* Transitions */
@@ -84,7 +85,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     line-height: 1.2;
     color: var(--color-dark-ink);
     font-weight: 700;

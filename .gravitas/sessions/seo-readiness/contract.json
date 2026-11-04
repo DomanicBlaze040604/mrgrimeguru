@@ -1,0 +1,10 @@
+{
+  "mode": "implement",
+  "objective": "Prepare the public store for search discovery, publish six accurate guides, install requested analytics, improve typography and combo galleries.",
+  "planning_policy": {"planning":"deep","context_depth":"dependency","verification_depth":"impact","delegation":"none","reason_codes":["multiple-files","public-metadata","database-content"]},
+  "acceptance_criteria": ["Canonical public URLs and sitemap resolve successfully; legacy aliases redirect", "Organization, product, breadcrumb and article JSON-LD match visible content; FAQ markup matches accessible answers", "Six published guides have working detail pages and internal links", "Requested GA4 and Meta IDs load without duplicate initialization", "Readable UI fonts and three swipeable images per active combo", "Production build and targeted runtime checks pass; report Search Console access limits accurately"],
+  "allowed_write_scope": ["src/app", "src/components/storefront", "src/lib/seo.ts", "src/lib/blog.ts", "src/data", "public/llms.txt", "next.config.ts", "scripts", "docs/seo-readiness.md", ".gravitas/sessions/seo-readiness", ".vercel/seo-backup", "Supabase public.blog_posts (six editorial records only)"],
+  "non_goals": ["No ranking guarantees", "No payment or authentication changes", "No invented ratings or clinical claims"],
+  "risk": "medium", "budget": "balanced", "verification": "build, lint, HTTP SEO checks, browser gallery checks",
+  "decision": "Replace stale sitemap and fallback blog implementation; preserve existing three database article slugs and authors, update editorial text, add three new posts with backup before publishing. Reuse existing product cutouts for combo image compositions."
+}

@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { BookOpen, Plus, Eye, Edit, Trash2, Calendar, Clock } from 'lucide-react'
+import { BookOpen, Plus, Eye, Edit } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/Button'
-import { ARTICLES } from '@/app/(storefront)/blog/page'
 
 export const metadata: Metadata = {
   title: 'Blog CMS — Admin',
@@ -30,16 +29,7 @@ export default async function AdminBlogPage() {
           : 'Draft',
         readingTime: `${p.reading_time_minutes || 3} min read`,
       }))
-    : ARTICLES.map((a, i) => ({
-        id: `mock_blog_${i}`,
-        title: a.title,
-        slug: a.slug,
-        excerpt: a.excerpt,
-        category: a.category,
-        status: 'published',
-        publishedAt: a.publishedAt,
-        readingTime: a.readTime,
-      }))
+    : []
 
   return (
     <div className="max-w-7xl mx-auto space-y-6 pb-12">

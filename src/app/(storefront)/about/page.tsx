@@ -1,12 +1,8 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
 
-export const metadata: Metadata = {
-  title: 'About Us — Mr GrimeGuru',
-  description: 'Everyday cleaning, made more straightforward. Three foam-powered cleaners. One grime-fighting Guru.',
-}
+export const metadata = pageMetadata('About Our Foam Cleaner Range', 'Meet Mr GrimeGuru and explore our kitchen, multipurpose and shoe cleaner range, with practical cleaning guidance and Mumbai-based customer support.', '/about')
 
 export default function AboutPage() {
   return (
@@ -90,13 +86,11 @@ export default function AboutPage() {
         <section className="text-center space-y-4">
           <h2 className="text-2xl font-bold text-[#171714]">Find Your Clean.</h2>
           <p className="text-[#655e51] max-w-lg mx-auto">
-            Whether you&apos;re refreshing your sneakers, tackling kitchen grease, cleaning household surfaces, or preparing your laundry — Mr GrimeGuru is here to help.
+            Whether you&apos;re refreshing your sneakers, tackling kitchen grease, or cleaning household surfaces — Mr GrimeGuru is here to help.
           </p>
-          <Button variant="primary" size="lg" className="bg-[#111111] hover:bg-[#171714]" asChild>
-            <Link href="/shop" className="flex items-center gap-2">
-              Shop All Products <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+          <Link href="/shop" className="guru-about-shop-link">
+            Shop All Products <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          </Link>
         </section>
 
       </div>

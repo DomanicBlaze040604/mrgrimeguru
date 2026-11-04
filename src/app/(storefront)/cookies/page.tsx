@@ -1,9 +1,6 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy — Mr GrimeGuru',
-  description: 'How Mr GrimeGuru uses cookies to deliver a fast, personalized experience.',
-}
+export const metadata = pageMetadata('Cookie Policy', 'Learn about essential cookies, Google Analytics and Meta Pixel on the Mr GrimeGuru website.', '/cookies')
 
 export default function CookiePolicyPage() {
   return (
@@ -31,9 +28,10 @@ export default function CookiePolicyPage() {
               <strong className="text-[#171714]">Authentication Cookies:</strong> Secure encrypted tokens via Supabase Auth that verify your login state.
             </li>
             <li>
-              <strong className="text-[#171714]">Performance & Analytics:</strong> Aggregate statistics that help us identify slow pages or broken links.
+              <strong className="text-[#171714]">Performance & Analytics:</strong> Google Analytics (GA4) measures website visits, page views and browsing activity to help us understand site use.
             </li>
-          </ul>
+          <li><strong>Advertising measurement:</strong> Meta Pixel records page visits to help measure advertising performance. Google and Meta may use cookies and device information under their own privacy policies.</li></ul>
+          <p>You can block or delete cookies using your browser settings. Browser privacy tools may prevent analytics or advertising tags from loading. Essential cart and sign-in features can be affected if all storage is blocked.</p>
         </section>
       </div>
     </div>

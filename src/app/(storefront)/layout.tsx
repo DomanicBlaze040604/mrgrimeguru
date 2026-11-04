@@ -1,3 +1,6 @@
+import { JsonLd } from '@/components/storefront/JsonLd'
+import { organizationSchema } from '@/lib/seo'
+import { Analytics } from '@/components/storefront/Analytics'
 import '../storefront.css'
 import { SiteHeader } from '@/components/storefront/SiteHeader'
 import { SiteFooter } from '@/components/storefront/SiteFooter'
@@ -13,6 +16,8 @@ export default function StorefrontLayout({
 }) {
   return (
     <div className="guru-storefront min-h-screen flex flex-col">
+      <JsonLd data={organizationSchema} />
+      <Analytics />
       <SiteHeader />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         {children}
