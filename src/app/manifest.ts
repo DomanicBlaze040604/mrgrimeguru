@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Mr GrimeGuru — Modern Indian Cleaning Essentials',
     short_name: 'Mr GrimeGuru',
-    description: 'Kitchen, multipurpose and shoe foam cleaners for everyday home care.',
+    description: 'Car, kitchen, multipurpose and shoe foam cleaners for everyday care.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fffbf0',

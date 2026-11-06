@@ -11,6 +11,7 @@ import { ArrowLeft, CheckCircle2, Sparkles, ShoppingBag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
+import { hasAvailableProductStock } from '@/lib/product-stock'
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>
@@ -30,6 +31,18 @@ const CATEGORY_META: Record<string, {
   accentColor: string
   bgColor: string
 }> = {
+  'vehicle-cleaner': {
+    name: 'Car Cleaner',
+    tagline: 'Fresh Foam. Ready for the Next Drive.',
+    description: 'A foam cleaner for everyday road dirt on compatible car surfaces. Also suitable for compatible bike and two-wheeler surfaces; check the product and vehicle care labels for approved materials and finishes before use.',
+    heroImage: '/images/products/vehicle-cleaner-cutout.png',
+    infoImage: '/images/products/gallery/vehicle-cleaner-4.png',
+    videos: ['/images/products/car cleaner 1.mp4', '/images/products/car cleaner 2.mp4', '/images/products/car cleaner 3.mp4'],
+    benefits: ['Designed for everyday car-care routines', 'Helps lift everyday road dirt and surface marks', 'Two 500 ml cans with the 1+1 offer', 'Use on label-approved materials and finishes'],
+    howToUse: ['Read the cleaner label and your vehicle care guidance; check compatibility.', 'Park in the shade and let hot surfaces cool. Remove loose grit first.', 'Spot-test on a small hidden area before applying more widely.', 'Apply and allow contact time as directed on the can, working in small sections.', 'Wipe with a clean microfibre cloth or rinse as directed. Avoid controls, electrical openings and safety-critical components.'],
+    stats: [{ value: 'Car', label: 'Care' }, { value: '500 ml', label: 'Per Can' }, { value: '1+1', label: 'Offer Pack' }],
+    accentColor: '#1858a4', bgColor: '#e4f0ff',
+  },
   'shoe-cleaner': {
     name: 'Shoe Cleaner',
     tagline: 'Give Your Footwear a Fresh Start.',
@@ -71,6 +84,7 @@ const CATEGORY_META: Record<string, {
     videos: [
       '/images/products/multipurpose-1.mp4',
       '/images/products/multipurpose-2.mp4',
+      '/images/products/multipurpose clip 3.mp4',
     ],
     benefits: [
       'Designed for routine household cleaning',
@@ -180,7 +194,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   try {
     const offer = getCleanerOffer(slug)
     const { data } = await supabase.from('products')
-      .select('id, name, slug, short_description, product_variants!inner(id, name, price_paise, compare_at_price_paise, is_default)')
+      .select('id, name, slug, short_description, product_variants!inner(id, name, price_paise, compare_at_price_paise, is_default, inventory(quantity, reserved_quantity))')
       .in('slug', Array.from(new Set([slug, offer?.legacySlug ?? slug])))
       .eq('status', 'active')
       .eq('product_variants.is_default', true)
@@ -194,9 +208,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         compare_at_price_paise: offer?.original ?? variant.compare_at_price_paise,
         short_description: meta.description,
         images: [meta.heroImage],
-        in_stock: true,
+        in_stock: slug === 'vehicle-cleaner' ? hasAvailableProductStock(variant.inventory) : true,
         variant_id: variant.id,
-        variant_name: offer ? '500 ml' : variant.name,
+        variant_name: slug === 'vehicle-cleaner' ? '2 × 500 ml · Buy 1 Get 1 Free' : offer ? '500 ml' : variant.name,
       }
     })
   } catch { /* no DB yet */ }
@@ -212,7 +226,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         compare_at_price_paise: getCleanerOffer(slug)?.original ?? 59900,
         short_description: meta.description,
         images: [meta.heroImage],
-        in_stock: true,
+        in_stock: slug !== 'vehicle-cleaner',
       },
     ]
   }
@@ -263,7 +277,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
             <div className="guru-product-description">
                 <span className="guru-eyebrow">KNOW YOUR GURU</span>
-                <h2>A little know-how.<br />A cleaner home.</h2>
+                <h2>A little know-how.<br />{slug === 'vehicle-cleaner' ? 'A cleaner drive.' : 'A cleaner home.'}</h2>
                 <p>What it does, where to use it, and how to get started.</p>
                 <div className="guru-product-accordions">
                   {productInformation.map((info, index) => <details key={info.src} open={index === 0}>
@@ -303,6 +317,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     autoPlay
                     loop
                     playsInline
+                    controls
                     preload="metadata"
                     aria-label={`${meta.name} video ${i + 1}`}
                   >
@@ -310,7 +325,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     <track kind="captions" />
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-4 left-4">
+                  <div className="absolute top-4 left-4 pointer-events-none">
                     <p className="text-white font-semibold text-sm">{meta.name}</p>
                     <p className="text-white/60 text-xs">Clip {i + 1}</p>
                   </div>

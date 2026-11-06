@@ -2,6 +2,14 @@ import { getCleanerOffer } from './cleaner-offers'
 
 export type ProductSlide = { src: string; title: string; points: string[]; artwork: boolean; promotion?: boolean }
 const details: Record<string, [string, string[]][]> = {
+  'vehicle-cleaner': [
+    ['Your car. A fresh start.', ['Foam-powered care for everyday road dirt', 'Made for your car-care routine', '500 ml per can · Buy 1 Get 1 Free']],
+    ['Can I use it on a two-wheeler?', ['It can also be used on compatible bike and two-wheeler surfaces.', 'Check the cleaner and vehicle care labels for approved materials and finishes.', 'Spot-test a small hidden area first; keep away from braking surfaces and controls.']],
+    ['Give the foam time to work.', ['Remove loose grit before cleaning', 'Apply and wait as directed on the can', 'Wipe or rinse as the label instructs']],
+    ['Ready for the next drive.', ['Keep a clean, soft microfibre cloth handy', 'Work on one manageable area at a time', 'Avoid abrasive scrubbing on vehicle finishes']],
+    ['A simple car-care routine.', ['Let hot surfaces cool before cleaning', 'Keep cleaner away from controls and electrical openings', 'Follow vehicle guidance for sensitive materials']],
+    ['One offer. Two cans.', ['Receive two 500 ml cans with each offer pack', 'Car Cleaner at ₹799, MRP ₹899', 'Select offer-pack quantity in your cart']],
+  ],
   "kitchen-cleaner": [
     [
       "Grease, meet your Guru.",

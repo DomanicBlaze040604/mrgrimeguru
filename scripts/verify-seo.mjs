@@ -9,7 +9,7 @@ const sitemapResponse = await request('/sitemap.xml')
 assert.equal(sitemapResponse.status, 200)
 const sitemap = await sitemapResponse.text()
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => decode(match[1]))
-assert.equal(urls.length, 20, '14 public pages plus six articles')
+assert.equal(urls.length, 21, '15 public pages plus six articles')
 assert.equal(new Set(urls).size, urls.length)
 assert.equal(urls.filter(url => url.includes('/blog/')).length, 6)
 const pageTitles = new Set()
@@ -39,7 +39,7 @@ for (const url of urls) {
   }
   if (path.startsWith('/shop/')) {
     const product = schemas.find(schema => schema['@type'] === 'Product')
-    const price = path.includes('kitchen') ? '499.00' : path.includes('multipurpose') ? '799.00' : '699.00'
+    const price = path.includes('kitchen') ? '499.00' : path.includes('shoe') ? '699.00' : '799.00'
     assert.equal(product?.offers.price, price)
     assert.equal(product?.offers.priceCurrency, 'INR')
   }
@@ -68,4 +68,4 @@ const socialImage = await request('/social-image')
 assert.equal(socialImage.status, 200)
 assert.match(socialImage.headers.get('content-type'), /image\/png/)
 assert.ok((await socialImage.arrayBuffer()).byteLength > 10000)
-console.log('VERDICT: PASS — 20 sitemap URLs, six guides, product pricing, private noindex, redirects, 404s, robots, llms and social image.')
+console.log('VERDICT: PASS — 21 sitemap URLs, six guides, product pricing, private noindex, redirects, 404s, robots, llms and social image.')

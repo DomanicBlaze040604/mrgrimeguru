@@ -34,8 +34,9 @@ export const metadata: Metadata = {
     template: '%s | Mr GrimeGuru',
   },
   description:
-    'Mr GrimeGuru secret formula hydrogen foam sprays. Shoe Cleaner, Kitchen Cleaner, Multipurpose Cleaner. For compatible kitchen surfaces, household surfaces and footwear.',
+    'Mr GrimeGuru secret formula hydrogen foam sprays. Car Cleaner, Shoe Cleaner, Kitchen Cleaner and Multipurpose Cleaner for compatible vehicle and home surfaces.',
   keywords: [
+    'car foam cleaner india',
     'foam spray cleaner india',
     'shoe cleaner spray',
     'kitchen cleaner spray',

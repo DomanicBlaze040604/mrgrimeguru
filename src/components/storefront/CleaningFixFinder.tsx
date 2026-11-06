@@ -7,6 +7,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 const situations = [
+  { id: 'vehicle', label: 'Car road dirt', emoji: '🚘' },
   { id: 'shoes',     label: 'Dirty shoes or sneakers',    emoji: '👟' },
   { id: 'surfaces',  label: 'Household surface mess',     emoji: '🧹' },
   { id: 'kitchen',   label: 'Kitchen grease & residue',   emoji: '🍳' },
@@ -20,6 +21,7 @@ const recommendations: Record<string, {
   tip: string
   color: string
 }> = {
+  vehicle: { product: 'Car Cleaner', href: '/shop/vehicle-cleaner', emoji: '🚘', tip: 'Check vehicle and cleaner labels. Spot-test first and use only on cool, compatible surfaces.', color: '#e4f0ff' },
   shoes: {
     product: 'Shoe Cleaner',
     href: '/shop/shoe-cleaner',

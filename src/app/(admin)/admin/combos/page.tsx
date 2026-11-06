@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import {
-  Layers, Plus, Trash2, CheckCircle2, XCircle, Tag,
-  ShoppingBag, Sparkles, AlertCircle, ArrowRight
+  Layers, Plus, Trash2, CheckCircle2
 } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
@@ -27,6 +26,7 @@ interface ProductCombo {
 }
 
 const AVAILABLE_CLEANERS = [
+  { slug: 'vehicle-cleaner', name: 'Car Cleaner (500 ml)', defaultPrice: 79900 },
   { slug: 'kitchen-cleaner', name: 'Kitchen Cleaner (500 ml)', defaultPrice: 49900 },
   { slug: 'shoe-cleaner', name: 'Shoe Cleaner (500 ml)', defaultPrice: 69900 },
   { slug: 'multipurpose-cleaner', name: 'Multipurpose Cleaner (500 ml)', defaultPrice: 79900 },
@@ -80,7 +80,7 @@ const DEFAULT_COMBOS: ProductCombo[] = [
 
 export default function AdminCombosPage() {
   const [combos, setCombos] = useState<ProductCombo[]>(DEFAULT_COMBOS)
-  const [loading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
 
   // Form State

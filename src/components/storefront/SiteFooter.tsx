@@ -6,6 +6,7 @@ const columns = [
   {
     title: 'FIND YOUR GURU',
     links: [
+      ['Car Cleaner', '/shop/vehicle-cleaner'],
       ['Kitchen Cleaner', '/shop/kitchen-cleaner'],
       ['Multipurpose Cleaner', '/shop/multipurpose-cleaner'],
       ['Shoe Cleaner', '/shop/shoe-cleaner'],

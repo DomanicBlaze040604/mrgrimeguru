@@ -21,6 +21,7 @@ async function getMedia() {
 }
 
 const DEMO_MEDIA = [
+  { url: '/images/products/vehicle-cleaner-cutout.png', label: 'Car Cleaner Cutout', product: 'Car Cleaner' },
   { url: '/images/products/kitchen-cleaner-cutout.png', label: 'Kitchen Cleaner Cutout', product: 'Kitchen Cleaner' },
   { url: '/images/products/multipurpose-cleaner-cutout.png', label: 'Multipurpose Cleaner Cutout', product: 'Multipurpose Cleaner' },
   { url: '/images/products/shoe-cleaner-cutout.png', label: 'Shoe Cleaner Cutout', product: 'Shoe Cleaner' },

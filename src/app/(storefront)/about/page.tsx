@@ -2,7 +2,7 @@ import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
-export const metadata = pageMetadata('About Our Foam Cleaner Range', 'Meet Mr GrimeGuru and explore our kitchen, multipurpose and shoe cleaner range, with practical cleaning guidance and Mumbai-based customer support.', '/about')
+export const metadata = pageMetadata('About Our Foam Cleaner Range', 'Meet Mr GrimeGuru and explore our car, kitchen, multipurpose and shoe cleaner range, with practical cleaning guidance and Mumbai-based customer support.', '/about')
 
 export default function AboutPage() {
   return (
@@ -23,12 +23,13 @@ export default function AboutPage() {
         {/* Story */}
         <section className="space-y-4 text-[#655e51] text-base leading-relaxed">
           <p>
-            Different cleaning challenges call for different solutions. Shoes collect dirt, kitchens gather grease, household surfaces need regular attention, and laundry is a part of everyday life.
+            Different cleaning challenges call for different solutions. Cars pick up road dirt, shoes collect marks, kitchens gather grease, and household surfaces need regular attention.
           </p>
           <p>
-            Meet the three cleaners at the heart of our foam-powered range:
+            Meet the four cleaners at the heart of our foam-powered range:
           </p>
           <ul className="list-disc list-inside space-y-1 font-semibold text-[#171714]">
+            <li>Car Cleaner</li>
             <li>Shoe Cleaner</li>
             <li>Multipurpose Cleaner</li>
             <li>Kitchen Cleaner</li>

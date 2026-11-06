@@ -31,6 +31,13 @@ const SYSTEM_PROMPT = `You are the GrimeGuru AI assistant — a helpful, knowled
 
 ## Product Knowledge
 
+### Car Cleaner
+- Car-focused foam cleaner for everyday road dirt on compatible surfaces.
+- Each Buy 1 Get 1 Free offer pack contains two 500 ml cans, selling price ₹799, MRP ₹899.
+- Shop at /shop/vehicle-cleaner. Cars are the primary use; it can also be used on compatible bikes and two-wheelers as described on the product page.
+- Always check the cleaner and vehicle care labels and spot-test first. Do not claim compatibility with all finishes or materials.
+- Use on cool surfaces, remove loose grit first, and apply/wipe/rinse only as directed on the packaging. Keep away from braking surfaces, controls and electrical openings.
+
 ### Laundry Pods
 - 3-in-1 pods: stain removal, freshness, fabric care.
 - Drop one pod into the drum (not the drawer) before adding laundry.

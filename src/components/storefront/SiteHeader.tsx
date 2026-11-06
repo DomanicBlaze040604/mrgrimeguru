@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { ThemeBanner } from './ThemeBanner'
 
 const navLinks = [
+  { label: 'Car Cleaner', href: '/shop/vehicle-cleaner', children: null },
   {
     label: 'Kitchen',
     href: '/shop/kitchen-cleaner',
@@ -39,8 +40,9 @@ const navLinks = [
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mobileMenuPath, setMobileMenuPath] = useState<string | null>(null)
   const pathname = usePathname()
+  const isMobileMenuOpen = mobileMenuPath === pathname
   const { items, openCart } = useCartStore()
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
@@ -49,10 +51,6 @@ export function SiteHeader() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  useEffect(() => {
-    setIsMobileMenuOpen(false)
-  }, [pathname])
 
   return (
     <>
@@ -195,7 +193,7 @@ export function SiteHeader() {
 
               {/* Mobile hamburger */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => setMobileMenuPath(isMobileMenuOpen ? null : pathname)}
                 className="lg:hidden p-2.5 rounded-full hover:bg-[#FACC15] text-[#111111] transition-colors"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
@@ -223,6 +221,7 @@ export function SiteHeader() {
                   <Link
                     key={link.label}
                     href={link.href}
+                    onClick={() => setMobileMenuPath(null)}
                     className="block px-4 py-3 rounded-xl text-sm font-black text-[#111111] hover:bg-[#FACC15] transition-colors"
                     style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}
                   >
@@ -232,6 +231,7 @@ export function SiteHeader() {
                 <div className="pt-4 border-t-2 border-[#111111]/10 mt-2">
                   <Link
                     href="/shop"
+                    onClick={() => setMobileMenuPath(null)}
                     className="block w-full text-center px-6 py-3.5 rounded-full font-black text-sm text-white bg-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_rgba(0,0,0,0.3)]"
                     style={{ fontFamily: 'var(--font-syne), system-ui, sans-serif' }}
                   >

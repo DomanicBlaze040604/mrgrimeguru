@@ -63,7 +63,7 @@ export function buildCatalog(rows: CatalogRows, origin: string) {
         const available = stock ? Math.max(0, stock.quantity - stock.reserved_quantity) : 0
         if (!Number.isSafeInteger(available)) throw new Error('Invalid catalog inventory')
         const usesOffer = offer && variant.is_default
-        const title = usesOffer ? '500 ml' : variant.name
+        const title = usesOffer ? handle === 'vehicle-cleaner' ? '2 × 500 ml · Buy 1 Get 1 Free' : '500 ml' : variant.name
         const compareAt = usesOffer ? offer.original : variant.compare_at_price_paise
         const variantImage = media.find(item => item.variant_id === variant.id)
         return {

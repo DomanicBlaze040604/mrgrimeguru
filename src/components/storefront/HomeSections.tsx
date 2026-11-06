@@ -8,6 +8,15 @@ import { getCleanerOffer } from '@/lib/cleaner-offers'
 
 export const range = [
   {
+    slug: 'vehicle-cleaner', name: 'Car Cleaner', category: 'Car care',
+    image: 'vehicle-cleaner-cutout.png', color: 'blue',
+    price: getCleanerOffer('vehicle-cleaner')!.price / 100,
+    original: getCleanerOffer('vehicle-cleaner')!.original / 100,
+    line: 'Fresh foam. Open road.',
+    description: 'Give your car a fresh start. Foam-powered care for road dirt on compatible car surfaces.',
+    tags: ['Car care', 'Road dirt', 'Label-approved surfaces'],
+  },
+  {
     slug: 'kitchen-cleaner',
     name: 'Kitchen Cleaner',
     category: 'Kitchen',
@@ -55,7 +64,7 @@ export function SurfaceBanner() {
 }
 
 export function ProductRange() {
-  return <section id="range" className="guru-section guru-range"><div className="guru-container"><div className="guru-section-heading"><div><span className="guru-eyebrow">01 / THE GRIME-FIGHTING RANGE</span><h2>Different mess.<br /><span>Same Guru energy.</span></h2></div><p>Three everyday heroes. One secret-formula story.<br />Pick your mess. Let the Guru do the rest.</p></div><div className="guru-range-grid">{range.map(p => <article key={p.slug} className={`guru-product-card ${p.color}`}><div className="guru-product-art"><span className="guru-product-label">{p.category}</span><span className="guru-art-star" aria-hidden="true">✦</span><ProductImageGallery slug={p.slug} name={p.name} image={`/images/products/${p.image}`} className="guru-range-gallery" /><span className="guru-product-slogan">{p.line}</span></div><Link href={`/shop/${p.slug}`} className="guru-product-details"><h3>{p.name}</h3><p>{p.description}</p><div className="guru-tags">{p.tags.map(t => <span key={t}>{t}</span>)}</div><div className="guru-product-price"><div><strong>₹{p.price}</strong> <s>₹{p.original}</s><small>500 ml</small></div><span className="guru-arrow"><ArrowUpRight size={23} /></span></div></Link></article>)}</div><p className="guru-range-note">Find your surface on the label. Spot-test first, then let your Guru get to work.</p></div></section>
+  return <section id="range" className="guru-section guru-range"><div className="guru-container"><div className="guru-section-heading"><div><span className="guru-eyebrow">01 / THE GRIME-FIGHTING RANGE</span><h2>Different mess.<br /><span>Same Guru energy.</span></h2></div><p>Four everyday heroes. One secret-formula story.<br />Pick your mess. Let the Guru do the rest.</p></div><div className="guru-range-grid">{range.map(p => <article key={p.slug} className={`guru-product-card ${p.color}`}><div className="guru-product-art"><span className="guru-product-label">{p.category}</span><span className="guru-art-star" aria-hidden="true">✦</span><ProductImageGallery slug={p.slug} name={p.name} image={`/images/products/${p.image}`} className="guru-range-gallery" /><span className="guru-product-slogan">{p.line}</span></div><Link href={`/shop/${p.slug}`} className="guru-product-details"><h3>{p.name}</h3><p>{p.description}</p><div className="guru-tags">{p.tags.map(t => <span key={t}>{t}</span>)}</div><div className="guru-product-price"><div><strong>₹{p.price}</strong> <s>₹{p.original}</s><small>500 ml</small></div><span className="guru-arrow"><ArrowUpRight size={23} /></span></div></Link></article>)}</div><p className="guru-range-note">Find your surface on the label. Spot-test first, then let your Guru get to work.</p></div></section>
 }
 
 function FoamIllustration({ foam }: { foam: boolean }) {

@@ -5,10 +5,13 @@ import { Play, Pause, X } from 'lucide-react'
 import * as Dialog from '@radix-ui/react-dialog'
 
 const videos = [
+  { file: 'car cleaner 1.mp4', category: 'Car Care', title: 'Road dirt. Meet your Guru.', copy: 'Meet the Car Cleaner in action.' },
   { file: 'kitchen-cleaner-1.mp4', category: 'Kitchen', title: 'Grease out. Gleam on.', copy: 'Let your kitchen meet its Guru.' },
   { file: 'multipurpose-1.mp4', category: 'Multipurpose', title: 'Mess today. Gone away.', copy: 'A fresh start for everyday surfaces.' },
+  { file: 'car cleaner 2.mp4', category: 'Car Care', title: 'Fresh foam. Next drive.', copy: 'Make room for a little car care.' },
   { file: 'kitchen-cleaner-2.mp4', category: 'Kitchen', title: 'Cook a feast. Beat the grease.', copy: 'For the clean-up after the cook-up.' },
   { file: 'shoe-cleaner-1.mp4', category: 'Shoes', title: 'Street grime? Shine time.', copy: 'Give your kicks the Guru treatment.' },
+  { file: 'car cleaner 3.mp4', category: 'Car Care', title: 'Your car. Your clean.', copy: 'Foam-powered care for compatible car surfaces.' },
   { file: 'multipurpose-2.mp4', category: 'Multipurpose', title: 'Room by room. Boom, foam.', copy: 'Small spray. Fresh-day energy.' },
 ]
 

@@ -8,14 +8,16 @@ import { ProductImageGallery } from '@/components/storefront/ProductImageGallery
 import { createClient } from '@/lib/supabase/server'
 import { formatPrice } from '@/lib/utils'
 import { AddToCartButton } from '@/components/storefront/AddToCartButton'
+import { hasAvailableProductStock } from '@/lib/product-stock'
 import { CombosSection, type ProductCombo } from '@/components/storefront/CombosSection'
 import { Filter } from 'lucide-react'
 
-export const metadata = pageMetadata('Shop Kitchen, Multipurpose & Shoe Cleaners', 'Explore Mr GrimeGuru 500 ml foam cleaners for kitchens, compatible household surfaces and shoes. Compare current offers and cleaner bundles.', '/shop')
+export const metadata = pageMetadata('Shop Car, Kitchen, Multipurpose & Shoe Cleaners', 'Explore Mr GrimeGuru 500 ml foam cleaners for cars, kitchens, compatible household surfaces and shoes. Compare 1+1 offers and cleaner bundles.', '/shop')
 
-type ProductFamily = 'shoe_cleaner' | 'multipurpose_cleaner' | 'kitchen_cleaner' | 'laundry_pods'
+type ProductFamily = 'shoe_cleaner' | 'multipurpose_cleaner' | 'kitchen_cleaner' | 'laundry_pods' | 'vehicle_cleaner'
 
 const FAMILY_LABELS: Record<ProductFamily, string> = {
+  vehicle_cleaner: 'Car Cleaner',
   shoe_cleaner: 'Shoe Cleaner',
   multipurpose_cleaner: 'Multipurpose Cleaner',
   kitchen_cleaner: 'Kitchen Cleaner',
@@ -23,6 +25,7 @@ const FAMILY_LABELS: Record<ProductFamily, string> = {
 }
 
 const FAMILY_EMOJIS: Record<ProductFamily, string> = {
+  vehicle_cleaner: '🚘',
   shoe_cleaner: '👟',
   multipurpose_cleaner: '🧹',
   kitchen_cleaner: '🍳',
@@ -43,7 +46,7 @@ async function getProducts(family?: string) {
       .from('products')
       .select(`
         id, name, slug, family, short_description, status,
-        product_variants!inner(id, name, sku, price_paise, compare_at_price_paise, is_default),
+        product_variants!inner(id, name, sku, price_paise, compare_at_price_paise, is_default, inventory(quantity, reserved_quantity)),
         product_media(url, is_hero, sort_order)
       `)
       .eq('status', 'active')
@@ -93,9 +96,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         compare_price_paise: offer?.original ?? variant?.compare_at_price_paise ?? null,
         image_url: (offer ? `/images/products/${offer.slug}-cutout.png` : heroMedia?.url) || `/images/products/${p.slug}.jpg`,
         variant_id: variant?.id,
-        variant_name: offer ? '500 ml' : variant?.name,
+        variant_name: p.slug === 'vehicle-cleaner' ? '2 × 500 ml · Buy 1 Get 1 Free' : offer ? '500 ml' : variant?.name,
         sku: variant?.sku,
-        in_stock: true,
+        in_stock: p.slug === 'vehicle-cleaner' ? hasAvailableProductStock(variant?.inventory) : true,
       }
     })
     : family

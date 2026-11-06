@@ -473,3 +473,27 @@
 .guru-about-shop-link { display:inline-flex; align-items:center; justify-content:center; gap:12px; width:fit-content; max-width:100%; min-height:52px; padding:14px 28px; border:2px solid #171714; border-radius:999px; background:#171714; color:#fff; font:700 16px/1.4 var(--font-dm-sans),sans-serif; transition:background .2s,color .2s; }
 .guru-about-shop-link:hover { background:#facc15; color:#171714; }
 .guru-about-shop-link:focus-visible { outline:3px solid #b9460c; outline-offset:4px; }
+
+/* Four-cleaner range, with car care in blue. Keep the team together at every size. */
+.guru-product-card.blue .guru-product-art, .guru-category-circle.blue { background:#b6d6ed; }
+.guru-hero-slide.is-product[data-cleaner="vehicle-cleaner"] { background:radial-gradient(ellipse at 50% 45%,#f0f9ff,#bad6ed)!important; }
+.guru-hero-slide.is-product[data-cleaner="kitchen-cleaner"] { background:radial-gradient(ellipse at 50% 45%,#fff9e7,#f0dfba)!important; }
+.guru-hero-slide.is-product[data-cleaner="multipurpose-cleaner"] { background:radial-gradient(ellipse at 50% 45%,#f7faed,#dbe6cb)!important; }
+.guru-hero-slide.is-product[data-cleaner="shoe-cleaner"] { background:radial-gradient(ellipse at 50% 45%,#fff8e9,#f5d8bd)!important; }
+.guru-clean-team { inset:17% 2% 10%; }
+.guru-clean-team .guru-trio-bottle:nth-child(n) { width:25%; height:90%; bottom:0; right:auto; transform:none; z-index:0; }
+.guru-clean-team .guru-trio-bottle:nth-child(1) { left:0; }
+.guru-clean-team .guru-trio-bottle:nth-child(2) { left:25%; }
+.guru-clean-team .guru-trio-bottle:nth-child(3) { left:50%; }
+.guru-clean-team .guru-trio-bottle:nth-child(4) { left:75%; }
+.guru-category-links { flex-wrap:wrap; gap:24px; }
+.guru-range-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+@media(min-width:1400px) { .guru-range-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media(min-width:1024px) and (max-width:1350px) { header nav a { padding-inline:8px!important; font-size:12px!important; } }
+@media(max-width:700px) {
+  .guru-range-grid { grid-template-columns:1fr; }
+  .guru-category-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px 8px; }
+  .guru-category-links>a { width:100%; }
+  .guru-category-circle { margin-inline:auto; width:80px; height:80px; }
+  .guru-category-links strong { font-size:11px; }
+}

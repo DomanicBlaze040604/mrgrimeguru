@@ -1,0 +1,8 @@
+{
+  "mode": "implement",
+  "policy": { "planning": "compact", "context_depth": "dependency", "verification_depth": "impact", "delegation": "none", "reason_codes": ["new-product", "shared-catalog", "generated-assets"] },
+  "allowed_write_scope": ["src", "public", "scripts", "supabase/migrations", "docs", ".gravitas/sessions/vehicle-cleaner"],
+  "requirements": ["Car Cleaner across hero, navigation, range, shop and product detail", "Five matching gallery images with offer first and existing swipe support", "Correct database-backed catalog identity and confirmed commercial details", "Update SEO discovery and relevant admin product support", "Preserve existing cleaners and bundles"],
+  "validators": ["TypeScript", "changed-file ESLint", "production build", "targeted catalog/checkout verification", "desktop/mobile visual QA"],
+  "decision": "Use a distinct blue packaging design and vehicle-cleaner slug. Reuse existing gallery and offer components. User confirmed 799/899 pricing, 1000 offer packs and additive database migration. Bike use appears only in descriptions; integrate the three user-supplied car videos."
+}

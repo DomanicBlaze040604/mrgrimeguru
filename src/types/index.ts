@@ -73,7 +73,7 @@ export interface Profile {
 // PRODUCT TYPES
 // ============================================
 
-export type ProductFamily = 'laundry_pods' | 'laundry_beads' | 'floor_cleaner' | 'kitchen_degreaser' | 'shoe_cleaner'
+export type ProductFamily = 'laundry_pods' | 'laundry_beads' | 'floor_cleaner' | 'kitchen_degreaser' | 'shoe_cleaner' | 'vehicle_cleaner'
 export type ProductStatus = 'draft' | 'active' | 'archived'
 
 export interface ProductCategory {

@@ -18,12 +18,12 @@ const FAQS: FAQItem[] = [
   {
     category: 'Products',
     q: 'What products does Mr GrimeGuru sell?',
-    a: 'Our foam-cleaner range includes Kitchen Cleaner, Multipurpose Cleaner and Shoe Cleaner. Explore the shop for other available products.',
+    a: 'Our foam-cleaner range includes Car Cleaner, Kitchen Cleaner, Multipurpose Cleaner and Shoe Cleaner. Explore the shop for available offers.',
   },
   {
     category: 'Products',
     q: 'How do I choose the right product?',
-    a: 'Choose according to the cleaning task. Use Shoe Cleaner for compatible footwear, Multipurpose Cleaner for approved household surfaces, Kitchen Cleaner for compatible kitchen surfaces, and check the label for approved surfaces and materials.',
+    a: 'Choose according to the cleaning task: Car Cleaner for compatible car surfaces, Shoe Cleaner for compatible footwear, Multipurpose Cleaner for approved household surfaces, and Kitchen Cleaner for compatible kitchen surfaces. Check the label for approved surfaces and materials.',
   },
   {
     category: 'Products',
